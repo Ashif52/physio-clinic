@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="PhysioFlow — Premium Physiotherapy Patient Management System for modern clinics. Manage patients, sessions, exercises, and track progress.">
+  <title>PhysioFlow — Physiotherapy Management</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🩺</text></svg>">
+</head>
+<body>
+
+  <!-- ============================================
+       TOAST NOTIFICATIONS CONTAINER
+       ============================================ -->
+  <div id="toast-container" class="toast-container" role="alert" aria-live="polite"></div>
+
+  <!-- ============================================
+       GLOBAL SEARCH OVERLAY (Command Palette)
+       ============================================ -->
+  <div id="search-overlay" class="search-overlay" role="dialog" aria-label="Global search">
+    <div class="search-modal">
+      <div class="search-input-wrapper">
+        <span class="search-icon">🔍</span>
+        <input type="text" id="global-search-input" placeholder="Search patients, sessions, exercises…" autocomplete="off">
+        <button class="btn-ghost btn-sm" onclick="App.closeSearch()" aria-label="Close search">Esc</button>
+      </div>
+      <div id="search-results" class="search-results">
+        <div class="search-empty">Start typing to search…</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================
+       LOGIN PAGE
+       ============================================ -->
+  <div id="login-page" class="login-page">
+    <div class="login-bg">
+      <div class="blob"></div>
+      <div class="blob"></div>
+      <div class="blob"></div>
+      <span class="float-icon">🏥</span>
+      <span class="float-icon">💪</span>
+      <span class="float-icon">🩺</span>
+      <span class="float-icon">🧠</span>
+      <span class="float-icon">❤️</span>
+    </div>
+
+    <div class="login-card">
+      <div class="logo">
+        <div class="logo-icon">🩺</div>
+        <h1>PhysioFlow</h1>
+        <p>Premium Physiotherapy Management</p>
+      </div>
+
+      <div class="login-tabs" role="tablist">
+        <button class="login-tab active" data-tab="doctor" role="tab" aria-selected="true" onclick="App.switchLoginTab('doctor')">Doctor</button>
+        <button class="login-tab" data-tab="patient" role="tab" aria-selected="false" onclick="App.switchLoginTab('patient')">Patient</button>
+      </div>
+
+      <form id="login-form" onsubmit="App.handleLogin(event)">
+        <div class="form-group" id="fg-username">
+          <label for="login-username">Username</label>
+          <div class="input-wrapper">
+            <input type="text" id="login-username" class="form-input" placeholder="Enter your username" required autocomplete="username">
+            <span class="input-icon" style="pointer-events:none">👤</span>
+          </div>
+          <span class="field-error">Please enter your username</span>
+        </div>
+
+        <div class="form-group" id="fg-password">
+          <label for="login-password">Password</label>
+          <div class="input-wrapper">
+            <input type="password" id="login-password" class="form-input" placeholder="Enter your password" required autocomplete="current-password">
+            <span class="input-icon" style="pointer-events:none">🔒</span>
+            <button type="button" class="password-toggle" onclick="App.togglePasswordVisibility()" aria-label="Toggle password visibility">👁️</button>
+          </div>
+          <span class="field-error">Please enter your password</span>
+        </div>
+
+        <div class="form-row">
+          <label class="checkbox-wrapper">
+            <input type="checkbox" id="remember-me">
+            <span>Remember me</span>
+          </label>
+          <a href="#" class="forgot-link" onclick="App.showForgotPassword(event)">Forgot Password?</a>
+        </div>
+
+        <button type="submit" id="login-submit-btn" class="btn btn-primary login-btn">
+          <span id="login-btn-text">Sign In</span>
+          <div id="login-spinner" class="spinner hidden"></div>
+        </button>
+      </form>
+
+      <div style="margin-top: var(--space-6); text-align: center;">
+        <p style="font-size: var(--text-xs); color: var(--text-tertiary);">
+          Demo — Doctor: <strong>dr.smith / password</strong> &nbsp;|&nbsp; Patient: <strong>john.doe / password</strong>
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================
+       FORGOT PASSWORD MODAL
+       ============================================ -->
+  <div id="forgot-modal" class="modal-overlay forgot-modal">
+    <div class="modal narrow">
+      <div class="modal-header">
+        <h3>Reset Password</h3>
+        <button class="modal-close" onclick="App.closeForgotPassword()" aria-label="Close">✕</button>
+      </div>
+      <div class="modal-body" id="forgot-body">
+        <p style="font-size: var(--text-sm); color: var(--text-secondary); margin-bottom: var(--space-5);">
+          Enter your email address and we'll send you instructions to reset your password.
+        </p>
+        <div class="form-group">
+          <label for="forgot-email">Email Address</label>
+          <div class="input-wrapper">
+            <input type="email" id="forgot-email" class="form-input" placeholder="you@clinic.com" style="padding-left: 44px">
+            <span class="input-icon">✉️</span>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer" id="forgot-footer">
+        <button class="btn btn-secondary" onclick="App.closeForgotPassword()">Cancel</button>
+        <button class="btn btn-primary" onclick="App.submitForgotPassword()">Send Reset Link</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================
+       APP LAYOUT (Doctor + Patient views)
+       ============================================ -->
+  <div id="app-layout" class="app-layout hidden">
+
+    <!-- Sidebar Overlay (mobile) -->
+    <div id="sidebar-overlay" class="sidebar-overlay" onclick="App.closeSidebar()"></div>
+
+    <!-- Sidebar -->
+    <aside id="sidebar" class="sidebar" role="navigation" aria-label="Main navigation">
+      <div class="sidebar-header">
+        <div class="sidebar-logo">🩺</div>
+        <div class="sidebar-brand">
+          <h2>PhysioFlow</h2>
+          <span>Management Suite</span>
+        </div>
+      </div>
+
+      <nav class="sidebar-nav" id="sidebar-nav">
+        <!-- Populated by JS based on role -->
+      </nav>
+
+      <div class="sidebar-footer">
+        <div class="sidebar-user" onclick="App.navigate('settings')">
+          <div class="sidebar-avatar" id="sidebar-avatar">DS</div>
+          <div class="sidebar-user-info">
+            <div class="sidebar-user-name" id="sidebar-user-name">Dr. Smith</div>
+            <div class="sidebar-user-role" id="sidebar-user-role">Physiotherapist</div>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <!-- App Header -->
+      <header class="app-header">
+        <div class="header-left">
+          <button class="menu-toggle" onclick="App.toggleSidebar()" aria-label="Toggle menu">☰</button>
+          <div class="page-title">
+            <h2 id="page-heading">Dashboard</h2>
+            <p id="page-subtitle">Welcome back, Dr. Smith</p>
+          </div>
+        </div>
+        <div class="header-right">
+          <button class="search-trigger" onclick="App.openSearch()" aria-label="Open search">
+            <span>🔍</span>
+            <span class="search-text">Search…</span>
+            <span class="shortcut">⌘K</span>
+          </button>
+          <button class="notification-btn" onclick="App.toggleNotifications()" aria-label="Notifications">
+            🔔
+            <span class="notification-dot" id="notif-dot"></span>
+          </button>
+          <button class="theme-toggle" onclick="App.toggleTheme()" aria-label="Toggle theme" id="theme-btn">🌙</button>
+        </div>
+      </header>
+
+      <!-- Page Container -->
+      <div id="page-container" class="page-content">
+        <!-- Content injected by JS -->
+      </div>
+    </main>
+  </div>
+
+  <!-- ============================================
+       GENERIC MODAL (Add/Edit Patient, etc.)
+       ============================================ -->
+  <div id="generic-modal" class="modal-overlay">
+    <div class="modal wide" id="generic-modal-dialog">
+      <div class="modal-header">
+        <h3 id="generic-modal-title">Modal Title</h3>
+        <button class="modal-close" onclick="App.closeModal()" aria-label="Close modal">✕</button>
+      </div>
+      <div class="modal-body" id="generic-modal-body">
+        <!-- Populated by JS -->
+      </div>
+      <div class="modal-footer" id="generic-modal-footer">
+        <!-- Populated by JS -->
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
