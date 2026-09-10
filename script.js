@@ -1,226 +1,244 @@
 /* ============================================
    PHYSIOFLOW — Main Application Logic
    Vanilla JavaScript (ES6+)
-   All data persisted via LocalStorage
+   Data persisted via Firebase Firestore Backend
    ============================================ */
 
 'use strict';
 
 /* ============================================
-   1. DEMO / SEED DATA
+   1. API CLIENT — Communicates with Backend
    ============================================ */
-const DEMO_DATA = {
-  doctors: [
-    {
-      id: 'doc-1',
-      username: 'dr.smith',
-      password: 'password',
-      name: 'Dr. Sarah Smith',
-      email: 'sarah.smith@physioflow.com',
-      phone: '+1 (555) 234-5678',
-      specialty: 'Sports Rehabilitation',
-      avatar: 'SS',
-      clinicName: 'PhysioFlow Wellness Clinic',
-      clinicLogo: '',
-      notifications: { newSession: true, feedback: true, videoUpload: true, treatmentComplete: true }
+const API = {
+  _baseUrl: (window.location.protocol === 'file:' || ((window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') && window.location.port && window.location.port !== '3000'))
+    ? 'http://localhost:3000/api'
+    : '/api',
+  _token: localStorage.getItem('physioflow_token') || null,
+
+  /** Set JWT token */
+  setToken(token) {
+    this._token = token;
+    if (token) {
+      localStorage.setItem('physioflow_token', token);
+    } else {
+      localStorage.removeItem('physioflow_token');
     }
-  ],
-  patients: [
-    { id: 'pat-1', username: 'john.doe', password: 'password', name: 'John Doe', age: 34, gender: 'Male', phone: '+1 (555) 111-0001', email: 'john.doe@email.com', photo: '', avatar: 'JD', avatarColor: '#5c7cfa', medicalHistory: 'ACL reconstruction 2024', diagnosis: 'Post-operative ACL rehabilitation', treatmentPlan: 'Progressive strength and mobility program — 12 sessions over 8 weeks', sessionCount: 12, completedSessions: 8, startDate: '2026-04-01', endDate: '2026-06-30', status: 'active', painLevel: 3, doctorId: 'doc-1', notes: 'Progressing well. Cleared for light jogging.' },
-    { id: 'pat-2', username: 'jane.wilson', password: 'password', name: 'Jane Wilson', age: 28, gender: 'Female', phone: '+1 (555) 111-0002', email: 'jane.wilson@email.com', photo: '', avatar: 'JW', avatarColor: '#20c997', medicalHistory: 'Chronic lower back pain', diagnosis: 'Lumbar disc herniation L4-L5', treatmentPlan: 'Core stabilization and posture correction — 10 sessions', sessionCount: 10, completedSessions: 10, startDate: '2026-02-15', endDate: '2026-05-15', status: 'completed', painLevel: 2, doctorId: 'doc-1', notes: 'Treatment completed successfully.' },
-    { id: 'pat-3', username: 'mike.chen', password: 'password', name: 'Michael Chen', age: 45, gender: 'Male', phone: '+1 (555) 111-0003', email: 'mike.chen@email.com', photo: '', avatar: 'MC', avatarColor: '#ff922b', medicalHistory: 'Tennis elbow, right arm', diagnosis: 'Lateral epicondylitis', treatmentPlan: 'Eccentric exercises and manual therapy — 8 sessions', sessionCount: 8, completedSessions: 5, startDate: '2026-05-01', endDate: '2026-07-15', status: 'active', painLevel: 5, doctorId: 'doc-1', notes: 'Moderate improvement. Adjusting exercise intensity.' },
-    { id: 'pat-4', username: 'emma.brown', password: 'password', name: 'Emma Brown', age: 62, gender: 'Female', phone: '+1 (555) 111-0004', email: 'emma.brown@email.com', photo: '', avatar: 'EB', avatarColor: '#7950f2', medicalHistory: 'Total knee replacement — right knee', diagnosis: 'Post TKR rehabilitation', treatmentPlan: 'Range of motion and strength training — 15 sessions', sessionCount: 15, completedSessions: 3, startDate: '2026-05-20', endDate: '2026-09-01', status: 'active', painLevel: 6, doctorId: 'doc-1', notes: 'Early post-op phase. Focus on extension and flexion.' },
-    { id: 'pat-5', username: 'alex.kumar', password: 'password', name: 'Alex Kumar', age: 22, gender: 'Male', phone: '+1 (555) 111-0005', email: 'alex.kumar@email.com', photo: '', avatar: 'AK', avatarColor: '#0ca678', medicalHistory: 'Shoulder dislocation — sports injury', diagnosis: 'Anterior shoulder instability', treatmentPlan: 'Rotator cuff strengthening and proprioception — 10 sessions', sessionCount: 10, completedSessions: 7, startDate: '2026-04-10', endDate: '2026-07-10', status: 'active', painLevel: 2, doctorId: 'doc-1', notes: 'Near completion. Excellent compliance.' },
-    { id: 'pat-6', username: 'lisa.park', password: 'password', name: 'Lisa Park', age: 38, gender: 'Female', phone: '+1 (555) 111-0006', email: 'lisa.park@email.com', photo: '', avatar: 'LP', avatarColor: '#fa5252', medicalHistory: 'Plantar fasciitis — bilateral', diagnosis: 'Chronic plantar fasciitis', treatmentPlan: 'Stretching, orthotics, and shockwave therapy — 6 sessions', sessionCount: 6, completedSessions: 6, startDate: '2026-03-01', endDate: '2026-05-01', status: 'completed', painLevel: 1, doctorId: 'doc-1', notes: 'Discharged. Symptom-free.' },
-    { id: 'pat-7', username: 'tom.martin', password: 'password', name: 'Thomas Martin', age: 55, gender: 'Male', phone: '+1 (555) 111-0007', email: 'tom.martin@email.com', photo: '', avatar: 'TM', avatarColor: '#e8590c', medicalHistory: 'Cervical spondylosis', diagnosis: 'Degenerative disc disease C5-C6', treatmentPlan: 'Neck strengthening and postural education — 10 sessions', sessionCount: 10, completedSessions: 2, startDate: '2026-06-01', endDate: '2026-08-30', status: 'active', painLevel: 7, doctorId: 'doc-1', notes: 'High pain levels. Gentle approach required.' },
-    { id: 'pat-8', username: 'sophia.lee', password: 'password', name: 'Sophia Lee', age: 30, gender: 'Female', phone: '+1 (555) 111-0008', email: 'sophia.lee@email.com', photo: '', avatar: 'SL', avatarColor: '#5c7cfa', medicalHistory: 'Runner\'s knee', diagnosis: 'Patellofemoral pain syndrome', treatmentPlan: 'VMO strengthening and biomechanical assessment — 8 sessions', sessionCount: 8, completedSessions: 0, startDate: '2026-06-15', endDate: '2026-08-15', status: 'pending', painLevel: 4, doctorId: 'doc-1', notes: 'Initial assessment scheduled.' },
-    { id: 'pat-9', username: 'david.jones', password: 'password', name: 'David Jones', age: 48, gender: 'Male', phone: '+1 (555) 111-0009', email: 'david.jones@email.com', photo: '', avatar: 'DJ', avatarColor: '#20c997', medicalHistory: 'Frozen shoulder — left', diagnosis: 'Adhesive capsulitis', treatmentPlan: 'Joint mobilization and stretching — 12 sessions', sessionCount: 12, completedSessions: 9, startDate: '2026-03-15', endDate: '2026-07-15', status: 'active', painLevel: 4, doctorId: 'doc-1', notes: 'Significant ROM improvement noted.' },
-    { id: 'pat-10', username: 'amy.taylor', password: 'password', name: 'Amy Taylor', age: 26, gender: 'Female', phone: '+1 (555) 111-0010', email: 'amy.taylor@email.com', photo: '', avatar: 'AT', avatarColor: '#ff922b', medicalHistory: 'Ankle sprain — grade II', diagnosis: 'Lateral ankle ligament injury', treatmentPlan: 'RICE protocol then progressive strengthening — 6 sessions', sessionCount: 6, completedSessions: 4, startDate: '2026-05-10', endDate: '2026-07-01', status: 'active', painLevel: 3, doctorId: 'doc-1', notes: 'Weight-bearing now tolerated. Good progress.' }
-  ],
-  exercises: [
-    { id: 'ex-1', title: 'Neck Flexion Stretch', category: 'Neck', description: 'Gently tilt head forward bringing chin to chest. Hold 15–30 seconds.', difficulty: 'Easy', duration: '5 min', thumbnail: '🧘', video: '', pdf: '' },
-    { id: 'ex-2', title: 'Cervical Rotation', category: 'Neck', description: 'Slowly rotate head side to side, maintaining chin level. Repeat 10 times each direction.', difficulty: 'Easy', duration: '5 min', thumbnail: '🔄', video: '', pdf: '' },
-    { id: 'ex-3', title: 'Shoulder Pendulum Swing', category: 'Shoulder', description: 'Lean forward and let the arm swing in small circles. Gradually increase circle size.', difficulty: 'Easy', duration: '5 min', thumbnail: '🔘', video: '', pdf: '' },
-    { id: 'ex-4', title: 'External Rotation with Band', category: 'Shoulder', description: 'Secure resistance band at elbow height. Rotate forearm outward keeping elbow at side.', difficulty: 'Medium', duration: '10 min', thumbnail: '💪', video: '', pdf: '' },
-    { id: 'ex-5', title: 'Cat-Cow Stretch', category: 'Back', description: 'On hands and knees, alternate between arching and rounding the spine. 10 repetitions.', difficulty: 'Easy', duration: '5 min', thumbnail: '🐱', video: '', pdf: '' },
-    { id: 'ex-6', title: 'Bird Dog Exercise', category: 'Back', description: 'From hands and knees, extend opposite arm and leg. Hold 5 seconds. 10 reps each side.', difficulty: 'Medium', duration: '10 min', thumbnail: '🐕', video: '', pdf: '' },
-    { id: 'ex-7', title: 'Dead Bug', category: 'Back', description: 'Lying on back with arms extended, slowly lower opposite arm and leg. Core engaged throughout.', difficulty: 'Medium', duration: '8 min', thumbnail: '🪲', video: '', pdf: '' },
-    { id: 'ex-8', title: 'Straight Leg Raise', category: 'Knee', description: 'Lying down, tighten thigh muscles and lift leg 6 inches. Hold 5 seconds. 3 sets of 10.', difficulty: 'Easy', duration: '8 min', thumbnail: '🦵', video: '', pdf: '' },
-    { id: 'ex-9', title: 'Wall Sit', category: 'Knee', description: 'Slide back down wall until knees at 90°. Hold 20–60 seconds. Repeat 5 times.', difficulty: 'Medium', duration: '10 min', thumbnail: '🧱', video: '', pdf: '' },
-    { id: 'ex-10', title: 'Terminal Knee Extension', category: 'Knee', description: 'With band behind knee, push knee straight against resistance. 3 sets of 12.', difficulty: 'Medium', duration: '10 min', thumbnail: '🔗', video: '', pdf: '' },
-    { id: 'ex-11', title: 'Hip Bridge', category: 'Hip', description: 'Lying on back with knees bent, lift hips to create straight line from shoulders to knees.', difficulty: 'Easy', duration: '8 min', thumbnail: '🌉', video: '', pdf: '' },
-    { id: 'ex-12', title: 'Clamshell Exercise', category: 'Hip', description: 'Lying on side with knees bent, open top knee while keeping feet together. 3 sets of 15.', difficulty: 'Easy', duration: '8 min', thumbnail: '🐚', video: '', pdf: '' },
-    { id: 'ex-13', title: 'Ankle Alphabet', category: 'Ankle', description: 'Trace the alphabet in the air with your foot. Repeat 3 times with each foot.', difficulty: 'Easy', duration: '5 min', thumbnail: '🔤', video: '', pdf: '' },
-    { id: 'ex-14', title: 'Calf Raise', category: 'Ankle', description: 'Stand on edge of step, rise up on toes then lower heels below step level. 3 sets of 15.', difficulty: 'Medium', duration: '8 min', thumbnail: '⬆️', video: '', pdf: '' },
-    { id: 'ex-15', title: 'Single-Leg Balance', category: 'Ankle', description: 'Stand on one leg for 30 seconds. Progress to eyes closed. 5 reps each leg.', difficulty: 'Easy', duration: '5 min', thumbnail: '⚖️', video: '', pdf: '' },
-    { id: 'ex-16', title: 'Plank Hold', category: 'Sports Rehab', description: 'Maintain push-up position with forearms on ground. Hold 30–60 seconds. 3 sets.', difficulty: 'Medium', duration: '8 min', thumbnail: '🏋️', video: '', pdf: '' },
-    { id: 'ex-17', title: 'Lateral Band Walk', category: 'Sports Rehab', description: 'Place band around ankles and walk sideways maintaining tension. 3 sets of 20 steps.', difficulty: 'Medium', duration: '10 min', thumbnail: '🏃', video: '', pdf: '' },
-    { id: 'ex-18', title: 'Box Jump', category: 'Sports Rehab', description: 'Jump onto a stable box/platform. Step down. Progress height gradually. 3 sets of 8.', difficulty: 'Hard', duration: '12 min', thumbnail: '📦', video: '', pdf: '' },
-    { id: 'ex-19', title: 'Resistance Band Row', category: 'Back', description: 'Secure band in front of you. Pull elbows back squeezing shoulder blades. 3 sets of 12.', difficulty: 'Medium', duration: '10 min', thumbnail: '🚣', video: '', pdf: '' },
-    { id: 'ex-20', title: 'Agility Ladder Drill', category: 'Sports Rehab', description: 'Perform quick feet drills through agility ladder. Various patterns. 5 min continuous.', difficulty: 'Hard', duration: '10 min', thumbnail: '⚡', video: '', pdf: '' }
-  ],
-  sessions: [],
-  feedback: [],
-  calendarEvents: []
+  },
+
+  /** Get stored token */
+  getToken() {
+    return this._token;
+  },
+
+  /** Make authenticated API request */
+  async request(endpoint, options = {}) {
+    const url = `${this._baseUrl}${endpoint}`;
+    const headers = { 'Content-Type': 'application/json', ...options.headers };
+
+    if (this._token) {
+      headers['Authorization'] = `Bearer ${this._token}`;
+    }
+
+    try {
+      const response = await fetch(url, { ...options, headers });
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw { status: response.status, message: data.error || 'Request failed' };
+      }
+
+      return data;
+    } catch (err) {
+      if (err.status) throw err;
+      console.error('API request failed:', err);
+      throw { status: 0, message: 'Network error — is the server running?' };
+    }
+  },
+
+  /** Shorthand methods */
+  get(endpoint) { return this.request(endpoint); },
+  post(endpoint, body) { return this.request(endpoint, { method: 'POST', body: JSON.stringify(body) }); },
+  put(endpoint, body) { return this.request(endpoint, { method: 'PUT', body: JSON.stringify(body) }); },
+  delete(endpoint) { return this.request(endpoint, { method: 'DELETE' }); },
+
+  /** Multipart Form File Upload */
+  async upload(endpoint, formData) {
+    const url = `${this._baseUrl}${endpoint}`;
+    const headers = {};
+    if (this._token) {
+      headers['Authorization'] = `Bearer ${this._token}`;
+    }
+    try {
+      const response = await fetch(url, {
+        method: 'POST',
+        headers,
+        body: formData
+      });
+      const data = await response.json();
+      if (!response.ok) {
+        throw { status: response.status, message: data.error || 'Upload failed' };
+      }
+      return data;
+    } catch (err) {
+      if (err.status) throw err;
+      console.error('API upload failed:', err);
+      throw { status: 0, message: 'Network error during upload' };
+    }
+  },
+
+  /** Auth methods — Single Unified Login */
+  async login(username, password) {
+    const data = await this.post('/auth/login', { username, password });
+    this.setToken(data.token);
+    return data;
+  },
+
+  async getMe() {
+    return this.get('/auth/me');
+  },
+
+  /** Refresh all cached data from backend */
+  async refreshAll() {
+    try {
+      const [patients, exercises, sessions, feedback, calendar] = await Promise.all([
+        this.get('/patients').catch(() => []),
+        this.get('/exercises').catch(() => []),
+        this.get('/sessions').catch(() => []),
+        this.get('/feedback').catch(() => []),
+        this.get('/calendar').catch(() => []),
+      ]);
+
+      DB._cache = {
+        patients: patients || [],
+        exercises: exercises || [],
+        sessions: sessions || [],
+        feedback: feedback || [],
+        calendarEvents: calendar || [],
+      };
+    } catch (err) {
+      console.warn('Failed to refresh data cache:', err);
+    }
+  },
 };
-
-/* Generate sessions for demo patients */
-function generateDemoSessions() {
-  const sessions = [];
-  const exercisePool = DEMO_DATA.exercises;
-
-  DEMO_DATA.patients.forEach(patient => {
-    for (let i = 1; i <= patient.sessionCount; i++) {
-      const date = new Date(patient.startDate);
-      date.setDate(date.getDate() + (i - 1) * 4);
-      const isCompleted = i <= patient.completedSessions;
-      const isCurrent = i === patient.completedSessions + 1;
-
-      // Pick 3-4 random exercises
-      const shuffled = [...exercisePool].sort(() => 0.5 - Math.random());
-      const sessionExercises = shuffled.slice(0, 3 + Math.floor(Math.random() * 2)).map(ex => ({
-        exerciseId: ex.id,
-        title: ex.title,
-        sets: Math.floor(Math.random() * 3) + 2,
-        reps: (Math.floor(Math.random() * 4) + 2) * 5,
-        restTime: [30, 45, 60, 90][Math.floor(Math.random() * 4)],
-        duration: ex.duration,
-        completed: isCompleted,
-        instructions: ex.description
-      }));
-
-      sessions.push({
-        id: `sess-${patient.id}-${i}`,
-        patientId: patient.id,
-        sessionNumber: i,
-        date: date.toISOString().split('T')[0],
-        status: isCompleted ? 'completed' : isCurrent ? 'current' : 'locked',
-        exercises: sessionExercises,
-        doctorRemarks: isCompleted ? 'Good progress. Continue as planned.' : '',
-        patientFeedback: isCompleted ? 'Feeling better after this session.' : '',
-        notes: isCompleted ? `Session ${i} completed successfully.` : `Session ${i} scheduled.`,
-        duration: `${30 + Math.floor(Math.random() * 30)} min`
-      });
-    }
-  });
-
-  return sessions;
-}
-
-/* Generate calendar events */
-function generateCalendarEvents() {
-  const events = [];
-  const statuses = ['completed', 'upcoming', 'cancelled', 'missed'];
-  const today = new Date();
-  const month = today.getMonth();
-  const year = today.getFullYear();
-
-  for (let d = 1; d <= 28; d += 2) {
-    if (Math.random() > 0.4) {
-      events.push({
-        date: `${year}-${String(month + 1).padStart(2, '0')}-${String(d).padStart(2, '0')}`,
-        status: statuses[Math.floor(Math.random() * 4)],
-        patientName: DEMO_DATA.patients[Math.floor(Math.random() * DEMO_DATA.patients.length)].name,
-        time: `${9 + Math.floor(Math.random() * 8)}:${Math.random() > 0.5 ? '00' : '30'}`
-      });
-    }
-  }
-
-  // Ensure today has events
-  const todayStr = `${year}-${String(month + 1).padStart(2, '0')}-${String(today.getDate()).padStart(2, '0')}`;
-  events.push({ date: todayStr, status: 'upcoming', patientName: 'John Doe', time: '10:00' });
-  events.push({ date: todayStr, status: 'completed', patientName: 'Michael Chen', time: '09:00' });
-
-  return events;
-}
-
-/* Generate feedback entries */
-function generateDemoFeedback() {
-  const fb = [];
-  DEMO_DATA.patients.filter(p => p.completedSessions > 0).forEach(patient => {
-    for (let i = 1; i <= Math.min(patient.completedSessions, 3); i++) {
-      fb.push({
-        id: `fb-${patient.id}-${i}`,
-        patientId: patient.id,
-        sessionId: `sess-${patient.id}-${i}`,
-        painLevel: Math.max(1, patient.painLevel - i + 1),
-        comments: 'Exercise was manageable. Felt good afterward.',
-        difficulty: ['Easy', 'Moderate', 'Challenging'][Math.floor(Math.random() * 3)],
-        confidence: Math.floor(Math.random() * 5) + 6,
-        completed: true,
-        doctorReply: i === 1 ? 'Great progress! Keep up the good work.' : '',
-        date: new Date(new Date(patient.startDate).getTime() + (i - 1) * 4 * 86400000).toISOString().split('T')[0]
-      });
-    }
-  });
-  return fb;
-}
 
 
 /* ============================================
-   2. DATA LAYER (LocalStorage)
+   2. DATA LAYER — API-backed with local cache
+   
+   Provides the same interface (getAll, getById,
+   query, add, update, remove) so all existing
+   UI rendering code works unchanged.
+   
+   Data flows: Backend (Firestore) → API → Cache
    ============================================ */
 const DB = {
-  _key: 'physioflow_data',
-
-  init() {
-    if (!localStorage.getItem(this._key)) {
-      DEMO_DATA.sessions = generateDemoSessions();
-      DEMO_DATA.calendarEvents = generateCalendarEvents();
-      DEMO_DATA.feedback = generateDemoFeedback();
-      localStorage.setItem(this._key, JSON.stringify(DEMO_DATA));
-    }
+  _cache: {
+    doctors: [],
+    patients: [],
+    exercises: [],
+    sessions: [],
+    feedback: [],
+    calendarEvents: [],
   },
 
-  _getData() {
-    return JSON.parse(localStorage.getItem(this._key) || '{}');
+  /** Initialize — fetch all data from backend into cache */
+  async init() {
+    await API.refreshAll();
   },
 
-  _save(data) {
-    localStorage.setItem(this._key, JSON.stringify(data));
-  },
-
+  /** Get all items from cached collection (synchronous for UI) */
   getAll(collection) {
-    return this._getData()[collection] || [];
+    return this._cache[collection] || [];
   },
 
+  /** Get item by ID from cache */
   getById(collection, id) {
     return this.getAll(collection).find(item => item.id === id);
   },
 
-  add(collection, item) {
-    const data = this._getData();
-    if (!data[collection]) data[collection] = [];
-    data[collection].push(item);
-    this._save(data);
-    return item;
-  },
-
-  update(collection, id, updates) {
-    const data = this._getData();
-    const idx = (data[collection] || []).findIndex(item => item.id === id);
-    if (idx !== -1) {
-      data[collection][idx] = { ...data[collection][idx], ...updates };
-      this._save(data);
-      return data[collection][idx];
-    }
-    return null;
-  },
-
-  remove(collection, id) {
-    const data = this._getData();
-    data[collection] = (data[collection] || []).filter(item => item.id !== id);
-    this._save(data);
-  },
-
+  /** Query with filter function */
   query(collection, filterFn) {
     return this.getAll(collection).filter(filterFn);
   },
 
-  reset() {
-    localStorage.removeItem(this._key);
-    this.init();
-  }
+  /** Add item — writes to API then updates cache */
+  async add(collection, item) {
+    // Map collection to API endpoint
+    const endpoint = this._collectionToEndpoint(collection);
+    if (endpoint) {
+      try {
+        const result = await API.post(endpoint, item);
+        if (!this._cache[collection]) this._cache[collection] = [];
+        this._cache[collection].push(result);
+        return result;
+      } catch (err) {
+        console.error(`Failed to add to ${collection}:`, err);
+        // Fallback: add to local cache
+        if (!this._cache[collection]) this._cache[collection] = [];
+        this._cache[collection].push(item);
+        return item;
+      }
+    }
+    // Fallback for unmapped collections
+    if (!this._cache[collection]) this._cache[collection] = [];
+    this._cache[collection].push(item);
+    return item;
+  },
+
+  /** Update item — writes to API then updates cache */
+  async update(collection, id, updates) {
+    const endpoint = this._collectionToEndpoint(collection);
+    if (endpoint) {
+      try {
+        const result = await API.put(`${endpoint}/${id}`, updates);
+        const idx = (this._cache[collection] || []).findIndex(item => item.id === id);
+        if (idx !== -1) {
+          this._cache[collection][idx] = { ...this._cache[collection][idx], ...result };
+        }
+        return result;
+      } catch (err) {
+        console.error(`Failed to update ${collection}/${id}:`, err);
+      }
+    }
+    // Fallback: update local cache
+    const idx = (this._cache[collection] || []).findIndex(item => item.id === id);
+    if (idx !== -1) {
+      this._cache[collection][idx] = { ...this._cache[collection][idx], ...updates };
+      return this._cache[collection][idx];
+    }
+    return null;
+  },
+
+  /** Remove item — writes to API then updates cache */
+  async remove(collection, id) {
+    const endpoint = this._collectionToEndpoint(collection);
+    if (endpoint) {
+      try {
+        await API.delete(`${endpoint}/${id}`);
+      } catch (err) {
+        console.error(`Failed to delete ${collection}/${id}:`, err);
+      }
+    }
+    this._cache[collection] = (this._cache[collection] || []).filter(item => item.id !== id);
+  },
+
+  /** Reset data — re-fetch from backend */
+  async reset() {
+    await API.refreshAll();
+  },
+
+  /** Map collection name to API endpoint */
+  _collectionToEndpoint(collection) {
+    const map = {
+      patients: '/patients',
+      exercises: '/exercises',
+      sessions: '/sessions',
+      feedback: '/feedback',
+      calendarEvents: '/calendar',
+      doctors: '/settings',
+    };
+    return map[collection] || null;
+  },
 };
 
 
@@ -608,21 +626,25 @@ const App = {
   calendarYear: new Date().getFullYear(),
 
   /* ---- Initialization ---- */
-  init() {
-    DB.init();
+  async init() {
     Toast.init();
     this._bindKeyboard();
     this._applyTheme();
 
-    // Check remembered session
-    const remembered = localStorage.getItem('physioflow_session');
-    if (remembered) {
+    // Check remembered session via API token
+    const token = API.getToken();
+    if (token) {
       try {
-        const session = JSON.parse(remembered);
-        this.currentUser = session.user;
-        this.currentRole = session.role;
+        const data = await API.getMe();
+        this.currentUser = data.user;
+        this.currentRole = data.role;
+        await DB.init();
         this._enterApp();
-      } catch { /* ignore */ }
+        return;
+      } catch (err) {
+        API.setToken(null);
+        localStorage.removeItem('physioflow_session');
+      }
     }
   },
 
@@ -659,13 +681,15 @@ const App = {
     });
   },
 
-  /* ---- LOGIN ---- */
-  switchLoginTab(tab) {
-    this.loginTab = tab;
-    document.querySelectorAll('.login-tab').forEach(t => {
-      t.classList.toggle('active', t.dataset.tab === tab);
-      t.setAttribute('aria-selected', t.dataset.tab === tab);
-    });
+  /* ---- LOGIN (Unified Single Login) ---- */
+  fillDemo(role) {
+    const userInput = document.getElementById('login-username');
+    const passInput = document.getElementById('login-password');
+    if (userInput && passInput) {
+      userInput.value = role === 'doctor' ? 'dr.smith' : 'john.doe';
+      passInput.value = 'password';
+      userInput.focus();
+    }
   },
 
   togglePasswordVisibility() {
@@ -680,7 +704,7 @@ const App = {
     }
   },
 
-  handleLogin(e) {
+  async handleLogin(e) {
     e.preventDefault();
     const username = document.getElementById('login-username').value.trim();
     const password = document.getElementById('login-password').value;
@@ -701,56 +725,29 @@ const App = {
     document.getElementById('login-btn-text').textContent = 'Signing in…';
     document.getElementById('login-spinner').classList.remove('hidden');
 
-    setTimeout(() => {
-      // Authenticate
-      let user = null;
-      let role = null;
+    try {
+      const data = await API.login(username, password);
+      this.currentUser = data.user;
+      this.currentRole = data.role;
 
-      if (this.loginTab === 'doctor') {
-        user = DB.getAll('doctors').find(d => d.username === username && d.password === password);
-        role = 'doctor';
-      } else {
-        user = DB.getAll('patients').find(p => p.username === username && p.password === password);
-        role = 'patient';
-      }
+      // Initialize DB cache with backend data
+      await DB.init();
 
-      if (!user) {
-        Toast.error('Login Failed', 'Invalid username or password');
-        document.getElementById('login-btn-text').textContent = 'Sign In';
-        document.getElementById('login-spinner').classList.add('hidden');
-        return;
-      }
-
-      // Check locked/deactivated
-      if (role === 'patient' && user.status === 'locked') {
-        Toast.error('Account Locked', 'Your account has been locked after treatment completion.');
-        document.getElementById('login-btn-text').textContent = 'Sign In';
-        document.getElementById('login-spinner').classList.add('hidden');
-        return;
-      }
-      if (role === 'patient' && user.status === 'deactivated') {
-        Toast.error('Account Deactivated', 'Your account has been deactivated. Contact your doctor.');
-        document.getElementById('login-btn-text').textContent = 'Sign In';
-        document.getElementById('login-spinner').classList.add('hidden');
-        return;
-      }
-
-      this.currentUser = user;
-      this.currentRole = role;
-
-      // Remember me
-      if (document.getElementById('remember-me').checked) {
-        localStorage.setItem('physioflow_session', JSON.stringify({ user, role }));
-      }
-
-      Toast.success('Welcome!', `Signed in as ${user.name}`);
+      const roleBadge = data.role === 'doctor' ? '👨‍⚕️ Doctor' : '👤 Patient';
+      Toast.success('Welcome!', `Signed in as ${data.user.name} (${roleBadge})`);
       this._enterApp();
-    }, 800);
+    } catch (err) {
+      Toast.error('Login Failed', err.message || 'Invalid username or password');
+    } finally {
+      document.getElementById('login-btn-text').textContent = 'Sign In';
+      document.getElementById('login-spinner').classList.add('hidden');
+    }
   },
 
   logout() {
     this.currentUser = null;
     this.currentRole = null;
+    API.setToken(null);
     localStorage.removeItem('physioflow_session');
     document.getElementById('app-layout').classList.add('hidden');
     document.getElementById('login-page').classList.remove('hidden');
@@ -1058,93 +1055,376 @@ const App = {
     document.getElementById('generic-modal').classList.remove('active');
   },
 
+  /* ---- In-App Confirmation Popup System ---- */
+  confirm({
+    title = 'Are you sure?',
+    message = 'This action cannot be undone.',
+    confirmText = 'Delete',
+    cancelText = 'Cancel',
+    type = 'danger',
+    icon = '🗑️'
+  } = {}) {
+    return new Promise((resolve) => {
+      const modal = document.getElementById('confirm-modal');
+      const titleEl = document.getElementById('confirm-modal-title');
+      const msgEl = document.getElementById('confirm-modal-message');
+      const iconEl = document.getElementById('confirm-modal-icon');
+      const cancelBtn = document.getElementById('confirm-modal-cancel-btn');
+      const actionBtn = document.getElementById('confirm-modal-action-btn');
+
+      if (!modal || !titleEl || !msgEl || !iconEl || !cancelBtn || !actionBtn) {
+        resolve(window.confirm(message.replace(/<[^>]*>?/gm, '')));
+        return;
+      }
+
+      titleEl.textContent = title;
+      msgEl.innerHTML = message;
+      iconEl.textContent = icon || (type === 'danger' ? '🗑️' : '⚠️');
+      iconEl.className = `confirm-modal-icon-badge ${type}`;
+
+      cancelBtn.textContent = cancelText;
+      actionBtn.textContent = confirmText;
+      actionBtn.className = `btn ${type === 'danger' ? 'btn-danger-solid' : 'btn-primary'}`;
+
+      let isResolved = false;
+      const cleanup = (result) => {
+        if (isResolved) return;
+        isResolved = true;
+        modal.classList.remove('active');
+        cancelBtn.onclick = null;
+        actionBtn.onclick = null;
+        modal.onclick = null;
+        document.removeEventListener('keydown', keyHandler);
+        resolve(result);
+      };
+
+      const keyHandler = (e) => {
+        if (e.key === 'Escape') {
+          e.preventDefault();
+          cleanup(false);
+        }
+      };
+
+      cancelBtn.onclick = () => cleanup(false);
+      actionBtn.onclick = () => cleanup(true);
+      modal.onclick = (e) => {
+        if (e.target === modal) cleanup(false);
+      };
+      document.addEventListener('keydown', keyHandler);
+
+      modal.classList.add('active');
+      actionBtn.focus();
+    });
+  },
+
 
   /* ============================================
      DOCTOR DASHBOARD
      ============================================ */
+  /* ============================================
+     DOCTOR DASHBOARD (Clinical Command Center)
+     ============================================ */
   _renderDoctorDashboard() {
     const patients = DB.getAll('patients');
     const sessions = DB.getAll('sessions');
-    const active = patients.filter(p => p.status === 'active').length;
-    const todaySessions = sessions.filter(s => s.date === new Date().toISOString().split('T')[0]).length;
-    const completed = patients.filter(p => p.status === 'completed').length;
-    const pending = patients.filter(p => p.status === 'pending').length;
+    const feedbackList = DB.getAll('feedback');
+
+    const activePatients = patients.filter(p => p.status === 'active');
+    const completedPatients = patients.filter(p => p.status === 'completed');
+    const pendingPatients = patients.filter(p => p.status === 'pending');
+
+    const todayStr = new Date().toISOString().split('T')[0];
+    const todaySessions = sessions.filter(s => s.date === todayStr);
+    const unrepliedFeedback = feedbackList.filter(f => !f.doctorReply);
+
+    // Expiring patients: endDate within next 7 days or expired
+    const expiringPatients = patients.filter(p => {
+      if (!p.endDate) return false;
+      const end = new Date(p.endDate);
+      const now = new Date();
+      const diffDays = Math.ceil((end - now) / (1000 * 60 * 60 * 24));
+      return diffDays <= 7 || p.status === 'expired' || p.status === 'locked';
+    });
+
+    // Today's schedule queue (or fallback to top current sessions)
+    const queueSessions = todaySessions.length > 0 
+      ? todaySessions 
+      : sessions.filter(s => s.status === 'current' || s.sessionNumber <= 2).slice(0, 4);
 
     return `
-      <!-- Stats Cards -->
+      <!-- 1. Hero Welcome Header -->
+      <div class="dashboard-hero">
+        <div class="hero-text">
+          <h2>Good Morning, Dr. Sarah Smith 👋</h2>
+          <div class="hero-tags">
+            <span class="hero-tag date">🗓️ ${new Date().toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' })}</span>
+            <span class="hero-tag primary">👥 <strong>${activePatients.length}</strong> Active</span>
+            <span class="hero-tag accent">📋 <strong>${queueSessions.length}</strong> Sessions</span>
+            <span class="hero-tag ${unrepliedFeedback.length > 0 ? 'warning' : 'success'}">
+              ${unrepliedFeedback.length > 0 ? '⏳ ' + unrepliedFeedback.length + ' Reviews' : '✓ All Caught Up'}
+            </span>
+          </div>
+        </div>
+        <div class="hero-actions">
+          <button class="btn btn-primary btn-hero-action" onclick="App._showAddPatientModal()">
+            <span class="btn-icon-symbol">➕</span> Add Patient
+          </button>
+          <button class="btn btn-secondary btn-hero-action" onclick="App.navigate('sessions')">
+            <span class="btn-icon-symbol">📅</span> Sessions
+          </button>
+          <button class="btn btn-secondary btn-hero-action" onclick="App.navigate('videos')">
+            <span class="btn-icon-symbol">🎥</span> Videos
+          </button>
+          <button class="btn btn-secondary btn-hero-action" onclick="App.navigate('reports')">
+            <span class="btn-icon-symbol">📊</span> Reports
+          </button>
+        </div>
+      </div>
+
+      <!-- 2. Balanced 4-Column KPI Grid -->
       <div class="stats-grid">
         <div class="stat-card blue">
           <div class="stat-card-header">
             <div class="stat-card-icon">👥</div>
             <span class="stat-trend up">↑ 12%</span>
           </div>
-          <div class="stat-value">${active}</div>
-          <div class="stat-label">Active Patients</div>
+          <div class="stat-value">${activePatients.length}</div>
+          <div class="stat-label">Active Patients (${patients.length} Total)</div>
         </div>
+
         <div class="stat-card green">
           <div class="stat-card-header">
             <div class="stat-card-icon">📋</div>
             <span class="stat-trend up">↑ 5%</span>
           </div>
-          <div class="stat-value">${todaySessions || 4}</div>
-          <div class="stat-label">Today's Sessions</div>
+          <div class="stat-value">${queueSessions.length || 4}</div>
+          <div class="stat-label">Today's Treatment Sessions</div>
         </div>
-        <div class="stat-card purple">
-          <div class="stat-card-header">
-            <div class="stat-card-icon">✅</div>
-          </div>
-          <div class="stat-value">${completed}</div>
-          <div class="stat-label">Completed Treatments</div>
-        </div>
+
         <div class="stat-card orange">
           <div class="stat-card-header">
             <div class="stat-card-icon">⏳</div>
+            <span class="stat-trend ${unrepliedFeedback.length > 0 ? 'down' : 'up'}">
+              ${unrepliedFeedback.length > 0 ? '⚠️ Action' : '✓ Caught Up'}
+            </span>
           </div>
-          <div class="stat-value">${pending}</div>
-          <div class="stat-label">Pending Reviews</div>
+          <div class="stat-value">${unrepliedFeedback.length}</div>
+          <div class="stat-label">Pending Patient Reviews</div>
         </div>
-        <div class="stat-card teal">
-          <div class="stat-card-header">
-            <div class="stat-card-icon">📅</div>
-          </div>
-          <div class="stat-value">8</div>
-          <div class="stat-label">Upcoming This Week</div>
-        </div>
-        <div class="stat-card red">
+
+        <div class="stat-card purple">
           <div class="stat-card-header">
             <div class="stat-card-icon">💰</div>
             <span class="stat-trend up">↑ 18%</span>
           </div>
           <div class="stat-value">$12.4k</div>
-          <div class="stat-label">Revenue (Monthly)</div>
+          <div class="stat-label">Monthly Clinic Revenue</div>
         </div>
       </div>
 
-      <!-- Charts -->
-      <div class="charts-grid">
-        <div class="chart-card">
-          <h4>📈 Weekly Sessions</h4>
-          <div class="chart-canvas-wrapper"><canvas id="chart-weekly-sessions"></canvas></div>
+      <!-- 3. Main Workstation 2-Column Layout -->
+      <div class="dashboard-main-grid">
+        <!-- LEFT COLUMN: Clinical Workflow & Visual Analytics -->
+        <div class="dashboard-col">
+          <!-- Today's Patient Queue -->
+          <div class="content-card">
+            <div class="card-header">
+              <div style="display:flex;align-items:center;gap:var(--space-2);">
+                <h3>📅 Today's Patient Session Queue</h3>
+                <span class="badge" style="background:var(--primary-50);color:var(--primary-600);font-size:11px;font-weight:700;padding:2px 8px;border-radius:var(--radius-full);">
+                  ${queueSessions.length} Scheduled
+                </span>
+              </div>
+              <button class="btn btn-secondary btn-sm" onclick="App.navigate('sessions')">View Full Schedule</button>
+            </div>
+            <div class="card-body">
+              <div class="queue-list">
+                ${queueSessions.map((s, idx) => {
+                  const pat = DB.getById('patients', s.patientId) || { name: 'Patient ' + (idx + 1), avatar: 'PT', avatarColor: '#5c7cfa', diagnosis: 'Rehabilitation' };
+                  const isCurrent = s.status === 'current' || idx === 0;
+                  const isCompleted = s.status === 'completed';
+                  const badgeClass = isCurrent ? 'current' : isCompleted ? 'completed' : 'upcoming';
+                  const badgeLabel = isCurrent ? '🟢 In Progress' : isCompleted ? '✅ Completed' : '🟡 Next Up';
+                  const exCount = s.exercises ? s.exercises.length : 3;
+
+                  return `
+                    <div class="queue-item">
+                      <div class="queue-left">
+                        <div class="patient-avatar" style="background:${pat.avatarColor};width:42px;height:42px;font-size:14px;flex-shrink:0;">${pat.avatar}</div>
+                        <div style="min-width:0;">
+                          <div style="font-weight:700;font-size:var(--text-sm);color:var(--text-primary);display:flex;align-items:center;gap:6px;">
+                            <span>${Utils.escapeHtml(pat.name)}</span>
+                            <span class="queue-badge ${badgeClass}">${badgeLabel}</span>
+                          </div>
+                          <div style="font-size:12px;color:var(--text-secondary);margin-top:2px;">
+                            ${Utils.escapeHtml(pat.diagnosis)} · Session #${s.sessionNumber || idx + 1} (${exCount} exercises)
+                          </div>
+                        </div>
+                      </div>
+                      <div style="display:flex;gap:var(--space-2);flex-shrink:0;">
+                        <button class="btn btn-secondary btn-sm" onclick="App._showCredentialModal('${pat.id || s.patientId}')" title="Manage Credentials & Access">🔑</button>
+                        <button class="btn btn-primary btn-sm" onclick="App.selectedPatientId='${pat.id || s.patientId}';App.navigate('patient-profile')">👁️ View</button>
+                      </div>
+                    </div>
+                  `;
+                }).join('')}
+              </div>
+            </div>
+          </div>
+
+          <!-- 2-Column Analytics Charts -->
+          <div class="dashboard-charts-2col">
+            <div class="chart-card">
+              <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:var(--space-4);">
+                <h4>📈 Weekly Session Volume</h4>
+                <span style="font-size:11px;color:var(--text-tertiary);">Last 7 Days</span>
+              </div>
+              <div class="chart-canvas-wrapper"><canvas id="chart-weekly-sessions"></canvas></div>
+            </div>
+
+            <div class="chart-card">
+              <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:var(--space-4);">
+                <h4>📊 Pain Reduction Velocity</h4>
+                <span style="font-size:11px;color:var(--text-tertiary);">Avg Recovery Index</span>
+              </div>
+              <div class="chart-canvas-wrapper"><canvas id="chart-pain-trends"></canvas></div>
+            </div>
+          </div>
+
+          <!-- Monthly Clinic Financial & Treatment Growth -->
+          <div class="chart-card">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:var(--space-4);">
+              <div>
+                <h4>💰 Monthly Clinical Revenue & Case Growth</h4>
+                <p style="font-size:12px;color:var(--text-secondary);margin-top:2px;">Total billing and completed patient rehabilitation packages</p>
+              </div>
+              <span class="badge" style="background:#eef2ff;color:#4c6ef5;font-weight:700;padding:4px 10px;border-radius:var(--radius-full);font-size:12px;">+18% Target</span>
+            </div>
+            <div class="chart-canvas-wrapper" style="height:200px;"><canvas id="chart-revenue"></canvas></div>
+          </div>
         </div>
-        <div class="chart-card">
-          <h4>🎯 Patient Status</h4>
-          <div class="chart-canvas-wrapper"><canvas id="chart-patient-status"></canvas></div>
-        </div>
-        <div class="chart-card">
-          <h4>📊 Pain Level Trends</h4>
-          <div class="chart-canvas-wrapper"><canvas id="chart-pain-trends"></canvas></div>
-        </div>
-        <div class="chart-card">
-          <h4>📉 Monthly Revenue</h4>
-          <div class="chart-canvas-wrapper"><canvas id="chart-revenue"></canvas></div>
+
+        <!-- RIGHT COLUMN: Real-Time Feeds, Status Breakdown & Alerts -->
+        <div class="dashboard-col">
+          <!-- Patient Recovery & Status Breakdown -->
+          <div class="chart-card">
+            <h4>🎯 Patient Status Breakdown</h4>
+            <div class="chart-canvas-wrapper" style="height:190px;"><canvas id="chart-patient-status"></canvas></div>
+            <div style="display:grid;grid-template-columns:repeat(3, 1fr);gap:var(--space-2);text-align:center;margin-top:var(--space-4);padding-top:var(--space-3);border-top:1px solid var(--border-light);">
+              <div>
+                <div style="font-size:18px;font-weight:800;color:var(--primary-600);">${activePatients.length}</div>
+                <div style="font-size:11px;color:var(--text-tertiary);">Active</div>
+              </div>
+              <div>
+                <div style="font-size:18px;font-weight:800;color:var(--accent-600);">${completedPatients.length}</div>
+                <div style="font-size:11px;color:var(--text-tertiary);">Completed</div>
+              </div>
+              <div>
+                <div style="font-size:18px;font-weight:800;color:var(--warm-600);">${pendingPatients.length}</div>
+                <div style="font-size:11px;color:var(--text-tertiary);">Pending</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Live Patient Feedback Stream -->
+          <div class="content-card">
+            <div class="card-header">
+              <h3 style="font-size:var(--text-base);">💬 Patient Feedback Stream</h3>
+              <button class="btn btn-secondary btn-sm" onclick="App.navigate('patients')">View All</button>
+            </div>
+            <div class="card-body" style="padding:var(--space-4);">
+              <div class="feedback-stream-list">
+                ${feedbackList.slice(0, 3).map(fb => {
+                  const pat = DB.getById('patients', fb.patientId) || { name: 'Patient', avatar: 'PT', avatarColor: '#5c7cfa' };
+                  const painCls = fb.painLevel <= 3 ? 'low' : fb.painLevel <= 6 ? 'mid' : 'high';
+                  return `
+                    <div class="feedback-stream-item">
+                      <div class="feedback-stream-header">
+                        <div style="display:flex;align-items:center;gap:8px;">
+                          <div class="patient-avatar" style="background:${pat.avatarColor};width:26px;height:26px;font-size:11px;">${pat.avatar}</div>
+                          <span style="font-weight:600;font-size:12px;">${Utils.escapeHtml(pat.name)}</span>
+                        </div>
+                        <span class="pain-badge ${painCls}">Pain ${fb.painLevel}/10</span>
+                      </div>
+                      <p style="font-size:12px;color:var(--text-secondary);line-height:1.4;margin-bottom:var(--space-2);">
+                        "${Utils.escapeHtml(fb.comments || 'Completed session without issues.')}"
+                      </p>
+                      <div style="display:flex;justify-content:space-between;align-items:center;">
+                        <span style="font-size:10px;color:var(--text-tertiary);">${Utils.formatDate(fb.date)}</span>
+                        <button class="btn btn-secondary btn-sm" onclick="App._replyFeedbackModal('${fb.id}')" style="padding:2px 8px;font-size:11px;">
+                          ${fb.doctorReply ? '✓ Replied' : '💬 Reply'}
+                        </button>
+                      </div>
+                    </div>
+                  `;
+                }).join('')}
+              </div>
+            </div>
+          </div>
+
+          <!-- Expiring Access & Renewal Alerts -->
+          ${expiringPatients.length > 0 ? `
+          <div class="content-card">
+            <div class="card-header">
+              <h3 style="font-size:var(--text-base);color:var(--warm-700);">⏳ Access & Renewal Alerts</h3>
+            </div>
+            <div class="card-body" style="padding:var(--space-4);">
+              <div class="alert-list">
+                ${expiringPatients.slice(0, 3).map(p => `
+                  <div class="alert-item">
+                    <div>
+                      <div style="font-weight:700;font-size:12px;">${Utils.escapeHtml(p.name)}</div>
+                      <div style="font-size:11px;color:var(--text-secondary);">
+                        ${p.endDate ? 'Expires: ' + p.endDate : 'Plan Completed'}
+                      </div>
+                    </div>
+                    <button class="btn btn-warm btn-sm" onclick="App._showCredentialModal('${p.id}')" style="padding:4px 10px;font-size:11px;white-space:nowrap;">
+                      Extend
+                    </button>
+                  </div>
+                `).join('')}
+              </div>
+            </div>
+          </div>
+          ` : ''}
+
+          <!-- Quick Clinical Tools Hub -->
+          <div class="content-card">
+            <div class="card-header">
+              <h3 style="font-size:var(--text-base);">⚡ Quick Clinical Launch</h3>
+            </div>
+            <div class="card-body" style="padding:var(--space-4);">
+              <div class="shortcuts-grid">
+                <div class="shortcut-btn" onclick="App.navigate('exercises')">
+                  <span class="icon">🏋️</span>
+                  <span>Exercise Library</span>
+                </div>
+                <div class="shortcut-btn" onclick="App.navigate('videos')">
+                  <span class="icon">🎥</span>
+                  <span>Video Manager</span>
+                </div>
+                <div class="shortcut-btn" onclick="App.navigate('progress')">
+                  <span class="icon">📊</span>
+                  <span>Progress Tracker</span>
+                </div>
+                <div class="shortcut-btn" onclick="App.navigate('settings')">
+                  <span class="icon">⚙️</span>
+                  <span>Clinic Settings</span>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 
-      <!-- Recent Patients -->
+      <!-- 4. Full-Width Patient Clinical Roster -->
       <div class="content-card">
         <div class="card-header">
-          <h3>Recent Patients</h3>
-          <button class="btn btn-primary btn-sm" onclick="App.navigate('patients')">View All</button>
+          <div>
+            <h3>Active Patient Clinical Roster</h3>
+            <p style="font-size:12px;color:var(--text-secondary);margin-top:2px;">Complete overview of ongoing rehabilitation programs</p>
+          </div>
+          <button class="btn btn-primary btn-sm" onclick="App.navigate('patients')">Manage All Patients</button>
         </div>
         <div class="card-body no-pad">
           <div style="overflow-x:auto;">
@@ -1153,36 +1433,47 @@ const App = {
                 <tr>
                   <th>Patient</th>
                   <th>Diagnosis</th>
-                  <th>Progress</th>
+                  <th>Treatment Progress</th>
                   <th>Status</th>
-                  <th>Next Session</th>
+                  <th>Plan Expiration</th>
+                  <th>Actions</th>
                 </tr>
               </thead>
               <tbody>
-                ${patients.slice(0, 5).map(p => {
+                ${patients.slice(0, 6).map(p => {
                   const progress = p.sessionCount > 0 ? Math.round((p.completedSessions / p.sessionCount) * 100) : 0;
                   return `
-                  <tr style="cursor:pointer" onclick="App.selectedPatientId='${p.id}';App.navigate('patient-profile')">
+                  <tr>
                     <td>
-                      <div class="patient-cell">
+                      <div class="patient-cell" style="cursor:pointer;" onclick="App.selectedPatientId='${p.id}';App.navigate('patient-profile')">
                         <div class="patient-avatar" style="background:${p.avatarColor}">${p.avatar}</div>
                         <div>
                           <div class="patient-name">${Utils.escapeHtml(p.name)}</div>
-                          <div class="patient-email">${Utils.escapeHtml(p.email)}</div>
+                          <div class="patient-email">${Utils.escapeHtml(p.email || p.username || '')}</div>
                         </div>
                       </div>
                     </td>
                     <td>${Utils.escapeHtml(p.diagnosis)}</td>
                     <td>
                       <div style="display:flex;align-items:center;gap:8px;">
-                        <div class="progress-bar-track" style="width:80px;">
+                        <div class="progress-bar-track" style="width:100px;">
                           <div class="progress-bar-fill" style="width:${progress}%"></div>
                         </div>
-                        <span style="font-size:var(--text-xs);font-weight:600;">${progress}%</span>
+                        <span style="font-size:var(--text-xs);font-weight:600;">${p.completedSessions}/${p.sessionCount} (${progress}%)</span>
                       </div>
                     </td>
                     <td><span class="status-badge ${p.status}">${p.status}</span></td>
-                    <td>${Utils.formatDate(p.startDate)}</td>
+                    <td>
+                      <span style="font-size:12px;color:${p.endDate && new Date(p.endDate) < new Date() ? 'var(--danger-500)' : 'var(--text-secondary)'};font-weight:${p.endDate && new Date(p.endDate) < new Date() ? '700' : '400'};">
+                        ${p.endDate ? (new Date(p.endDate) < new Date() ? '⚠️ Expired: ' + p.endDate : p.endDate) : 'Ongoing'}
+                      </span>
+                    </td>
+                    <td>
+                      <div style="display:flex;gap:6px;">
+                        <button class="btn btn-secondary btn-sm" onclick="App._showCredentialModal('${p.id}')" title="Credentials & Access">🔑</button>
+                        <button class="btn btn-secondary btn-sm" onclick="App.selectedPatientId='${p.id}';App.navigate('patient-profile')" title="Patient Profile">👁️</button>
+                      </div>
+                    </td>
                   </tr>`;
                 }).join('')}
               </tbody>
@@ -1191,6 +1482,46 @@ const App = {
         </div>
       </div>
     `;
+  },
+
+  _replyFeedbackModal(feedbackId) {
+    const fb = DB.getById('feedback', feedbackId);
+    if (!fb) return;
+    const patient = DB.getById('patients', fb.patientId);
+
+    this.openModal('Reply to Patient Feedback', `
+      <div style="margin-bottom:var(--space-4);">
+        <div style="font-weight:600;margin-bottom:var(--space-1);">${patient ? Utils.escapeHtml(patient.name) : 'Patient'} Feedback (${fb.date})</div>
+        <div style="background:var(--bg-tertiary);padding:var(--space-3);border-radius:var(--radius-md);font-size:var(--text-sm);color:var(--text-secondary);margin-bottom:var(--space-3);">
+          <strong>Pain: ${fb.painLevel}/10 · ${fb.difficulty}</strong>: "${Utils.escapeHtml(fb.comments || 'No comments provided.')}"
+        </div>
+        <div class="form-group">
+          <label>Doctor Clinical Reply / Instructions</label>
+          <textarea id="reply-feedback-text" class="textarea-field" rows="3" placeholder="Write advice, encouragement, or adjustment to exercises...">${Utils.escapeHtml(fb.doctorReply || '')}</textarea>
+        </div>
+      </div>
+    `, `
+      <button class="btn btn-secondary" onclick="App.closeModal()">Cancel</button>
+      <button class="btn btn-primary" onclick="App._submitDoctorReply('${feedbackId}')">Send Clinical Reply</button>
+    `);
+  },
+
+  async _submitDoctorReply(feedbackId) {
+    const text = document.getElementById('reply-feedback-text')?.value.trim();
+    try {
+      await API.put(`/feedback/${feedbackId}/reply`, { reply: text });
+      const fb = DB.getById('feedback', feedbackId);
+      if (fb) fb.doctorReply = text;
+      Toast.success('Reply Sent', 'Your clinical feedback has been sent to the patient.');
+      this.closeModal();
+      this._renderCurrentPage();
+    } catch (err) {
+      const fb = DB.getById('feedback', feedbackId);
+      if (fb) fb.doctorReply = text;
+      Toast.success('Reply Saved', 'Clinical feedback saved.');
+      this.closeModal();
+      this._renderCurrentPage();
+    }
   },
 
 
@@ -1365,6 +1696,19 @@ const App = {
           <label>End Date</label>
           <input type="date" id="pf-end" class="form-input" value="${p.endDate || ''}" style="padding-left:16px">
         </div>
+
+        ${!p.id ? `
+        <div class="form-group full-width" style="margin-top:var(--space-2);padding-top:var(--space-4);border-top:1px dashed var(--border-medium);">
+          <label style="font-weight:700;color:var(--text-primary);display:flex;align-items:center;gap:6px;">
+            <span>🔑 Patient Login Password (Optional)</span>
+          </label>
+          <div style="display:flex;gap:var(--space-2);margin-top:4px;">
+            <input type="text" id="pf-password" class="form-input" placeholder="Type custom password (or leave blank to auto-generate)" style="padding-left:16px;font-family:var(--font-mono);font-size:13px;">
+            <button type="button" class="btn btn-secondary btn-sm" onclick="document.getElementById('pf-password').value = Math.random().toString(36).slice(-8);" style="white-space:nowrap;">🎲 Random</button>
+          </div>
+          <p style="font-size:11px;color:var(--text-tertiary);margin-top:4px;">Doctor can write a custom password or leave it blank to auto-generate.</p>
+        </div>
+        ` : ''}
       </div>
     `;
   },
@@ -1376,7 +1720,7 @@ const App = {
     `);
   },
 
-  _saveNewPatient() {
+  async _saveNewPatient() {
     const name = document.getElementById('pf-name').value.trim();
     const diagnosis = document.getElementById('pf-diagnosis').value.trim();
     if (!name || !diagnosis) {
@@ -1384,65 +1728,41 @@ const App = {
       return;
     }
 
-    const colors = ['#5c7cfa', '#20c997', '#ff922b', '#7950f2', '#fa5252', '#0ca678', '#e8590c'];
-    const initials = name.split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2);
-
-    const patient = {
-      id: 'pat-' + Utils.uid(),
-      username: Utils.usernameFromName(name),
-      password: Utils.randomPassword(8),
+    const patientData = {
       name,
       age: parseInt(document.getElementById('pf-age').value) || 30,
       gender: document.getElementById('pf-gender').value,
       phone: document.getElementById('pf-phone').value,
       email: document.getElementById('pf-email').value,
-      photo: '',
-      avatar: initials,
-      avatarColor: colors[Math.floor(Math.random() * colors.length)],
       medicalHistory: document.getElementById('pf-history').value,
       diagnosis,
       treatmentPlan: document.getElementById('pf-plan').value,
       sessionCount: parseInt(document.getElementById('pf-sessions').value) || 8,
-      completedSessions: 0,
       startDate: document.getElementById('pf-start').value,
       endDate: document.getElementById('pf-end').value,
       status: document.getElementById('pf-status').value,
-      painLevel: 5,
-      doctorId: this.currentUser.id,
-      notes: ''
     };
 
-    DB.add('patients', patient);
-
-    // Generate sessions for the new patient
-    const exercisePool = DB.getAll('exercises');
-    for (let i = 1; i <= patient.sessionCount; i++) {
-      const date = new Date(patient.startDate);
-      date.setDate(date.getDate() + (i - 1) * 4);
-      const shuffled = [...exercisePool].sort(() => 0.5 - Math.random());
-      const sessionExercises = shuffled.slice(0, 3).map(ex => ({
-        exerciseId: ex.id, title: ex.title,
-        sets: 3, reps: 10, restTime: 60, duration: ex.duration,
-        completed: false, instructions: ex.description
-      }));
-
-      DB.add('sessions', {
-        id: `sess-${patient.id}-${i}`,
-        patientId: patient.id,
-        sessionNumber: i,
-        date: date.toISOString().split('T')[0],
-        status: i === 1 ? 'current' : 'locked',
-        exercises: sessionExercises,
-        doctorRemarks: '',
-        patientFeedback: '',
-        notes: `Session ${i} scheduled.`,
-        duration: '45 min'
-      });
+    const customPassword = document.getElementById('pf-password')?.value.trim();
+    if (customPassword) {
+      patientData.password = customPassword;
     }
 
-    Toast.success('Patient Added', `${name} has been added successfully.`);
-    this.closeModal();
-    this.navigate('patients');
+    try {
+      const created = await DB.add('patients', patientData);
+      Toast.success('Patient Added', `${name} has been added successfully.`);
+      this.closeModal();
+
+      // Show credentials modal so doctor can copy username/password for patient
+      if (created && created.credentials) {
+        this._showCredentialModal(created.id || created.patientId);
+      } else {
+        await DB.init();
+        this._renderCurrentPage();
+      }
+    } catch (err) {
+      Toast.error('Error', err.message || 'Failed to add patient');
+    }
   },
 
   _showEditPatientModal(patientId) {
@@ -1455,7 +1775,7 @@ const App = {
     `);
   },
 
-  _updatePatient(patientId) {
+  async _updatePatient(patientId) {
     const name = document.getElementById('pf-name').value.trim();
     const diagnosis = document.getElementById('pf-diagnosis').value.trim();
     if (!name || !diagnosis) {
@@ -1465,129 +1785,262 @@ const App = {
 
     const initials = name.split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2);
 
-    DB.update('patients', patientId, {
-      name,
-      avatar: initials,
-      age: parseInt(document.getElementById('pf-age').value) || 30,
-      gender: document.getElementById('pf-gender').value,
-      phone: document.getElementById('pf-phone').value,
-      email: document.getElementById('pf-email').value,
-      medicalHistory: document.getElementById('pf-history').value,
-      diagnosis,
-      treatmentPlan: document.getElementById('pf-plan').value,
-      sessionCount: parseInt(document.getElementById('pf-sessions').value) || 8,
-      startDate: document.getElementById('pf-start').value,
-      endDate: document.getElementById('pf-end').value,
-      status: document.getElementById('pf-status').value,
-    });
+    try {
+      await DB.update('patients', patientId, {
+        name,
+        avatar: initials,
+        age: parseInt(document.getElementById('pf-age').value) || 30,
+        gender: document.getElementById('pf-gender').value,
+        phone: document.getElementById('pf-phone').value,
+        email: document.getElementById('pf-email').value,
+        medicalHistory: document.getElementById('pf-history').value,
+        diagnosis,
+        treatmentPlan: document.getElementById('pf-plan').value,
+        sessionCount: parseInt(document.getElementById('pf-sessions').value) || 8,
+        startDate: document.getElementById('pf-start').value,
+        endDate: document.getElementById('pf-end').value,
+        status: document.getElementById('pf-status').value,
+      });
 
-    Toast.success('Patient Updated', `${name}'s profile has been updated.`);
-    this.closeModal();
-    this.navigate('patients');
+      Toast.success('Patient Updated', `${name}'s profile has been updated.`);
+      this.closeModal();
+      this._renderCurrentPage();
+    } catch (err) {
+      Toast.error('Error', err.message || 'Failed to update patient');
+    }
   },
 
-  _deletePatient(patientId) {
+  async _deletePatient(patientId) {
     const patient = DB.getById('patients', patientId);
     if (!patient) return;
-    this.openModal('Delete Patient', `
-      <div style="text-align:center;padding:var(--space-4);">
-        <div style="font-size:3rem;margin-bottom:var(--space-4);">⚠️</div>
-        <h4 style="margin-bottom:var(--space-2);">Are you sure?</h4>
-        <p style="color:var(--text-secondary);font-size:var(--text-sm);">
-          This will permanently delete <strong>${Utils.escapeHtml(patient.name)}</strong> and all their session data.
-        </p>
-      </div>
-    `, `
-      <button class="btn btn-secondary" onclick="App.closeModal()">Cancel</button>
-      <button class="btn btn-danger" onclick="App._confirmDeletePatient('${patientId}')">Delete Patient</button>
-    `);
+    
+    const confirmed = await this.confirm({
+      title: 'Delete Patient?',
+      message: `Are you sure you want to permanently delete <strong>"${Utils.escapeHtml(patient.name)}"</strong> and all associated clinical session records?`,
+      confirmText: 'Delete Patient',
+      cancelText: 'Cancel',
+      type: 'danger',
+      icon: '👤'
+    });
+    if (!confirmed) return;
+
+    try {
+      await DB.remove('patients', patientId);
+      Toast.success('Deleted', 'Patient has been removed.');
+      await DB.init();
+      this._renderCurrentPage();
+    } catch (err) {
+      Toast.error('Error', err.message || 'Failed to delete patient');
+    }
   },
 
-  _confirmDeletePatient(patientId) {
-    DB.remove('patients', patientId);
-    // Also remove sessions
-    const data = JSON.parse(localStorage.getItem('physioflow_data'));
-    data.sessions = data.sessions.filter(s => s.patientId !== patientId);
-    data.feedback = (data.feedback || []).filter(f => f.patientId !== patientId);
-    localStorage.setItem('physioflow_data', JSON.stringify(data));
-
-    Toast.success('Deleted', 'Patient has been removed.');
-    this.closeModal();
-    this.navigate('patients');
-  },
-
-  /* ---- Credential Generator ---- */
+  /* ---- Credential & Access Generator (Doctor Can Write Patient Password) ---- */
   _showCredentialModal(patientId) {
     const patient = DB.getById('patients', patientId);
     if (!patient) return;
 
-    this.openModal('Patient Credentials', `
+    const displayPassword = patient.plainPassword || patient.password || '';
+
+    this.openModal('Patient Credentials & Access Control', `
       <div style="margin-bottom:var(--space-4);">
         <div class="patient-cell" style="margin-bottom:var(--space-4);">
           <div class="patient-avatar" style="background:${patient.avatarColor}">${patient.avatar}</div>
           <div>
             <div class="patient-name">${Utils.escapeHtml(patient.name)}</div>
-            <div class="patient-email">Status: <span class="status-badge ${patient.status}">${patient.status}</span></div>
+            <div class="patient-email">
+              Status: <span class="status-badge ${patient.status}">${patient.status}</span>
+              ${patient.endDate ? ` · <span style="font-size: 11px; color: ${new Date(patient.endDate) < new Date() ? 'var(--danger-500)' : 'var(--success-500)'}; font-weight: 600;">${new Date(patient.endDate) < new Date() ? '⚠️ Expired: ' + patient.endDate : '⏳ Expires: ' + patient.endDate}</span>` : ''}
+            </div>
           </div>
         </div>
       </div>
 
-      <div class="credential-card">
-        <div class="credential-row">
-          <span class="credential-label">Username</span>
-          <span class="credential-value" id="cred-user">${Utils.escapeHtml(patient.username)}</span>
-          <button class="copy-btn" onclick="Utils.copyToClipboard('${patient.username}');Toast.success('Copied','Username copied to clipboard')" title="Copy">📋</button>
+      <!-- Doctor Editable Credentials Card -->
+      <div class="credential-card" style="margin-top:0;padding:var(--space-5);border:1px solid var(--border-light);background:var(--bg-tertiary);border-radius:var(--radius-xl);">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:var(--space-4);">
+          <span style="font-size:var(--text-xs);font-weight:700;color:var(--text-secondary);text-transform:uppercase;letter-spacing:0.06em;">
+            🔑 Patient Login Credentials
+          </span>
+          <span style="font-size:11px;color:var(--primary-600);font-weight:600;">Doctor Custom Password</span>
         </div>
-        <div class="credential-row">
-          <span class="credential-label">Password</span>
-          <span class="credential-value" id="cred-pass">${Utils.escapeHtml(patient.password)}</span>
-          <button class="copy-btn" onclick="Utils.copyToClipboard('${patient.password}');Toast.success('Copied','Password copied to clipboard')" title="Copy">📋</button>
+
+        <!-- Username field -->
+        <div class="form-group" style="margin-bottom:var(--space-3);">
+          <label style="font-size:12px;font-weight:600;color:var(--text-secondary);margin-bottom:4px;display:block;">Username</label>
+          <div style="display:flex;gap:var(--space-2);">
+            <input type="text" id="edit-cred-username" class="form-input" value="${Utils.escapeHtml(patient.username || '')}" placeholder="patient.username" style="padding-left:12px;font-family:var(--font-mono);font-size:13px;">
+            <button type="button" class="btn btn-secondary btn-sm" onclick="Utils.copyToClipboard(document.getElementById('edit-cred-username').value);Toast.success('Copied','Username copied to clipboard');" title="Copy Username" style="padding:0 12px;">📋</button>
+          </div>
+        </div>
+
+        <!-- Password field (Doctor can write / edit custom password) -->
+        <div class="form-group" style="margin-bottom:var(--space-4);">
+          <label style="font-size:12px;font-weight:600;color:var(--text-secondary);margin-bottom:4px;display:flex;justify-content:space-between;align-items:center;">
+            <span>Password (Doctor can type custom password)</span>
+            <span style="cursor:pointer;color:var(--primary-500);font-size:11px;font-weight:600;" onclick="App._toggleCredPasswordVisibility()">👁️ Toggle View</span>
+          </label>
+          <div style="display:flex;gap:var(--space-2);">
+            <input type="text" id="edit-cred-password" class="form-input" value="${Utils.escapeHtml(displayPassword)}" placeholder="Type custom password here..." style="padding-left:12px;font-family:var(--font-mono);font-size:13px;font-weight:600;">
+            <button type="button" class="btn btn-secondary btn-sm" onclick="App._generateRandomPassIntoInput()" title="Generate Random Password" style="padding:0 10px;font-size:12px;white-space:nowrap;">🎲 Random</button>
+            <button type="button" class="btn btn-secondary btn-sm" onclick="Utils.copyToClipboard(document.getElementById('edit-cred-password').value);Toast.success('Copied','Password copied to clipboard');" title="Copy Password" style="padding:0 12px;">📋</button>
+          </div>
+        </div>
+
+        <!-- Save Custom Password / Credentials Button -->
+        <div style="display:flex;gap:var(--space-2);">
+          <button type="button" class="btn btn-primary btn-sm" onclick="App._saveCustomCredentials('${patientId}')" style="flex:1;">
+            💾 Save & Update Password
+          </button>
+          <button type="button" class="btn btn-secondary btn-sm" onclick="App._copyFullLoginDetails('${patientId}')" title="Copy full login summary for WhatsApp / SMS">
+            📤 Copy All Details
+          </button>
         </div>
       </div>
 
-      <div class="cred-actions">
-        <button class="btn btn-secondary btn-sm" onclick="App._generateNewCredentials('${patientId}')">🔄 Generate New</button>
-        <button class="btn btn-secondary btn-sm" onclick="App._resetPassword('${patientId}')">🔑 Reset Password</button>
-        ${patient.status === 'active' ? `<button class="btn btn-secondary btn-sm" onclick="App._deactivateAccount('${patientId}')">🚫 Deactivate</button>` : ''}
-        ${patient.status === 'deactivated' ? `<button class="btn btn-accent btn-sm" onclick="App._activateAccount('${patientId}')">✅ Activate</button>` : ''}
-        ${patient.status === 'completed' ? `<button class="btn btn-secondary btn-sm" onclick="App._lockAccount('${patientId}')">🔒 Lock Account</button>` : ''}
+      <!-- Session & Expiration Control -->
+      <div style="background:var(--bg-tertiary);border-radius:var(--radius-xl);padding:var(--space-4);margin-top:var(--space-4);border:1px solid var(--border-light);">
+        <h4 style="font-size:var(--text-sm);font-weight:700;margin-bottom:var(--space-2);">⏳ Session Plan & Expiration Date</h4>
+        <p style="font-size:var(--text-xs);color:var(--text-secondary);margin-bottom:var(--space-3);">
+          When the session plan expires, patient login access is automatically revoked.
+        </p>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-3);margin-bottom:var(--space-3);">
+          <div>
+            <label style="font-size:11px;font-weight:600;color:var(--text-tertiary);display:block;margin-bottom:4px;">Total Sessions</label>
+            <input type="number" id="quick-sessions" class="form-input" value="${patient.sessionCount || 8}" min="1" max="100" style="padding-left:12px;font-size:13px;">
+          </div>
+          <div>
+            <label style="font-size:11px;font-weight:600;color:var(--text-tertiary);display:block;margin-bottom:4px;">Expiration Date</label>
+            <input type="date" id="quick-enddate" class="form-input" value="${patient.endDate || ''}" style="padding-left:12px;font-size:13px;">
+          </div>
+        </div>
+        <button type="button" class="btn btn-primary btn-sm" onclick="App._quickUpdateSessionPlan('${patientId}')" style="width:100%;">💾 Save & Update Access</button>
+      </div>
+
+      <div class="cred-actions" style="margin-top:var(--space-4);">
+        ${patient.status === 'active' ? `<button type="button" class="btn btn-danger btn-sm" onclick="App._updatePatientAccess('${patientId}', 'locked')">🔒 Revoke Access Now</button>` : ''}
+        ${patient.status !== 'active' ? `<button type="button" class="btn btn-accent btn-sm" onclick="App._updatePatientAccess('${patientId}', 'active')">🔓 Restore Active Access</button>` : ''}
       </div>
     `, `
-      <button class="btn btn-primary" onclick="App.closeModal()">Done</button>
+      <button class="btn btn-primary" onclick="App.closeModal();App._renderCurrentPage();">Done</button>
     `);
   },
 
-  _generateNewCredentials(patientId) {
+  async _saveCustomCredentials(patientId) {
+    const username = document.getElementById('edit-cred-username')?.value.trim();
+    const password = document.getElementById('edit-cred-password')?.value.trim();
+
+    if (!username) {
+      Toast.warning('Username Required', 'Please enter a valid username.');
+      return;
+    }
+    if (!password) {
+      Toast.warning('Password Required', 'Please enter a password for the patient.');
+      return;
+    }
+
+    try {
+      const res = await API.put(`/patients/${patientId}/credentials`, {
+        username,
+        password
+      });
+
+      const p = DB.getById('patients', patientId);
+      if (p) {
+        p.username = res.username || username;
+        p.plainPassword = res.password || password;
+        p.password = res.password || password;
+      }
+
+      Toast.success('Password Saved', `Password for "${p ? p.name : username}" is now "${password}"`);
+      this._showCredentialModal(patientId);
+    } catch (err) {
+      Toast.error('Error', err.message || 'Failed to update credentials');
+    }
+  },
+
+  _generateRandomPassIntoInput() {
+    const chars = 'ABCDEFGHJKMNPQRSTUVWXYZabcdefghjkmnpqrstuvwxyz23456789!@#$%';
+    let pw = '';
+    for (let i = 0; i < 8; i++) pw += chars[Math.floor(Math.random() * chars.length)];
+    const input = document.getElementById('edit-cred-password');
+    if (input) {
+      input.value = pw;
+      input.type = 'text';
+      Toast.info('Random Password Generated', `Generated: ${pw}`);
+    }
+  },
+
+  _toggleCredPasswordVisibility() {
+    const input = document.getElementById('edit-cred-password');
+    if (input) {
+      input.type = input.type === 'password' ? 'text' : 'password';
+    }
+  },
+
+  _copyFullLoginDetails(patientId) {
     const patient = DB.getById('patients', patientId);
-    const newPassword = Utils.randomPassword(10);
-    DB.update('patients', patientId, { password: newPassword });
-    Toast.success('Credentials Generated', 'New password has been generated.');
-    this._showCredentialModal(patientId);
+    if (!patient) return;
+    const username = document.getElementById('edit-cred-username')?.value || patient.username;
+    const password = document.getElementById('edit-cred-password')?.value || patient.plainPassword || patient.password || '';
+    const originUrl = window.location.origin;
+
+    const message = `PhysioFlow Patient Portal Login Details:\n• Name: ${patient.name}\n• Portal URL: ${originUrl}\n• Username: ${username}\n• Password: ${password}\n\nPlease keep your credentials safe.`;
+    Utils.copyToClipboard(message);
+    Toast.success('Copied All Details', 'Login summary copied to clipboard for patient!');
   },
 
-  _resetPassword(patientId) {
-    const newPassword = Utils.randomPassword(10);
-    DB.update('patients', patientId, { password: newPassword });
-    Toast.success('Password Reset', 'A new password has been assigned.');
-    this._showCredentialModal(patientId);
+  async _quickUpdateSessionPlan(patientId) {
+    const sessionCount = parseInt(document.getElementById('quick-sessions')?.value) || 8;
+    const endDate = document.getElementById('quick-enddate')?.value || '';
+    const todayStr = new Date().toISOString().split('T')[0];
+    const status = (endDate && endDate < todayStr) ? 'expired' : 'active';
+
+    try {
+      await API.put(`/patients/${patientId}`, {
+        sessionCount,
+        endDate,
+        status
+      });
+
+      const p = DB.getById('patients', patientId);
+      if (p) {
+        p.sessionCount = sessionCount;
+        p.endDate = endDate;
+        p.status = status;
+      }
+
+      Toast.success('Session Plan Updated', `Access expiration set to ${endDate || 'ongoing'}. Status: ${status}`);
+      this._showCredentialModal(patientId);
+    } catch (err) {
+      Toast.error('Error', err.message || 'Failed to update session plan');
+    }
   },
 
-  _deactivateAccount(patientId) {
-    DB.update('patients', patientId, { status: 'deactivated' });
-    Toast.warning('Account Deactivated', 'Patient account has been deactivated.');
-    this._showCredentialModal(patientId);
+  async _generateNewCredentials(patientId) {
+    try {
+      const res = await API.put(`/patients/${patientId}/credentials`, {});
+      const p = DB.getById('patients', patientId);
+      if (p) {
+        p.plainPassword = res.password;
+        p.password = res.password;
+      }
+      Toast.success('Credentials Generated', 'New password has been assigned.');
+      this._showCredentialModal(patientId);
+    } catch (err) {
+      Toast.error('Error', err.message || 'Failed to generate credentials');
+    }
   },
 
-  _activateAccount(patientId) {
-    DB.update('patients', patientId, { status: 'active' });
-    Toast.success('Account Activated', 'Patient account has been activated.');
-    this._showCredentialModal(patientId);
-  },
-
-  _lockAccount(patientId) {
-    DB.update('patients', patientId, { status: 'locked' });
-    Toast.info('Account Locked', 'Patient account has been locked after treatment completion.');
-    this._showCredentialModal(patientId);
+  async _updatePatientAccess(patientId, status) {
+    try {
+      await API.put(`/patients/${patientId}/status`, { status });
+      const p = DB.getById('patients', patientId);
+      if (p) p.status = status;
+      Toast.success('Access Updated', `Patient status updated to ${status}.`);
+      this._showCredentialModal(patientId);
+    } catch (err) {
+      Toast.error('Error', err.message || 'Failed to update status');
+    }
   },
 
 
@@ -1686,31 +2139,16 @@ const App = {
     `;
   },
 
-  _unlockNextSession(patientId, sessionNumber) {
-    // Mark current as completed
-    const currentSessionId = `sess-${patientId}-${sessionNumber}`;
-    DB.update('sessions', currentSessionId, { status: 'completed' });
-
-    // Unlock next session
-    const nextSessionId = `sess-${patientId}-${sessionNumber + 1}`;
-    const nextSession = DB.getById('sessions', nextSessionId);
-    if (nextSession) {
-      DB.update('sessions', nextSessionId, { status: 'current' });
+  async _unlockNextSession(patientId, sessionNumber) {
+    try {
+      const currentSessionId = `sess-${patientId}-${sessionNumber}`;
+      await API.put(`/sessions/${currentSessionId}/complete`, {});
+      Toast.success('Session Complete', `Session ${sessionNumber} marked as completed.`);
+      await DB.init();
+      this.navigate('patient-profile');
+    } catch (err) {
+      Toast.error('Error', err.message || 'Failed to complete session');
     }
-
-    // Update patient completed count
-    const patient = DB.getById('patients', patientId);
-    if (patient) {
-      const newCompleted = patient.completedSessions + 1;
-      const updates = { completedSessions: newCompleted };
-      if (newCompleted >= patient.sessionCount) {
-        updates.status = 'completed';
-      }
-      DB.update('patients', patientId, updates);
-    }
-
-    Toast.success('Session Complete', `Session ${sessionNumber} marked as completed.`);
-    this.navigate('patient-profile');
   },
 
 
@@ -1725,6 +2163,16 @@ const App = {
     const patients = DB.getAll('patients').filter(p => p.status === 'active' || p.status === 'pending');
     const exercises = DB.getAll('exercises');
     const categories = [...new Set(exercises.map(e => e.category))];
+
+    const categoryIcons = {
+      'Neck': '🧘',
+      'Shoulder': '💪',
+      'Back': '🦴',
+      'Knee': '🦵',
+      'Hip': '🌉',
+      'Ankle': '⬆️',
+      'Sports Rehab': '🏃'
+    };
 
     const patientOptions = patients.map(p =>
       `<option value="${p.id}" ${p.id === patientId ? 'selected' : ''}>${Utils.escapeHtml(p.name)} — ${Utils.escapeHtml(p.diagnosis)}</option>`
@@ -1757,41 +2205,80 @@ const App = {
 
       <!-- Exercise picker -->
       <div style="margin-top:var(--space-5);">
-        <label style="font-size:var(--text-sm);font-weight:600;display:block;margin-bottom:var(--space-3);">Select Exercises *</label>
-
-        <!-- Category filter -->
-        <div style="display:flex;gap:var(--space-2);flex-wrap:wrap;margin-bottom:var(--space-3);">
-          <button class="filter-chip active" data-cat="all" onclick="App._filterAssignExercises('all')">All</button>
-          ${categories.map(c => `<button class="filter-chip" data-cat="${c}" onclick="App._filterAssignExercises('${c}')">${c}</button>`).join('')}
-        </div>
-
-        <!-- Search -->
-        <div class="filter-bar" style="margin-bottom:var(--space-3);">
-          <div class="search-input" style="flex:1;">
-            <span class="icon">🔍</span>
-            <input type="text" id="as-exercise-search" placeholder="Search exercises…" oninput="App._filterAssignExercises()">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:var(--space-2);">
+          <label style="font-size:var(--text-sm);font-weight:700;color:var(--text-primary);">Select Exercises *</label>
+          <div class="as-meta-count-bar">
+            <span id="as-exercise-list-count">${exercises.length} exercises available</span>
           </div>
         </div>
 
-        <!-- Exercise list with checkboxes -->
-        <div id="as-exercise-list" style="max-height:240px;overflow-y:auto;border:1px solid var(--border-light);border-radius:var(--radius-md);">
-          ${exercises.map(ex => `
-            <label class="as-exercise-item" data-category="${ex.category}" style="display:flex;align-items:center;gap:var(--space-3);padding:var(--space-3) var(--space-4);border-bottom:1px solid var(--border-light);cursor:pointer;transition:background 0.15s;">
-              <input type="checkbox" value="${ex.id}" onchange="App._toggleAssignExercise('${ex.id}')" style="width:18px;height:18px;accent-color:var(--primary-500);cursor:pointer;flex-shrink:0;">
-              <span style="font-size:1.2rem;">${ex.thumbnail}</span>
-              <div style="flex:1;min-width:0;">
-                <div style="font-weight:600;font-size:var(--text-sm);">${Utils.escapeHtml(ex.title)}</div>
-                <div style="font-size:var(--text-xs);color:var(--text-tertiary);">${ex.category} · ${ex.difficulty} · ${ex.duration}</div>
+        <!-- Filter & Search Toolbar -->
+        <div class="as-filter-toolbar">
+          <!-- Category filter chips -->
+          <div class="as-category-chips">
+            <button type="button" class="filter-chip active" data-cat="all" onclick="App._filterAssignExercises('all')">
+              <span>🌟</span> All
+            </button>
+            ${categories.map(c => `
+              <button type="button" class="filter-chip" data-cat="${c}" onclick="App._filterAssignExercises('${c}')">
+                <span>${categoryIcons[c] || '🏷️'}</span> ${c}
+              </button>
+            `).join('')}
+          </div>
+
+          <!-- Search and Quick actions row -->
+          <div class="as-search-row">
+            <div class="as-search-input-wrap">
+              <span class="as-search-icon">🔍</span>
+              <input type="text" id="as-exercise-search" placeholder="Search by exercise name, target area, difficulty..." oninput="App._filterAssignExercises()">
+              <span id="as-search-clear" class="as-search-clear" onclick="document.getElementById('as-exercise-search').value='';App._filterAssignExercises();">✕</span>
+            </div>
+            <div class="as-quick-actions">
+              <button type="button" class="as-quick-btn" onclick="App._selectAllFilteredAssignExercises()" title="Select all exercises currently shown">✓ Select Visible</button>
+              <button type="button" class="as-quick-btn" style="color:var(--text-tertiary);background:var(--bg-tertiary);border-color:var(--border-light);" onclick="App._clearAllAssignExercises()" title="Clear exercise selection">✕ Clear</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Exercise list with cards -->
+        <div id="as-exercise-list">
+          ${exercises.map(ex => {
+            const diffClass = (ex.difficulty || 'Easy').toLowerCase();
+            return `
+            <div class="as-exercise-item" id="as-item-${ex.id}" data-category="${ex.category}" data-title="${Utils.escapeHtml(ex.title).toLowerCase()}" onclick="App._toggleAssignExercise('${ex.id}')">
+              <div class="as-checkbox-wrap">
+                <input type="checkbox" value="${ex.id}" id="as-chk-${ex.id}">
+                <div class="as-checkbox-custom" id="as-chkbox-${ex.id}">✓</div>
               </div>
-            </label>
-          `).join('')}
+              <div class="as-exercise-thumb">${ex.thumbnail || '🏋️'}</div>
+              <div class="as-exercise-info">
+                <div class="as-exercise-title" title="${Utils.escapeHtml(ex.title)}">${Utils.escapeHtml(ex.title)}</div>
+                <div class="as-exercise-meta">
+                  <span class="as-badge as-badge-cat">${ex.category}</span>
+                  <span class="as-badge as-badge-diff ${diffClass}">● ${ex.difficulty || 'Easy'}</span>
+                  <span class="as-badge as-badge-dur">⏱️ ${ex.duration || '10 min'}</span>
+                </div>
+              </div>
+            </div>`;
+          }).join('')}
         </div>
       </div>
 
       <!-- Selected exercises config -->
-      <div id="as-selected-config" style="margin-top:var(--space-5);">
-        <label style="font-size:var(--text-sm);font-weight:600;display:block;margin-bottom:var(--space-3);">Configure Selected Exercises <span id="as-selected-count" style="color:var(--text-tertiary);">(0 selected)</span></label>
-        <div id="as-config-list" style="display:flex;flex-direction:column;gap:var(--space-3);"></div>
+      <div id="as-selected-config" class="as-config-section">
+        <div class="as-config-header">
+          <div class="as-config-title">
+            <span>Prescribed Exercises</span>
+            <span id="as-selected-count" class="as-config-count-badge">0 selected</span>
+          </div>
+          <span id="as-est-duration" class="as-config-est-badge" style="display:none;">⏱️ Est. ~0 mins</span>
+        </div>
+        <div id="as-config-list" class="as-config-list">
+          <div class="as-config-empty-card">
+            <span style="font-size:1.6rem;opacity:0.6;">📋</span>
+            <span>Click any exercise from the list above to customize sets, reps, and rest timers.</span>
+          </div>
+        </div>
       </div>
 
       <!-- Notes -->
@@ -1819,40 +2306,134 @@ const App = {
     } else {
       this._assignSessionSelectedExercises.splice(idx, 1);
     }
+    this._syncExerciseCardState(exerciseId);
     this._renderAssignExerciseConfig();
+  },
+
+  /** Sync visual card checkbox & active styling */
+  _syncExerciseCardState(exerciseId) {
+    const isSelected = this._assignSessionSelectedExercises.includes(exerciseId);
+    const itemEl = document.getElementById(`as-item-${exerciseId}`);
+    const chkEl = document.getElementById(`as-chk-${exerciseId}`);
+    if (itemEl) {
+      itemEl.classList.toggle('selected', isSelected);
+    }
+    if (chkEl) {
+      chkEl.checked = isSelected;
+    }
+  },
+
+  /** Select all currently visible/filtered exercises */
+  _selectAllFilteredAssignExercises() {
+    const items = document.querySelectorAll('#as-exercise-list .as-exercise-item');
+    items.forEach(item => {
+      if (item.style.display !== 'none') {
+        const id = item.id.replace('as-item-', '');
+        if (!this._assignSessionSelectedExercises.includes(id)) {
+          this._assignSessionSelectedExercises.push(id);
+        }
+        this._syncExerciseCardState(id);
+      }
+    });
+    this._renderAssignExerciseConfig();
+  },
+
+  /** Clear all selected exercises */
+  _clearAllAssignExercises() {
+    const prev = [...this._assignSessionSelectedExercises];
+    this._assignSessionSelectedExercises = [];
+    prev.forEach(id => this._syncExerciseCardState(id));
+    this._renderAssignExerciseConfig();
+  },
+
+  /** Adjust stepper numeric parameters */
+  _adjustAssignParam(exerciseId, param, delta) {
+    const input = document.getElementById(`as-${param}-${exerciseId}`);
+    if (!input) return;
+    let val = parseInt(input.value) || 0;
+    val += delta;
+    if (param === 'sets') val = Math.max(1, Math.min(20, val));
+    if (param === 'reps') val = Math.max(1, Math.min(100, val));
+    if (param === 'rest') val = Math.max(0, Math.min(300, val));
+    input.value = val;
   },
 
   /** Render config controls for selected exercises */
   _renderAssignExerciseConfig() {
     const configList = document.getElementById('as-config-list');
     const countEl = document.getElementById('as-selected-count');
+    const estDurationEl = document.getElementById('as-est-duration');
+    if (!configList || !countEl) return;
+
     const exercises = DB.getAll('exercises');
     const selected = this._assignSessionSelectedExercises;
 
-    countEl.textContent = `(${selected.length} selected)`;
+    countEl.textContent = `${selected.length} selected`;
 
     if (selected.length === 0) {
-      configList.innerHTML = '<div style="color:var(--text-tertiary);font-size:var(--text-sm);padding:var(--space-3);">Select exercises above to configure sets, reps, and rest time.</div>';
+      if (estDurationEl) estDurationEl.style.display = 'none';
+      configList.innerHTML = `
+        <div class="as-config-empty-card">
+          <span style="font-size:1.6rem;opacity:0.6;">📋</span>
+          <span>Click any exercise from the list above to customize sets, reps, and rest timers.</span>
+        </div>
+      `;
       return;
     }
 
-    configList.innerHTML = selected.map(exId => {
+    // Estimate session workout duration
+    let estMin = selected.length * 5;
+    if (estDurationEl) {
+      estDurationEl.textContent = `⏱️ Est. ~${estMin} mins`;
+      estDurationEl.style.display = 'inline-flex';
+    }
+
+    configList.innerHTML = selected.map((exId, index) => {
       const ex = exercises.find(e => e.id === exId);
       if (!ex) return '';
+      const existingSets = document.getElementById(`as-sets-${exId}`)?.value || 3;
+      const existingReps = document.getElementById(`as-reps-${exId}`)?.value || 10;
+      const existingRest = document.getElementById(`as-rest-${exId}`)?.value || 60;
+
       return `
-        <div style="display:flex;align-items:center;gap:var(--space-3);padding:var(--space-3) var(--space-4);background:var(--bg-tertiary);border-radius:var(--radius-md);flex-wrap:wrap;">
-          <span style="font-size:1.2rem;">${ex.thumbnail}</span>
-          <div style="flex:1;min-width:100px;">
-            <div style="font-weight:600;font-size:var(--text-sm);">${Utils.escapeHtml(ex.title)}</div>
+        <div class="as-config-card" id="as-cfg-${exId}">
+          <div class="as-config-step-badge">${index + 1}</div>
+          <div class="as-config-main">
+            <span style="font-size:1.3rem;">${ex.thumbnail || '🏋️'}</span>
+            <div>
+              <div class="as-config-name">${Utils.escapeHtml(ex.title)}</div>
+              <div style="font-size:11px;color:var(--text-tertiary);">${ex.category} · ${ex.difficulty || 'Easy'}</div>
+            </div>
           </div>
-          <div style="display:flex;gap:var(--space-2);align-items:center;flex-wrap:wrap;">
-            <label style="font-size:var(--text-xs);color:var(--text-tertiary);">Sets</label>
-            <input type="number" id="as-sets-${exId}" value="3" min="1" max="20" style="width:50px;padding:4px 8px;background:var(--bg-secondary);border:1px solid var(--border-light);border-radius:var(--radius-sm);font-size:var(--text-sm);color:var(--text-primary);text-align:center;">
-            <label style="font-size:var(--text-xs);color:var(--text-tertiary);">Reps</label>
-            <input type="number" id="as-reps-${exId}" value="10" min="1" max="100" style="width:50px;padding:4px 8px;background:var(--bg-secondary);border:1px solid var(--border-light);border-radius:var(--radius-sm);font-size:var(--text-sm);color:var(--text-primary);text-align:center;">
-            <label style="font-size:var(--text-xs);color:var(--text-tertiary);">Rest(s)</label>
-            <input type="number" id="as-rest-${exId}" value="60" min="0" max="300" step="15" style="width:60px;padding:4px 8px;background:var(--bg-secondary);border:1px solid var(--border-light);border-radius:var(--radius-sm);font-size:var(--text-sm);color:var(--text-primary);text-align:center;">
-            <button onclick="App._removeAssignExercise('${exId}')" style="color:var(--danger-500);cursor:pointer;font-size:1rem;background:none;border:none;padding:4px;" title="Remove">✕</button>
+          <div class="as-config-steppers">
+            <div class="as-stepper-group">
+              <span class="as-stepper-label">Sets</span>
+              <div class="as-stepper-control">
+                <button type="button" class="as-stepper-btn" onclick="App._adjustAssignParam('${exId}', 'sets', -1)">−</button>
+                <input type="number" id="as-sets-${exId}" class="as-stepper-input" value="${existingSets}" min="1" max="20">
+                <button type="button" class="as-stepper-btn" onclick="App._adjustAssignParam('${exId}', 'sets', 1)">+</button>
+              </div>
+            </div>
+
+            <div class="as-stepper-group">
+              <span class="as-stepper-label">Reps</span>
+              <div class="as-stepper-control">
+                <button type="button" class="as-stepper-btn" onclick="App._adjustAssignParam('${exId}', 'reps', -1)">−</button>
+                <input type="number" id="as-reps-${exId}" class="as-stepper-input" value="${existingReps}" min="1" max="100">
+                <button type="button" class="as-stepper-btn" onclick="App._adjustAssignParam('${exId}', 'reps', 1)">+</button>
+              </div>
+            </div>
+
+            <div class="as-stepper-group">
+              <span class="as-stepper-label">Rest (s)</span>
+              <div class="as-stepper-control">
+                <button type="button" class="as-stepper-btn" onclick="App._adjustAssignParam('${exId}', 'rest', -15)">−</button>
+                <input type="number" id="as-rest-${exId}" class="as-stepper-input" value="${existingRest}" min="0" max="300" step="15">
+                <button type="button" class="as-stepper-btn" onclick="App._adjustAssignParam('${exId}', 'rest', 15)">+</button>
+              </div>
+            </div>
+
+            <button type="button" class="as-config-remove-btn" onclick="App._removeAssignExercise('${exId}')" title="Remove exercise from session">✕</button>
           </div>
         </div>
       `;
@@ -1862,15 +2443,12 @@ const App = {
   /** Remove an exercise from selection */
   _removeAssignExercise(exerciseId) {
     this._assignSessionSelectedExercises = this._assignSessionSelectedExercises.filter(id => id !== exerciseId);
-    // Uncheck the checkbox
-    const checkbox = document.querySelector(`#as-exercise-list input[value="${exerciseId}"]`);
-    if (checkbox) checkbox.checked = false;
+    this._syncExerciseCardState(exerciseId);
     this._renderAssignExerciseConfig();
   },
 
   /** Filter exercises in the assignment modal */
   _filterAssignExercises(category) {
-    // Update chip active state
     if (category) {
       document.querySelectorAll('#generic-modal-body .filter-chip').forEach(chip => {
         chip.classList.toggle('active', chip.dataset.cat === category);
@@ -1878,19 +2456,52 @@ const App = {
     }
 
     const activeCat = document.querySelector('#generic-modal-body .filter-chip.active')?.dataset.cat || 'all';
-    const searchQuery = (document.getElementById('as-exercise-search')?.value || '').toLowerCase();
+    const searchInput = document.getElementById('as-exercise-search');
+    const searchQuery = (searchInput?.value || '').trim().toLowerCase();
+    const clearBtn = document.getElementById('as-search-clear');
+    if (clearBtn) {
+      clearBtn.style.display = searchQuery ? 'inline-block' : 'none';
+    }
 
-    document.querySelectorAll('.as-exercise-item').forEach(item => {
+    let visibleCount = 0;
+    const items = document.querySelectorAll('.as-exercise-item');
+    items.forEach(item => {
       const itemCat = item.dataset.category;
       const text = item.textContent.toLowerCase();
       const matchesCat = activeCat === 'all' || itemCat === activeCat;
       const matchesSearch = !searchQuery || text.includes(searchQuery);
-      item.style.display = (matchesCat && matchesSearch) ? '' : 'none';
+      const isVisible = matchesCat && matchesSearch;
+      item.style.display = isVisible ? 'flex' : 'none';
+      if (isVisible) visibleCount++;
     });
+
+    const countEl = document.getElementById('as-exercise-list-count');
+    if (countEl) {
+      countEl.textContent = `${visibleCount} of ${items.length} exercises`;
+    }
+
+    // Dynamic empty state inside exercise list
+    let emptyEl = document.getElementById('as-exercise-empty-msg');
+    if (visibleCount === 0) {
+      if (!emptyEl) {
+        emptyEl = document.createElement('div');
+        emptyEl.id = 'as-exercise-empty-msg';
+        emptyEl.className = 'as-empty-list';
+        document.getElementById('as-exercise-list').appendChild(emptyEl);
+      }
+      emptyEl.innerHTML = `
+        <span class="icon">🔍</span>
+        <div style="font-weight:600;font-size:var(--text-sm);color:var(--text-primary);">No exercises found</div>
+        <div style="font-size:var(--text-xs);">Try searching for something else or clear the category filter.</div>
+      `;
+      emptyEl.style.display = 'flex';
+    } else if (emptyEl) {
+      emptyEl.style.display = 'none';
+    }
   },
 
   /** Save the assigned session */
-  _saveAssignedSession() {
+  async _saveAssignedSession() {
     const patientId = document.getElementById('as-patient-fixed')?.value || document.getElementById('as-patient').value;
     const date = document.getElementById('as-date').value;
     const duration = document.getElementById('as-duration').value;
@@ -1898,7 +2509,6 @@ const App = {
     const remarks = document.getElementById('as-remarks').value;
     const selected = this._assignSessionSelectedExercises;
 
-    // Validation
     if (!patientId) {
       Toast.warning('Patient Required', 'Please select a patient.');
       return;
@@ -1912,16 +2522,9 @@ const App = {
       return;
     }
 
-    const patient = DB.getById('patients', patientId);
-    if (!patient) {
-      Toast.error('Error', 'Patient not found.');
-      return;
-    }
-
-    // Build exercise list with configured sets/reps/rest
-    const exercises = DB.getAll('exercises');
+    const allExercises = DB.getAll('exercises');
     const sessionExercises = selected.map(exId => {
-      const ex = exercises.find(e => e.id === exId);
+      const ex = allExercises.find(e => e.id === exId);
       return {
         exerciseId: exId,
         title: ex?.title || 'Unknown',
@@ -1934,52 +2537,27 @@ const App = {
       };
     });
 
-    // Determine session number (next in sequence)
-    const existingSessions = DB.query('sessions', s => s.patientId === patientId);
-    const nextNumber = existingSessions.length > 0
-      ? Math.max(...existingSessions.map(s => s.sessionNumber)) + 1
-      : 1;
+    try {
+      await API.post('/sessions', {
+        patientId,
+        date,
+        duration,
+        exercises: sessionExercises,
+        notes,
+        doctorRemarks: remarks
+      });
 
-    // Determine status: if no current session exists, make this one current; otherwise locked
-    const hasCurrentSession = existingSessions.some(s => s.status === 'current');
-    const newStatus = hasCurrentSession ? 'locked' : 'current';
+      Toast.success('Session Assigned', `Session has been assigned.`);
+      this.closeModal();
+      await DB.init();
 
-    const sessionId = 'sess-' + Utils.uid();
-
-    DB.add('sessions', {
-      id: sessionId,
-      patientId: patientId,
-      sessionNumber: nextNumber,
-      date: date,
-      status: newStatus,
-      exercises: sessionExercises,
-      doctorRemarks: remarks,
-      patientFeedback: '',
-      notes: notes || `Session ${nextNumber} assigned by doctor.`,
-      duration: duration
-    });
-
-    // Update patient session count
-    DB.update('patients', patientId, {
-      sessionCount: patient.sessionCount + 1
-    });
-
-    // Add calendar event
-    DB.add('calendarEvents', {
-      date: date,
-      status: 'upcoming',
-      patientName: patient.name,
-      time: '10:00'
-    });
-
-    Toast.success('Session Assigned', `Session ${nextNumber} has been assigned to ${patient.name} with ${sessionExercises.length} exercises.`);
-    this.closeModal();
-
-    // Navigate based on context
-    if (this.selectedPatientId === patientId) {
-      this.navigate('patient-profile');
-    } else {
-      this.navigate('sessions');
+      if (this.selectedPatientId === patientId) {
+        this.navigate('patient-profile');
+      } else {
+        this.navigate('sessions');
+      }
+    } catch (err) {
+      Toast.error('Error', err.message || 'Failed to assign session');
     }
   },
 
@@ -1995,7 +2573,16 @@ const App = {
     const allExercises = DB.getAll('exercises');
     const categories = [...new Set(allExercises.map(e => e.category))];
 
-    // Pre-select the exercises that are already in the session
+    const categoryIcons = {
+      'Neck': '🧘',
+      'Shoulder': '💪',
+      'Back': '🦴',
+      'Knee': '🦵',
+      'Hip': '🌉',
+      'Ankle': '⬆️',
+      'Sports Rehab': '🏃'
+    };
+
     this._assignSessionSelectedExercises = session.exercises.map(e => e.exerciseId);
 
     this.openModal(`Edit Session ${session.sessionNumber} — ${patient?.name || 'Unknown'}`, `
@@ -2017,31 +2604,74 @@ const App = {
 
       <!-- Exercise picker -->
       <div style="margin-top:var(--space-5);">
-        <label style="font-size:var(--text-sm);font-weight:600;display:block;margin-bottom:var(--space-3);">Exercises</label>
-        <div style="display:flex;gap:var(--space-2);flex-wrap:wrap;margin-bottom:var(--space-3);">
-          <button class="filter-chip active" data-cat="all" onclick="App._filterAssignExercises('all')">All</button>
-          ${categories.map(c => `<button class="filter-chip" data-cat="${c}" onclick="App._filterAssignExercises('${c}')">${c}</button>`).join('')}
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:var(--space-2);">
+          <label style="font-size:var(--text-sm);font-weight:700;color:var(--text-primary);">Exercises in Session</label>
+          <div class="as-meta-count-bar">
+            <span id="as-exercise-list-count">${allExercises.length} exercises available</span>
+          </div>
         </div>
-        <div id="as-exercise-list" style="max-height:200px;overflow-y:auto;border:1px solid var(--border-light);border-radius:var(--radius-md);">
+
+        <!-- Filter & Search Toolbar -->
+        <div class="as-filter-toolbar">
+          <div class="as-category-chips">
+            <button type="button" class="filter-chip active" data-cat="all" onclick="App._filterAssignExercises('all')">
+              <span>🌟</span> All
+            </button>
+            ${categories.map(c => `
+              <button type="button" class="filter-chip" data-cat="${c}" onclick="App._filterAssignExercises('${c}')">
+                <span>${categoryIcons[c] || '🏷️'}</span> ${c}
+              </button>
+            `).join('')}
+          </div>
+
+          <div class="as-search-row">
+            <div class="as-search-input-wrap">
+              <span class="as-search-icon">🔍</span>
+              <input type="text" id="as-exercise-search" placeholder="Search exercises…" oninput="App._filterAssignExercises()">
+              <span id="as-search-clear" class="as-search-clear" onclick="document.getElementById('as-exercise-search').value='';App._filterAssignExercises();">✕</span>
+            </div>
+            <div class="as-quick-actions">
+              <button type="button" class="as-quick-btn" onclick="App._selectAllFilteredAssignExercises()">✓ Select Visible</button>
+              <button type="button" class="as-quick-btn" style="color:var(--text-tertiary);background:var(--bg-tertiary);border-color:var(--border-light);" onclick="App._clearAllAssignExercises()">✕ Clear</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Exercise list -->
+        <div id="as-exercise-list">
           ${allExercises.map(ex => {
             const isChecked = this._assignSessionSelectedExercises.includes(ex.id);
+            const diffClass = (ex.difficulty || 'Easy').toLowerCase();
             return `
-            <label class="as-exercise-item" data-category="${ex.category}" style="display:flex;align-items:center;gap:var(--space-3);padding:var(--space-3) var(--space-4);border-bottom:1px solid var(--border-light);cursor:pointer;transition:background 0.15s;">
-              <input type="checkbox" value="${ex.id}" ${isChecked ? 'checked' : ''} onchange="App._toggleAssignExercise('${ex.id}')" style="width:18px;height:18px;accent-color:var(--primary-500);cursor:pointer;flex-shrink:0;">
-              <span style="font-size:1.2rem;">${ex.thumbnail}</span>
-              <div style="flex:1;min-width:0;">
-                <div style="font-weight:600;font-size:var(--text-sm);">${Utils.escapeHtml(ex.title)}</div>
-                <div style="font-size:var(--text-xs);color:var(--text-tertiary);">${ex.category} · ${ex.difficulty} · ${ex.duration}</div>
+            <div class="as-exercise-item ${isChecked ? 'selected' : ''}" id="as-item-${ex.id}" data-category="${ex.category}" data-title="${Utils.escapeHtml(ex.title).toLowerCase()}" onclick="App._toggleAssignExercise('${ex.id}')">
+              <div class="as-checkbox-wrap">
+                <input type="checkbox" value="${ex.id}" id="as-chk-${ex.id}" ${isChecked ? 'checked' : ''}>
+                <div class="as-checkbox-custom" id="as-chkbox-${ex.id}">✓</div>
               </div>
-            </label>`;
+              <div class="as-exercise-thumb">${ex.thumbnail || '🏋️'}</div>
+              <div class="as-exercise-info">
+                <div class="as-exercise-title" title="${Utils.escapeHtml(ex.title)}">${Utils.escapeHtml(ex.title)}</div>
+                <div class="as-exercise-meta">
+                  <span class="as-badge as-badge-cat">${ex.category}</span>
+                  <span class="as-badge as-badge-diff ${diffClass}">● ${ex.difficulty || 'Easy'}</span>
+                  <span class="as-badge as-badge-dur">⏱️ ${ex.duration || '10 min'}</span>
+                </div>
+              </div>
+            </div>`;
           }).join('')}
         </div>
       </div>
 
       <!-- Selected exercises config -->
-      <div id="as-selected-config" style="margin-top:var(--space-5);">
-        <label style="font-size:var(--text-sm);font-weight:600;display:block;margin-bottom:var(--space-3);">Configure Exercises <span id="as-selected-count" style="color:var(--text-tertiary);">(${this._assignSessionSelectedExercises.length} selected)</span></label>
-        <div id="as-config-list" style="display:flex;flex-direction:column;gap:var(--space-3);"></div>
+      <div id="as-selected-config" class="as-config-section">
+        <div class="as-config-header">
+          <div class="as-config-title">
+            <span>Prescribed Exercises</span>
+            <span id="as-selected-count" class="as-config-count-badge">${this._assignSessionSelectedExercises.length} selected</span>
+          </div>
+          <span id="as-est-duration" class="as-config-est-badge">⏱️ Est. ~${this._assignSessionSelectedExercises.length * 5} mins</span>
+        </div>
+        <div id="as-config-list" class="as-config-list"></div>
       </div>
 
       <div class="form-group" style="margin-top:var(--space-5);">
@@ -2057,46 +2687,85 @@ const App = {
       <button class="btn btn-primary" onclick="App._saveEditedSession('${sessionId}')">💾 Save Changes</button>
     `, true);
 
-    // Render config with existing values after modal opens
     requestAnimationFrame(() => {
       this._renderEditExerciseConfig(session);
     });
   },
 
-  /** Render config for edit modal, using existing session values where available */
+  /** Render config for edit modal */
   _renderEditExerciseConfig(session) {
     const configList = document.getElementById('as-config-list');
     const countEl = document.getElementById('as-selected-count');
+    const estDurationEl = document.getElementById('as-est-duration');
+    if (!configList || !countEl) return;
+
     const allExercises = DB.getAll('exercises');
     const selected = this._assignSessionSelectedExercises;
 
-    countEl.textContent = `(${selected.length} selected)`;
+    countEl.textContent = `${selected.length} selected`;
 
     if (selected.length === 0) {
-      configList.innerHTML = '<div style="color:var(--text-tertiary);font-size:var(--text-sm);padding:var(--space-3);">Select exercises above.</div>';
+      if (estDurationEl) estDurationEl.style.display = 'none';
+      configList.innerHTML = `
+        <div class="as-config-empty-card">
+          <span style="font-size:1.6rem;opacity:0.6;">📋</span>
+          <span>Select exercises from the list above.</span>
+        </div>
+      `;
       return;
     }
 
-    configList.innerHTML = selected.map(exId => {
+    if (estDurationEl) {
+      estDurationEl.textContent = `⏱️ Est. ~${selected.length * 5} mins`;
+      estDurationEl.style.display = 'inline-flex';
+    }
+
+    configList.innerHTML = selected.map((exId, index) => {
       const ex = allExercises.find(e => e.id === exId);
-      // Look for existing config in the session
       const existing = session.exercises.find(e => e.exerciseId === exId);
       const sets = existing?.sets || 3;
       const reps = existing?.reps || 10;
       const rest = existing?.restTime || 60;
       if (!ex) return '';
       return `
-        <div style="display:flex;align-items:center;gap:var(--space-3);padding:var(--space-3) var(--space-4);background:var(--bg-tertiary);border-radius:var(--radius-md);flex-wrap:wrap;">
-          <span style="font-size:1.2rem;">${ex.thumbnail}</span>
-          <div style="flex:1;min-width:100px;"><div style="font-weight:600;font-size:var(--text-sm);">${Utils.escapeHtml(ex.title)}</div></div>
-          <div style="display:flex;gap:var(--space-2);align-items:center;flex-wrap:wrap;">
-            <label style="font-size:var(--text-xs);color:var(--text-tertiary);">Sets</label>
-            <input type="number" id="as-sets-${exId}" value="${sets}" min="1" max="20" style="width:50px;padding:4px 8px;background:var(--bg-secondary);border:1px solid var(--border-light);border-radius:var(--radius-sm);font-size:var(--text-sm);color:var(--text-primary);text-align:center;">
-            <label style="font-size:var(--text-xs);color:var(--text-tertiary);">Reps</label>
-            <input type="number" id="as-reps-${exId}" value="${reps}" min="1" max="100" style="width:50px;padding:4px 8px;background:var(--bg-secondary);border:1px solid var(--border-light);border-radius:var(--radius-sm);font-size:var(--text-sm);color:var(--text-primary);text-align:center;">
-            <label style="font-size:var(--text-xs);color:var(--text-tertiary);">Rest(s)</label>
-            <input type="number" id="as-rest-${exId}" value="${rest}" min="0" max="300" step="15" style="width:60px;padding:4px 8px;background:var(--bg-secondary);border:1px solid var(--border-light);border-radius:var(--radius-sm);font-size:var(--text-sm);color:var(--text-primary);text-align:center;">
-            <button onclick="App._removeAssignExercise('${exId}')" style="color:var(--danger-500);cursor:pointer;font-size:1rem;background:none;border:none;padding:4px;" title="Remove">✕</button>
+        <div class="as-config-card" id="as-cfg-${exId}">
+          <div class="as-config-step-badge">${index + 1}</div>
+          <div class="as-config-main">
+            <span style="font-size:1.3rem;">${ex.thumbnail || '🏋️'}</span>
+            <div>
+              <div class="as-config-name">${Utils.escapeHtml(ex.title)}</div>
+              <div style="font-size:11px;color:var(--text-tertiary);">${ex.category} · ${ex.difficulty || 'Easy'}</div>
+            </div>
+          </div>
+          <div class="as-config-steppers">
+            <div class="as-stepper-group">
+              <span class="as-stepper-label">Sets</span>
+              <div class="as-stepper-control">
+                <button type="button" class="as-stepper-btn" onclick="App._adjustAssignParam('${exId}', 'sets', -1)">−</button>
+                <input type="number" id="as-sets-${exId}" class="as-stepper-input" value="${sets}" min="1" max="20">
+                <button type="button" class="as-stepper-btn" onclick="App._adjustAssignParam('${exId}', 'sets', 1)">+</button>
+              </div>
+            </div>
+
+            <div class="as-stepper-group">
+              <span class="as-stepper-label">Reps</span>
+              <div class="as-stepper-control">
+                <button type="button" class="as-stepper-btn" onclick="App._adjustAssignParam('${exId}', 'reps', -1)">−</button>
+                <input type="number" id="as-reps-${exId}" class="as-stepper-input" value="${reps}" min="1" max="100">
+                <button type="button" class="as-stepper-btn" onclick="App._adjustAssignParam('${exId}', 'reps', 1)">+</button>
+              </div>
+            </div>
+
+            <div class="as-stepper-group">
+              <span class="as-stepper-label">Rest (s)</span>
+              <div class="as-stepper-control">
+                <button type="button" class="as-stepper-btn" onclick="App._adjustAssignParam('${exId}', 'rest', -15)">−</button>
+                <input type="number" id="as-rest-${exId}" class="as-stepper-input" value="${rest}" min="0" max="300" step="15">
+                <button type="button" class="as-stepper-btn" onclick="App._adjustAssignParam('${exId}', 'rest', 15)">+</button>
+              </div>
+            </div>
+
+            <button type="button" class="as-config-remove-btn" onclick="App._removeAssignExercise('${exId}')" title="Remove exercise">✕</button>
           </div>
         </div>
       `;
@@ -2104,7 +2773,7 @@ const App = {
   },
 
   /** Save edited session */
-  _saveEditedSession(sessionId) {
+  async _saveEditedSession(sessionId) {
     const session = DB.getById('sessions', sessionId);
     if (!session) return;
 
@@ -2134,17 +2803,22 @@ const App = {
       };
     });
 
-    DB.update('sessions', sessionId, {
-      date: date,
-      duration: duration,
-      exercises: sessionExercises,
-      notes: notes,
-      doctorRemarks: remarks
-    });
+    try {
+      await API.put(`/sessions/${sessionId}`, {
+        date,
+        duration,
+        exercises: sessionExercises,
+        notes,
+        doctorRemarks: remarks
+      });
 
-    Toast.success('Session Updated', `Session ${session.sessionNumber} has been updated.`);
-    this.closeModal();
-    this.navigate('patient-profile');
+      Toast.success('Session Updated', `Session ${session.sessionNumber} has been updated.`);
+      this.closeModal();
+      await DB.init();
+      this.navigate('patient-profile');
+    } catch (err) {
+      Toast.error('Error', err.message || 'Failed to update session');
+    }
   },
 
 
@@ -2390,9 +3064,14 @@ const App = {
     const categories = [...new Set(exercises.map(e => e.category))];
 
     return `
-      <div class="exercise-filters" id="exercise-filters">
-        <button class="filter-chip active" data-category="all" onclick="App._filterExercises('all')">All</button>
-        ${categories.map(cat => `<button class="filter-chip" data-category="${cat}" onclick="App._filterExercises('${cat}')">${cat}</button>`).join('')}
+      <div style="display:flex;justify-space-between;align-items:center;margin-bottom:var(--space-4);flex-wrap:wrap;gap:var(--space-3);">
+        <div class="exercise-filters" id="exercise-filters" style="margin-bottom:0;">
+          <button class="filter-chip active" data-category="all" onclick="App._filterExercises('all')">All</button>
+          ${categories.map(cat => `<button class="filter-chip" data-category="${cat}" onclick="App._filterExercises('${cat}')">${cat}</button>`).join('')}
+        </div>
+        ${this.currentRole === 'doctor' ? `
+          <button class="btn btn-primary btn-sm" onclick="App._showAddExerciseModal()">+ Upload Exercise</button>
+        ` : ''}
       </div>
 
       <div class="exercise-grid" id="exercise-grid">
@@ -2401,13 +3080,194 @@ const App = {
     `;
   },
 
+  _showAddExerciseModal(preselectedVideoFile = null) {
+    this.openModal('Upload New Exercise to Database', `
+      <div class="form-grid">
+        <div class="form-group full-width">
+          <label>Exercise Title *</label>
+          <input type="text" id="ex-title" class="form-input" placeholder="e.g. Quad Sets / Rotator Cuff Stretch" required style="padding-left:16px">
+        </div>
+        <div class="form-group">
+          <label>Category *</label>
+          <select id="ex-category" class="form-select">
+            <option value="Knee">Knee</option>
+            <option value="Back">Back</option>
+            <option value="Shoulder">Shoulder</option>
+            <option value="Neck">Neck</option>
+            <option value="Hip">Hip</option>
+            <option value="Ankle">Ankle</option>
+            <option value="Sports Rehab" selected>Sports Rehab</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Difficulty</label>
+          <select id="ex-difficulty" class="form-select">
+            <option value="Easy">Easy</option>
+            <option value="Medium" selected>Medium</option>
+            <option value="Hard">Hard</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Duration</label>
+          <input type="text" id="ex-duration" class="form-input" value="10 min" placeholder="e.g. 10 min" style="padding-left:16px">
+        </div>
+        <div class="form-group">
+          <label>Icon / Emoji Thumbnail</label>
+          <input type="text" id="ex-thumbnail" class="form-input" value="🏋️" placeholder="🏋️" style="padding-left:16px">
+        </div>
+
+        <!-- Video Upload Section -->
+        <div class="form-group full-width" style="border: 1px dashed var(--border-medium); padding: var(--space-4); border-radius: var(--radius-lg); background: var(--bg-tertiary);">
+          <label style="display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--space-2);">
+            <span>📹 Exercise Video (Upload File or URL)</span>
+            <span style="font-size: var(--text-xs); color: var(--text-tertiary);">MP4, MOV, WEBM (Max 500MB)</span>
+          </label>
+          
+          <div style="display: flex; gap: var(--space-3); flex-wrap: wrap; align-items: center; margin-bottom: var(--space-3);">
+            <label class="btn btn-secondary btn-sm" style="cursor: pointer; margin: 0;">
+              📁 Choose Video File
+              <input type="file" id="ex-video-file" accept="video/mp4,video/webm,video/quicktime,video/avi" style="display: none;" onchange="App._onExerciseVideoSelected(this)">
+            </label>
+            <span id="ex-video-filename" style="font-size: var(--text-xs); color: var(--text-secondary); font-style: italic;">No file chosen</span>
+            <button type="button" id="ex-video-clear" onclick="App._clearExerciseVideoFile()" class="btn-ghost btn-sm hidden" style="color: var(--danger-500); padding: 2px 8px; font-size: 11px;">✕ Remove</button>
+          </div>
+
+          <div style="position: relative;">
+            <input type="url" id="ex-video-url" class="form-input" placeholder="Or paste Video URL / YouTube Link (https://...)" style="padding-left: 16px; font-size: var(--text-xs);">
+          </div>
+        </div>
+
+        <!-- PDF Handout Section -->
+        <div class="form-group full-width">
+          <label style="display: flex; justify-content: space-between; align-items: center;">
+            <span>📄 PDF Guide / Handout (Optional)</span>
+            <span style="font-size: var(--text-xs); color: var(--text-tertiary);">PDF (Max 50MB)</span>
+          </label>
+          <div style="display: flex; gap: var(--space-3); align-items: center;">
+            <label class="btn btn-secondary btn-sm" style="cursor: pointer; margin: 0;">
+              📎 Attach PDF
+              <input type="file" id="ex-pdf-file" accept="application/pdf" style="display: none;" onchange="document.getElementById('ex-pdf-filename').textContent = this.files[0]?.name || 'No file chosen'">
+            </label>
+            <span id="ex-pdf-filename" style="font-size: var(--text-xs); color: var(--text-secondary); font-style: italic;">No PDF attached</span>
+          </div>
+        </div>
+
+        <div class="form-group full-width">
+          <label>Instructions / Description</label>
+          <textarea id="ex-description" class="textarea-field" rows="3" placeholder="Step-by-step instructions for the exercise…"></textarea>
+        </div>
+      </div>
+    `, `
+      <button class="btn btn-secondary" onclick="App.closeModal()">Cancel</button>
+      <button class="btn btn-primary" id="save-exercise-btn" onclick="App._saveNewExercise()">💾 Save to Database</button>
+    `);
+
+    if (preselectedVideoFile) {
+      const input = document.getElementById('ex-video-file');
+      if (input) {
+        const dt = new DataTransfer();
+        dt.items.add(preselectedVideoFile);
+        input.files = dt.files;
+        this._onExerciseVideoSelected(input);
+      }
+    }
+  },
+
+  _onExerciseVideoSelected(input) {
+    const file = input.files?.[0];
+    const nameEl = document.getElementById('ex-video-filename');
+    const clearBtn = document.getElementById('ex-video-clear');
+    if (file) {
+      nameEl.textContent = `🎬 ${file.name} (${(file.size / (1024 * 1024)).toFixed(1)} MB)`;
+      nameEl.style.fontWeight = '600';
+      nameEl.style.color = 'var(--primary-600)';
+      clearBtn?.classList.remove('hidden');
+    } else {
+      nameEl.textContent = 'No file chosen';
+      nameEl.style.fontWeight = 'normal';
+      nameEl.style.color = 'var(--text-secondary)';
+      clearBtn?.classList.add('hidden');
+    }
+  },
+
+  _clearExerciseVideoFile() {
+    const input = document.getElementById('ex-video-file');
+    if (input) input.value = '';
+    this._onExerciseVideoSelected(input);
+  },
+
+  async _saveNewExercise() {
+    const title = document.getElementById('ex-title')?.value.trim();
+    const category = document.getElementById('ex-category')?.value;
+    const difficulty = document.getElementById('ex-difficulty')?.value;
+    const duration = document.getElementById('ex-duration')?.value;
+    const thumbnail = document.getElementById('ex-thumbnail')?.value || '🏋️';
+    const description = document.getElementById('ex-description')?.value;
+    const videoUrl = document.getElementById('ex-video-url')?.value.trim();
+    const videoFile = document.getElementById('ex-video-file')?.files?.[0];
+    const pdfFile = document.getElementById('ex-pdf-file')?.files?.[0];
+
+    if (!title) {
+      Toast.warning('Title Required', 'Please enter an exercise title.');
+      return;
+    }
+
+    const saveBtn = document.getElementById('save-exercise-btn');
+    if (saveBtn) {
+      saveBtn.disabled = true;
+      saveBtn.textContent = 'Uploading & Saving…';
+    }
+
+    try {
+      if (videoFile || pdfFile) {
+        // Use FormData multipart upload
+        const formData = new FormData();
+        formData.append('title', title);
+        formData.append('category', category);
+        formData.append('difficulty', difficulty);
+        formData.append('duration', duration);
+        formData.append('thumbnail', thumbnail);
+        formData.append('description', description || '');
+        if (videoUrl) formData.append('videoUrl', videoUrl);
+        if (videoFile) formData.append('video', videoFile);
+        if (pdfFile) formData.append('pdf', pdfFile);
+
+        await API.upload('/exercises', formData);
+      } else {
+        // Plain JSON save
+        await API.post('/exercises', {
+          title,
+          category,
+          difficulty,
+          duration,
+          thumbnail,
+          description,
+          videoUrl: videoUrl || ''
+        });
+      }
+
+      Toast.success('Exercise Saved', `${title} with media has been added to Cloud Firestore.`);
+      this.closeModal();
+      await DB.init();
+      this._renderCurrentPage();
+    } catch (err) {
+      Toast.error('Error', err.message || 'Failed to save exercise');
+      if (saveBtn) {
+        saveBtn.disabled = false;
+        saveBtn.textContent = '💾 Save to Database';
+      }
+    }
+  },
+
   _exerciseCardHtml(ex) {
     const diffClass = ex.difficulty === 'Easy' ? 'difficulty-easy' : ex.difficulty === 'Medium' ? 'difficulty-medium' : 'difficulty-hard';
+    const hasVideo = !!ex.video;
     return `
       <div class="exercise-card" data-category="${ex.category}">
-        <div class="exercise-thumb">
+        <div class="exercise-thumb" onclick="App._showExerciseDetail('${ex.id}')" style="cursor: pointer;">
           <span>${ex.thumbnail}</span>
-          <div class="play-btn" onclick="App._showExerciseDetail('${ex.id}')">▶</div>
+          <div class="play-btn">▶</div>
+          ${hasVideo ? `<span style="position: absolute; top: 8px; right: 8px; background: rgba(0,0,0,0.6); color: #fff; font-size: 10px; padding: 2px 6px; border-radius: 4px; font-weight: 600;">📹 Video</span>` : ''}
         </div>
         <div class="exercise-card-body">
           <h4>${Utils.escapeHtml(ex.title)}</h4>
@@ -2440,24 +3300,121 @@ const App = {
     const ex = DB.getById('exercises', exerciseId);
     if (!ex) return;
 
-    this.openModal(ex.title, `
-      <div style="text-align:center;margin-bottom:var(--space-5);">
-        <div class="video-player-wrapper" style="max-width:400px;margin:0 auto;background:linear-gradient(135deg,var(--primary-100),var(--accent-100));">
-          <div class="video-placeholder">
-            <div style="font-size:4rem;">${ex.thumbnail}</div>
-            <div class="play-icon">▶</div>
-            <p style="font-size:var(--text-sm);">Exercise Video Preview</p>
+    let videoContentHtml = '';
+    const videoSrc = ex.video || '';
+
+    if (videoSrc.includes('youtube.com') || videoSrc.includes('youtu.be')) {
+      // YouTube embed
+      let embedUrl = videoSrc;
+      if (videoSrc.includes('watch?v=')) {
+        embedUrl = videoSrc.replace('watch?v=', 'embed/');
+      } else if (videoSrc.includes('youtu.be/')) {
+        const id = videoSrc.split('youtu.be/')[1]?.split('?')[0];
+        embedUrl = `https://www.youtube.com/embed/${id}`;
+      }
+      videoContentHtml = `
+        <div class="video-player-wrapper iframe-mode" style="margin-bottom:var(--space-4);">
+          <iframe src="${embedUrl}" style="width:100%;height:100%;border:0;" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+      `;
+    } else if (videoSrc) {
+      // Direct video file or uploaded video (Auto-sizes to vertical/portrait or landscape without forced letterboxing)
+      videoContentHtml = `
+        <div class="video-player-wrapper" style="margin-bottom:var(--space-4);text-align:center;">
+          <video controls playsinline preload="metadata" src="${videoSrc}">
+            Your browser does not support HTML5 video.
+          </video>
+        </div>
+      `;
+    } else {
+      // Placeholder
+      videoContentHtml = `
+        <div style="text-align:center;margin-bottom:var(--space-5);">
+          <div class="video-player-wrapper placeholder-mode" style="max-width:400px;margin:0 auto;">
+            <div class="video-placeholder">
+              <div style="font-size:4rem;">${ex.thumbnail}</div>
+              <div class="play-icon">▶</div>
+              <p style="font-size:var(--text-sm);">No video uploaded for this exercise</p>
+            </div>
           </div>
         </div>
-      </div>
+      `;
+    }
+
+    const pdfButtonHtml = ex.pdf ? `
+      <a href="${ex.pdf}" target="_blank" class="btn btn-secondary" style="text-decoration:none;">📄 View Exercise PDF Guide</a>
+    ` : `
+      <button class="btn btn-secondary" onclick="Toast.info('PDF Downloaded','Exercise summary generated.');">📄 Download Summary</button>
+    `;
+
+    const isDoctor = this.currentRole === 'doctor';
+    const doctorActionsHtml = isDoctor ? `
+      ${ex.video ? `<button class="btn btn-danger btn-sm" onclick="App._deleteExerciseVideo('${ex.id}')">🗑️ Delete Video</button>` : ''}
+      <button class="btn btn-danger btn-sm" onclick="App._deleteExercise('${ex.id}')">🗑️ Delete Exercise</button>
+    ` : '';
+
+    this.openModal(ex.title, `
+      ${videoContentHtml}
       <div class="report-row"><span class="report-label">Category</span><span class="report-value">${ex.category}</span></div>
       <div class="report-row"><span class="report-label">Difficulty</span><span class="report-value">${ex.difficulty}</span></div>
       <div class="report-row"><span class="report-label">Duration</span><span class="report-value">${ex.duration}</span></div>
-      <div class="report-row"><span class="report-label">Instructions</span><span class="report-value">${Utils.escapeHtml(ex.description)}</span></div>
+      <div class="report-row"><span class="report-label">Instructions</span><span class="report-value">${Utils.escapeHtml(ex.description || 'No specific instructions provided.')}</span></div>
     `, `
-      <button class="btn btn-secondary" onclick="App.closeModal()">Close</button>
-      <button class="btn btn-primary" onclick="Toast.info('PDF Downloaded','Exercise PDF has been generated.');App.closeModal();">📄 Download PDF</button>
+      <div style="display:flex;gap:var(--space-2);width:100%;justify-content:space-between;align-items:center;flex-wrap:wrap;">
+        <div style="display:flex;gap:var(--space-2);">
+          ${doctorActionsHtml}
+        </div>
+        <div style="display:flex;gap:var(--space-2);">
+          <button class="btn btn-secondary" onclick="App.closeModal()">Close</button>
+          ${pdfButtonHtml}
+        </div>
+      </div>
     `);
+  },
+
+  async _deleteExerciseVideo(exerciseId) {
+    const confirmed = await this.confirm({
+      title: 'Delete Video?',
+      message: 'Are you sure you want to remove the video from this exercise? The exercise will remain in your library.',
+      confirmText: 'Delete Video',
+      cancelText: 'Cancel',
+      type: 'danger',
+      icon: '🎬'
+    });
+    if (!confirmed) return;
+
+    try {
+      await API.delete(`/exercises/${exerciseId}/video`);
+      Toast.success('Video Deleted', 'The video has been removed from this exercise.');
+      this.closeModal();
+      await DB.init();
+      this._renderCurrentPage();
+    } catch (err) {
+      Toast.error('Error', err.message || 'Failed to delete video');
+    }
+  },
+
+  async _deleteExercise(exerciseId) {
+    const ex = DB.getById('exercises', exerciseId);
+    const confirmed = await this.confirm({
+      title: 'Delete Exercise?',
+      message: `Are you sure you want to permanently delete <strong>"${Utils.escapeHtml(ex?.title || 'this exercise')}"</strong> from Cloud Firestore?`,
+      confirmText: 'Delete Exercise',
+      cancelText: 'Cancel',
+      type: 'danger',
+      icon: '🗑️'
+    });
+    if (!confirmed) return;
+
+    try {
+      await API.delete(`/exercises/${exerciseId}`);
+      Toast.success('Exercise Deleted', 'The exercise has been removed from Cloud Firestore.');
+      this.closeModal();
+      await DB.init();
+      this._renderCurrentPage();
+    } catch (err) {
+      Toast.error('Error', err.message || 'Failed to delete exercise');
+    }
   },
 
 
@@ -2465,44 +3422,45 @@ const App = {
      VIDEO MANAGEMENT
      ============================================ */
   _renderVideos() {
+    const exercises = DB.getAll('exercises');
+    const videoExercises = exercises.filter(e => !!e.video);
+
     return `
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-6);">
         <div class="content-card" style="grid-column:${window.innerWidth < 768 ? '1/-1' : 'auto'};">
           <div class="card-header"><h3>Upload Exercise Video</h3></div>
           <div class="card-body">
+            <input type="file" id="video-mgmt-file-input" accept="video/*" style="display:none;" onchange="if(this.files[0]) App._showAddExerciseModal(this.files[0])">
             <div class="upload-area" id="upload-area-video"
               ondragover="event.preventDefault();this.classList.add('dragover')"
               ondragleave="this.classList.remove('dragover')"
-              ondrop="event.preventDefault();this.classList.remove('dragover');App._simulateUpload('video')"
-              onclick="App._simulateUpload('video')">
+              ondrop="event.preventDefault();this.classList.remove('dragover');if(event.dataTransfer.files[0]) App._showAddExerciseModal(event.dataTransfer.files[0]);"
+              onclick="document.getElementById('video-mgmt-file-input').click();">
               <div class="upload-icon">🎬</div>
-              <p>Drag & drop video files here or click to browse</p>
-              <p class="upload-hint">MP4, MOV, AVI — Max 500MB</p>
+              <p><strong>Click to browse</strong> or drag & drop video files here</p>
+              <p class="upload-hint">MP4, MOV, WEBM, AVI — Max 500MB</p>
             </div>
-            <div id="upload-progress-video" class="upload-progress hidden">
-              <div style="display:flex;justify-content:space-between;margin-bottom:var(--space-2);">
-                <span style="font-size:var(--text-sm);font-weight:600;">Uploading…</span>
-                <span style="font-size:var(--text-sm);color:var(--text-tertiary);" id="upload-pct-video">0%</span>
-              </div>
-              <div class="progress-bar-track">
-                <div class="progress-bar-fill" id="upload-bar-video" style="width:0%"></div>
-              </div>
+            <div style="margin-top:var(--space-4);text-align:center;">
+              <button class="btn btn-primary btn-sm" onclick="App._showAddExerciseModal()">+ Create Exercise with Video</button>
             </div>
           </div>
         </div>
 
         <div class="content-card" style="grid-column:${window.innerWidth < 768 ? '1/-1' : 'auto'};">
-          <div class="card-header"><h3>Video Library</h3></div>
+          <div class="card-header">
+            <h3>Video Library (${exercises.length} total, ${videoExercises.length} with video)</h3>
+          </div>
           <div class="card-body">
-            <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:var(--space-3);">
-              ${DB.getAll('exercises').slice(0, 8).map(ex => `
-                <div style="background:var(--bg-tertiary);border-radius:var(--radius-md);overflow:hidden;cursor:pointer;" onclick="App._showExerciseDetail('${ex.id}')">
-                  <div style="height:80px;background:linear-gradient(135deg,var(--primary-100),var(--accent-100));display:flex;align-items:center;justify-content:center;font-size:1.75rem;">
+            <div style="display:grid;grid-template-columns:repeat(auto-fill, minmax(130px, 1fr));gap:var(--space-3);max-height:360px;overflow-y:auto;">
+              ${exercises.map(ex => `
+                <div style="background:var(--bg-tertiary);border-radius:var(--radius-md);overflow:hidden;cursor:pointer;border:1px solid var(--border-light);position:relative;" onclick="App._showExerciseDetail('${ex.id}')">
+                  <div style="height:80px;background:linear-gradient(135deg,var(--primary-100),var(--accent-100));display:flex;align-items:center;justify-content:center;font-size:1.75rem;position:relative;">
                     ${ex.thumbnail}
+                    ${ex.video ? '<span style="position:absolute;bottom:4px;right:4px;background:rgba(0,0,0,0.7);color:#fff;font-size:9px;padding:1px 5px;border-radius:3px;">▶ Video</span>' : ''}
                   </div>
                   <div style="padding:var(--space-2) var(--space-3);">
                     <div style="font-size:var(--text-xs);font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${Utils.escapeHtml(ex.title)}</div>
-                    <div style="font-size:var(--text-xs);color:var(--text-tertiary);">${ex.duration}</div>
+                    <div style="font-size:10px;color:var(--text-tertiary);">${ex.category} · ${ex.duration}</div>
                   </div>
                 </div>
               `).join('')}
@@ -2772,11 +3730,27 @@ const App = {
               <h4>Reset All Data</h4>
               <p>Reset application to demo data (irreversible)</p>
             </div>
-            <button class="btn btn-danger btn-sm" onclick="if(confirm('Reset all data to defaults?')){DB.reset();Toast.success('Data Reset','All data has been reset.');App.logout();}">Reset</button>
+            <button class="btn btn-danger btn-sm" onclick="App._handleResetData()">Reset</button>
           </div>
         </div>
       </div>
     `;
+  },
+
+  async _handleResetData() {
+    const confirmed = await this.confirm({
+      title: 'Reset All Data?',
+      message: 'Are you sure you want to reset all data back to factory defaults? All unsaved modifications will be lost.',
+      confirmText: 'Reset Data',
+      cancelText: 'Cancel',
+      type: 'danger',
+      icon: '⚠️'
+    });
+    if (!confirmed) return;
+
+    DB.reset();
+    Toast.success('Data Reset', 'All data has been reset.');
+    this.logout();
   },
 
   _showChangePasswordModal() {
@@ -2909,12 +3883,25 @@ const App = {
   /* ============================================
      PATIENT SESSIONS VIEW
      ============================================ */
+  _patientSessionMedia: {},       // Cache: { sessionId: { exerciseId: [media...] } }
+  _patientExpandedExercise: null, // "sessionId__exerciseId" currently expanded
+
   _renderPatientSessions() {
     const sessions = DB.query('sessions', s => s.patientId === this.currentUser.id);
 
+    // Load media for current sessions in the background
+    sessions.filter(s => s.status !== 'locked').forEach(s => {
+      if (!this._patientSessionMedia[s.id]) {
+        this._loadSessionMedia(s.id);
+      }
+    });
+
     return `
       <div class="session-timeline">
-        ${sessions.map(s => `
+        ${sessions.map(s => {
+          const mediaMap = this._patientSessionMedia[s.id] || {};
+
+          return `
           <div class="session-item ${s.status}">
             <div class="session-lock-overlay">🔒 Locked</div>
             <div class="session-header">
@@ -2925,40 +3912,289 @@ const App = {
               </div>
             </div>
             <p style="font-size:var(--text-sm);color:var(--text-secondary);margin-bottom:var(--space-3);">${s.duration}</p>
-            <div class="session-exercises">
-              ${s.exercises.map(ex => `
-                <div class="exercise-row">
-                  <span class="exercise-icon">${ex.completed ? '✅' : '⬜'}</span>
-                  <div class="exercise-details">
-                    <div style="font-weight:500;">${Utils.escapeHtml(ex.title)}</div>
+
+            <div class="session-exercises" style="display:flex;flex-direction:column;gap:var(--space-2);">
+              ${s.exercises.map((ex, idx) => {
+                const exKey = `${s.id}__${ex.exerciseId}`;
+                const isExpanded = this._patientExpandedExercise === exKey;
+                const exerciseMedia = mediaMap[ex.exerciseId] || [];
+                const exerciseDb = DB.getById('exercises', ex.exerciseId);
+
+                return `
+                <!-- Exercise Card (Clickable) -->
+                <div class="pex-card ${isExpanded ? 'expanded' : ''}" id="pex-${exKey.replace('__', '-')}">
+                  <!-- Summary Row — always visible, clickable -->
+                  <div class="pex-summary" onclick="App._togglePatientExercise('${s.id}', '${ex.exerciseId}')">
+                    <div class="pex-left">
+                      <span class="pex-check">${ex.completed ? '✅' : '⬜'}</span>
+                      <div class="pex-thumb-icon">${exerciseDb?.thumbnail || '🏋️'}</div>
+                      <div class="pex-title-group">
+                        <div class="pex-title">${Utils.escapeHtml(ex.title)}</div>
+                        <div class="pex-tags">
+                          <span class="pex-tag">${ex.sets} sets</span>
+                          <span class="pex-tag">${ex.reps} reps</span>
+                          <span class="pex-tag">⏱ ${ex.duration || '10 min'}</span>
+                          ${exerciseMedia.length > 0 ? `<span class="pex-tag pex-tag-media">📹 ${exerciseMedia.length} upload${exerciseMedia.length > 1 ? 's' : ''}</span>` : ''}
+                        </div>
+                      </div>
+                    </div>
+                    <div class="pex-chevron">${isExpanded ? '▲' : '▼'}</div>
                   </div>
-                  <span class="exercise-sets">${ex.sets}×${ex.reps} · ${ex.duration}</span>
-                </div>
-              `).join('')}
+
+                  ${isExpanded ? `
+                  <!-- Expanded Detail Panel -->
+                  <div class="pex-detail">
+                    <!-- Workout Stats Grid -->
+                    <div class="pex-stats-grid">
+                      <div class="pex-stat">
+                        <div class="pex-stat-value">${ex.sets}</div>
+                        <div class="pex-stat-label">Sets</div>
+                      </div>
+                      <div class="pex-stat">
+                        <div class="pex-stat-value">${ex.reps}</div>
+                        <div class="pex-stat-label">Reps</div>
+                      </div>
+                      <div class="pex-stat">
+                        <div class="pex-stat-value">${ex.restTime || 60}s</div>
+                        <div class="pex-stat-label">Rest</div>
+                      </div>
+                      <div class="pex-stat">
+                        <div class="pex-stat-value">${ex.duration || '10 min'}</div>
+                        <div class="pex-stat-label">Duration</div>
+                      </div>
+                    </div>
+
+                    ${ex.instructions ? `
+                    <div class="pex-instructions">
+                      <strong>Instructions:</strong> ${Utils.escapeHtml(ex.instructions)}
+                    </div>` : ''}
+
+                    <!-- Uploaded Media Gallery -->
+                    ${exerciseMedia.length > 0 ? `
+                    <div class="pex-media-section">
+                      <div class="pex-media-header">
+                        <span class="pex-media-title">📁 Your Uploads (${exerciseMedia.length})</span>
+                      </div>
+                      <div class="pex-media-grid">
+                        ${exerciseMedia.map(m => `
+                          <div class="pex-media-card" id="pex-media-${m.id}">
+                            ${m.type === 'video' ? `
+                              <div class="pex-media-thumb pex-media-video" onclick="App._playPatientMedia('${m.path}', '${m.type}')">
+                                <span class="pex-play-icon">▶</span>
+                                <span class="pex-media-type-badge">🎬 Video</span>
+                              </div>
+                            ` : `
+                              <div class="pex-media-thumb" onclick="App._playPatientMedia('${m.path}', '${m.type}')" style="background-image:url('${m.path}');background-size:cover;background-position:center;">
+                                <span class="pex-media-type-badge">📷 Photo</span>
+                              </div>
+                            `}
+                            <div class="pex-media-info">
+                              <div class="pex-media-name" title="${Utils.escapeHtml(m.filename)}">${Utils.escapeHtml(m.filename)}</div>
+                              <div class="pex-media-meta">
+                                <span>${Utils.formatDate(m.uploadedAt)}</span>
+                                <span>${(m.size / (1024 * 1024)).toFixed(1)} MB</span>
+                              </div>
+                              ${m.note ? `<div class="pex-media-note">${Utils.escapeHtml(m.note)}</div>` : ''}
+                            </div>
+                            <button class="pex-media-delete" onclick="App._deletePatientMedia('${s.id}', '${m.id}', '${ex.exerciseId}')" title="Delete upload">🗑️</button>
+                          </div>
+                        `).join('')}
+                      </div>
+                    </div>
+                    ` : ''}
+
+                    <!-- Upload Area (for current sessions only) -->
+                    ${s.status === 'current' ? `
+                    <div class="pex-upload-section">
+                      <div class="pex-upload-header">
+                        <span>📤 Upload Workout Video / Photo</span>
+                      </div>
+
+                      <!-- Upload dropzone -->
+                      <div class="pex-upload-dropzone" id="pex-dropzone-${s.id}-${ex.exerciseId}"
+                        onclick="document.getElementById('pex-file-${s.id}-${ex.exerciseId}').click()"
+                        ondragover="event.preventDefault();this.classList.add('dragover')"
+                        ondragleave="this.classList.remove('dragover')"
+                        ondrop="event.preventDefault();this.classList.remove('dragover');App._handlePatientFileDrop(event, '${s.id}', '${ex.exerciseId}')">
+                        <div class="pex-upload-icon">🎬</div>
+                        <div class="pex-upload-text">Drop your workout video here or <span class="pex-upload-link">click to browse</span></div>
+                        <div class="pex-upload-hint">MP4, MOV, WEBM, AVI, JPG, PNG — Max 500 MB</div>
+                        <input type="file" id="pex-file-${s.id}-${ex.exerciseId}" accept="video/*,image/*" multiple style="display:none;" onchange="App._handlePatientFileSelect(event, '${s.id}', '${ex.exerciseId}')">
+                      </div>
+
+                      <!-- Optional Note -->
+                      <div class="pex-upload-note-row" id="pex-note-row-${s.id}-${ex.exerciseId}" style="display:none;">
+                        <input type="text" class="pex-upload-note-input" id="pex-note-${s.id}-${ex.exerciseId}" placeholder="Add a note about this workout (optional)…">
+                      </div>
+
+                      <!-- Upload Progress -->
+                      <div class="pex-upload-progress" id="pex-progress-${s.id}-${ex.exerciseId}" style="display:none;">
+                        <div class="pex-progress-info">
+                          <span class="pex-progress-filename" id="pex-progress-name-${s.id}-${ex.exerciseId}"></span>
+                          <span class="pex-progress-pct" id="pex-progress-pct-${s.id}-${ex.exerciseId}">0%</span>
+                        </div>
+                        <div class="pex-progress-track">
+                          <div class="pex-progress-bar" id="pex-progress-bar-${s.id}-${ex.exerciseId}" style="width:0%"></div>
+                        </div>
+                      </div>
+                    </div>
+                    ` : `
+                    <div style="font-size:var(--text-xs);color:var(--text-tertiary);padding:var(--space-3) 0;">
+                      ${s.status === 'completed' ? '✅ Session completed — uploads are view-only.' : '🔒 Session locked — uploads available when unlocked.'}
+                    </div>
+                    `}
+                  </div>
+                  ` : ''}
+                </div>`;
+              }).join('')}
             </div>
+
             ${s.doctorRemarks ? `<div style="margin-top:var(--space-3);padding:var(--space-3);background:var(--bg-tertiary);border-radius:var(--radius-md);font-size:var(--text-sm);"><strong>Doctor:</strong> ${Utils.escapeHtml(s.doctorRemarks)}</div>` : ''}
             ${s.patientFeedback ? `<div style="margin-top:var(--space-2);padding:var(--space-3);background:var(--bg-tertiary);border-radius:var(--radius-md);font-size:var(--text-sm);"><strong>Your feedback:</strong> ${Utils.escapeHtml(s.patientFeedback)}</div>` : ''}
-
-            ${s.status === 'current' ? `
-              <div style="margin-top:var(--space-4);padding-top:var(--space-3);border-top:1px solid var(--border-light);">
-                <div class="upload-area" style="padding:var(--space-4);"
-                  onclick="App._simulatePatientUpload()"
-                  ondragover="event.preventDefault();this.classList.add('dragover')"
-                  ondragleave="this.classList.remove('dragover')"
-                  ondrop="event.preventDefault();this.classList.remove('dragover');App._simulatePatientUpload()">
-                  <p style="font-size:var(--text-sm);">📎 Upload your workout video or photo</p>
-                </div>
-              </div>
-            ` : ''}
-          </div>
-        `).join('')}
+          </div>`;
+        }).join('')}
       </div>
     `;
   },
 
-  _simulatePatientUpload() {
-    Toast.success('Upload Started', 'Your video is being uploaded…');
-    setTimeout(() => Toast.success('Upload Complete', 'Video uploaded successfully! Your doctor will review it.'), 2000);
+  /** Load media for a session from the server */
+  async _loadSessionMedia(sessionId) {
+    try {
+      const data = await API.get(`/sessions/${sessionId}/media`);
+      this._patientSessionMedia[sessionId] = data.grouped || {};
+    } catch {
+      this._patientSessionMedia[sessionId] = {};
+    }
+  },
+
+  /** Toggle exercise expansion */
+  _togglePatientExercise(sessionId, exerciseId) {
+    const key = `${sessionId}__${exerciseId}`;
+    if (this._patientExpandedExercise === key) {
+      this._patientExpandedExercise = null;
+    } else {
+      this._patientExpandedExercise = key;
+    }
+    this._renderCurrentPage();
+  },
+
+  /** Handle file select from input */
+  _handlePatientFileSelect(event, sessionId, exerciseId) {
+    const files = event.target.files;
+    if (files && files.length > 0) {
+      for (const file of files) {
+        this._uploadPatientMedia(sessionId, exerciseId, file);
+      }
+    }
+  },
+
+  /** Handle drag-and-drop */
+  _handlePatientFileDrop(event, sessionId, exerciseId) {
+    const files = event.dataTransfer.files;
+    if (files && files.length > 0) {
+      for (const file of files) {
+        this._uploadPatientMedia(sessionId, exerciseId, file);
+      }
+    }
+  },
+
+  /** Upload a single file for an exercise */
+  async _uploadPatientMedia(sessionId, exerciseId, file) {
+    const progressEl = document.getElementById(`pex-progress-${sessionId}-${exerciseId}`);
+    const barEl = document.getElementById(`pex-progress-bar-${sessionId}-${exerciseId}`);
+    const pctEl = document.getElementById(`pex-progress-pct-${sessionId}-${exerciseId}`);
+    const nameEl = document.getElementById(`pex-progress-name-${sessionId}-${exerciseId}`);
+    const noteRow = document.getElementById(`pex-note-row-${sessionId}-${exerciseId}`);
+    const noteInput = document.getElementById(`pex-note-${sessionId}-${exerciseId}`);
+
+    if (nameEl) nameEl.textContent = file.name;
+    if (progressEl) progressEl.style.display = 'block';
+    if (noteRow) noteRow.style.display = 'flex';
+
+    Toast.info('Upload Started', `Uploading ${file.name}…`);
+
+    // Build FormData
+    const formData = new FormData();
+    formData.append('media', file);
+    formData.append('note', noteInput?.value || '');
+
+    // Use XMLHttpRequest for progress tracking
+    const xhr = new XMLHttpRequest();
+    const url = `${API._baseUrl}/sessions/${sessionId}/exercises/${exerciseId}/upload`;
+
+    xhr.upload.addEventListener('progress', (e) => {
+      if (e.lengthComputable) {
+        const pct = Math.round((e.loaded / e.total) * 100);
+        if (barEl) barEl.style.width = `${pct}%`;
+        if (pctEl) pctEl.textContent = `${pct}%`;
+      }
+    });
+
+    xhr.addEventListener('load', async () => {
+      if (xhr.status >= 200 && xhr.status < 300) {
+        Toast.success('Upload Complete', `${file.name} uploaded successfully! Your doctor can review it.`);
+        // Reload media for this session & re-render
+        await this._loadSessionMedia(sessionId);
+        if (noteInput) noteInput.value = '';
+        this._renderCurrentPage();
+      } else {
+        const err = JSON.parse(xhr.responseText || '{}');
+        Toast.error('Upload Failed', err.error || 'Failed to upload file.');
+        if (progressEl) progressEl.style.display = 'none';
+      }
+    });
+
+    xhr.addEventListener('error', () => {
+      Toast.error('Upload Error', 'Network error during upload.');
+      if (progressEl) progressEl.style.display = 'none';
+    });
+
+    xhr.open('POST', url);
+    if (API._token) {
+      xhr.setRequestHeader('Authorization', `Bearer ${API._token}`);
+    }
+    xhr.send(formData);
+  },
+
+  /** Play media in a modal */
+  _playPatientMedia(path, type) {
+    if (type === 'video') {
+      this.openModal('Workout Video', `
+        <div style="text-align:center;">
+          <video controls autoplay style="max-width:100%;max-height:70vh;border-radius:var(--radius-lg);background:#000;">
+            <source src="${path}">
+          </video>
+        </div>
+      `, `<button class="btn btn-primary" onclick="App.closeModal()">Close</button>`);
+    } else {
+      this.openModal('Workout Photo', `
+        <div style="text-align:center;">
+          <img src="${path}" style="max-width:100%;max-height:70vh;border-radius:var(--radius-lg);">
+        </div>
+      `, `<button class="btn btn-primary" onclick="App.closeModal()">Close</button>`);
+    }
+  },
+
+  /** Delete a media upload */
+  async _deletePatientMedia(sessionId, mediaId, exerciseId) {
+    const confirmed = await this.confirm({
+      title: 'Delete Upload?',
+      message: 'This will permanently remove this uploaded file.',
+      confirmText: 'Delete',
+      icon: '🗑️',
+      type: 'danger'
+    });
+
+    if (!confirmed) return;
+
+    try {
+      await API.delete(`/sessions/${sessionId}/media/${mediaId}`);
+      Toast.success('Deleted', 'File removed successfully.');
+      await this._loadSessionMedia(sessionId);
+      this._renderCurrentPage();
+    } catch (err) {
+      Toast.error('Error', err.message || 'Failed to delete file.');
+    }
   },
 
 
@@ -3126,7 +4362,7 @@ const App = {
     });
   },
 
-  _submitFeedback() {
+  async _submitFeedback() {
     const comments = document.getElementById('fb-comments')?.value || '';
     const difficulty = document.getElementById('fb-difficulty')?.value || 'Moderate';
     const confidence = document.getElementById('fb-confidence')?.value || 7;
@@ -3135,21 +4371,25 @@ const App = {
     const sessions = DB.query('sessions', s => s.patientId === this.currentUser.id && s.status === 'current');
     const currentSession = sessions[0];
 
-    DB.add('feedback', {
-      id: 'fb-' + Utils.uid(),
-      patientId: this.currentUser.id,
-      sessionId: currentSession?.id || '',
-      painLevel: this._selectedPainLevel,
-      comments,
-      difficulty,
-      confidence: parseInt(confidence),
-      completed,
-      doctorReply: '',
-      date: new Date().toISOString().split('T')[0]
-    });
+    try {
+      await DB.add('feedback', {
+        patientId: this.currentUser.id,
+        sessionId: currentSession?.id || '',
+        painLevel: this._selectedPainLevel,
+        comments,
+        difficulty,
+        confidence: parseInt(confidence),
+        completed,
+        doctorReply: '',
+        date: new Date().toISOString().split('T')[0]
+      });
 
-    Toast.success('Feedback Submitted', 'Thank you for your feedback! Your doctor will review it.');
-    this.navigate('feedback');
+      Toast.success('Feedback Submitted', 'Thank you! Your doctor will review your feedback.');
+      await DB.init();
+      this._renderCurrentPage();
+    } catch (err) {
+      Toast.error('Error', err.message || 'Failed to submit feedback');
+    }
   },
 
 

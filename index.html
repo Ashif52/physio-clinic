@@ -2,7 +2,10 @@
 <html lang="en" data-theme="light">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
+  <meta name="theme-color" content="#5c7cfa">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="description" content="PhysioFlow — Premium Physiotherapy Patient Management System for modern clinics. Manage patients, sessions, exercises, and track progress.">
   <title>PhysioFlow — Physiotherapy Management</title>
   <link rel="stylesheet" href="style.css">
@@ -53,19 +56,14 @@
         <p>Premium Physiotherapy Management</p>
       </div>
 
-      <div class="login-tabs" role="tablist">
-        <button class="login-tab active" data-tab="doctor" role="tab" aria-selected="true" onclick="App.switchLoginTab('doctor')">Doctor</button>
-        <button class="login-tab" data-tab="patient" role="tab" aria-selected="false" onclick="App.switchLoginTab('patient')">Patient</button>
-      </div>
-
       <form id="login-form" onsubmit="App.handleLogin(event)">
         <div class="form-group" id="fg-username">
-          <label for="login-username">Username</label>
+          <label for="login-username">Username or Email</label>
           <div class="input-wrapper">
-            <input type="text" id="login-username" class="form-input" placeholder="Enter your username" required autocomplete="username">
+            <input type="text" id="login-username" class="form-input" placeholder="e.g. dr.smith or john.doe" required autocomplete="username">
             <span class="input-icon" style="pointer-events:none">👤</span>
           </div>
-          <span class="field-error">Please enter your username</span>
+          <span class="field-error">Please enter your username or email</span>
         </div>
 
         <div class="form-group" id="fg-password">
@@ -93,9 +91,17 @@
       </form>
 
       <div style="margin-top: var(--space-6); text-align: center;">
-        <p style="font-size: var(--text-xs); color: var(--text-tertiary);">
-          Demo — Doctor: <strong>dr.smith / password</strong> &nbsp;|&nbsp; Patient: <strong>john.doe / password</strong>
+        <p style="font-size: var(--text-xs); color: var(--text-tertiary); margin-bottom: 8px;">
+          Quick Demo Login:
         </p>
+        <div style="display: flex; gap: 8px; justify-content: center; flex-wrap: wrap;">
+          <button type="button" onclick="App.fillDemo('doctor')" class="btn btn-sm btn-ghost" style="border: 1px solid var(--border-light); font-size: 11px; padding: 4px 10px; cursor: pointer;">
+            👨‍⚕️ Doctor: <strong>dr.smith</strong>
+          </button>
+          <button type="button" onclick="App.fillDemo('patient')" class="btn btn-sm btn-ghost" style="border: 1px solid var(--border-light); font-size: 11px; padding: 4px 10px; cursor: pointer;">
+            👤 Patient: <strong>john.doe</strong>
+          </button>
+        </div>
       </div>
     </div>
   </div>
@@ -207,6 +213,23 @@
       </div>
       <div class="modal-footer" id="generic-modal-footer">
         <!-- Populated by JS -->
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================
+       IN-APP CONFIRMATION POPUP MODAL
+       ============================================ -->
+  <div id="confirm-modal" class="modal-overlay confirm-modal-overlay">
+    <div class="modal confirm-modal-dialog" id="confirm-modal-dialog">
+      <div class="confirm-modal-body">
+        <div class="confirm-modal-icon-badge danger" id="confirm-modal-icon">🗑️</div>
+        <h3 class="confirm-modal-title" id="confirm-modal-title">Delete Exercise?</h3>
+        <div class="confirm-modal-message" id="confirm-modal-message">Are you sure you want to permanently delete this exercise?</div>
+        <div class="confirm-modal-actions">
+          <button type="button" class="btn btn-secondary" id="confirm-modal-cancel-btn">Cancel</button>
+          <button type="button" class="btn btn-danger-solid" id="confirm-modal-action-btn">Delete</button>
+        </div>
       </div>
     </div>
   </div>

@@ -1,0 +1,5635 @@
+{
+  "doctors": {
+    "doc-1": {
+      "id": "doc-1",
+      "username": "dr.smith",
+      "password_hash": "$2a$10$/JnmCmGkSuw0tIO60yTseOpITrzoGG.868fVeCFRM0DkU/guX0Wvu",
+      "name": "Dr. Sarah Smith",
+      "email": "sarah.smith@physioflow.com",
+      "phone": "+1 (555) 234-5678",
+      "specialty": "Sports Rehabilitation",
+      "avatar": "SS",
+      "clinicName": "PhysioFlow Wellness Clinic",
+      "clinicLogo": "",
+      "notifications": {
+        "newSession": true,
+        "feedback": true,
+        "videoUpload": true,
+        "treatmentComplete": true
+      }
+    }
+  },
+  "patients": {
+    "pat-1": {
+      "id": "pat-1",
+      "username": "john.doe",
+      "password_hash": "$2a$10$/JnmCmGkSuw0tIO60yTseOpITrzoGG.868fVeCFRM0DkU/guX0Wvu",
+      "plainPassword": "password",
+      "name": "John Doe",
+      "age": 34,
+      "gender": "Male",
+      "phone": "+1 (555) 111-0001",
+      "email": "john.doe@email.com",
+      "photo": "",
+      "avatar": "JD",
+      "avatarColor": "#5c7cfa",
+      "medicalHistory": "ACL reconstruction 2024",
+      "diagnosis": "Post-operative ACL rehabilitation",
+      "treatmentPlan": "Progressive strength and mobility program — 12 sessions over 8 weeks",
+      "sessionCount": 12,
+      "completedSessions": 8,
+      "startDate": "2026-04-01",
+      "endDate": "2026-06-30",
+      "status": "active",
+      "painLevel": 3,
+      "doctorId": "doc-1",
+      "notes": "Progressing well. Cleared for light jogging.",
+      "createdAt": "2026-07-19T16:37:07.603Z"
+    },
+    "pat-2": {
+      "id": "pat-2",
+      "username": "jane.wilson",
+      "password_hash": "$2a$10$/JnmCmGkSuw0tIO60yTseOpITrzoGG.868fVeCFRM0DkU/guX0Wvu",
+      "plainPassword": "password",
+      "name": "Jane Wilson",
+      "age": 28,
+      "gender": "Female",
+      "phone": "+1 (555) 111-0002",
+      "email": "jane.wilson@email.com",
+      "photo": "",
+      "avatar": "JW",
+      "avatarColor": "#20c997",
+      "medicalHistory": "Chronic lower back pain",
+      "diagnosis": "Lumbar disc herniation L4-L5",
+      "treatmentPlan": "Core stabilization and posture correction — 10 sessions",
+      "sessionCount": 10,
+      "completedSessions": 10,
+      "startDate": "2026-02-15",
+      "endDate": "2026-05-15",
+      "status": "completed",
+      "painLevel": 2,
+      "doctorId": "doc-1",
+      "notes": "Treatment completed successfully.",
+      "createdAt": "2026-07-19T16:37:07.603Z"
+    },
+    "pat-3": {
+      "id": "pat-3",
+      "username": "mike.chen",
+      "password_hash": "$2a$10$/JnmCmGkSuw0tIO60yTseOpITrzoGG.868fVeCFRM0DkU/guX0Wvu",
+      "plainPassword": "password",
+      "name": "Michael Chen",
+      "age": 45,
+      "gender": "Male",
+      "phone": "+1 (555) 111-0003",
+      "email": "mike.chen@email.com",
+      "photo": "",
+      "avatar": "MC",
+      "avatarColor": "#ff922b",
+      "medicalHistory": "Tennis elbow, right arm",
+      "diagnosis": "Lateral epicondylitis",
+      "treatmentPlan": "Eccentric exercises and manual therapy — 8 sessions",
+      "sessionCount": 8,
+      "completedSessions": 5,
+      "startDate": "2026-05-01",
+      "endDate": "2026-07-15",
+      "status": "active",
+      "painLevel": 5,
+      "doctorId": "doc-1",
+      "notes": "Moderate improvement. Adjusting exercise intensity.",
+      "createdAt": "2026-07-19T16:37:07.603Z"
+    },
+    "pat-4": {
+      "id": "pat-4",
+      "username": "emma.brown",
+      "password_hash": "$2a$10$/JnmCmGkSuw0tIO60yTseOpITrzoGG.868fVeCFRM0DkU/guX0Wvu",
+      "plainPassword": "password",
+      "name": "Emma Brown",
+      "age": 62,
+      "gender": "Female",
+      "phone": "+1 (555) 111-0004",
+      "email": "emma.brown@email.com",
+      "photo": "",
+      "avatar": "EB",
+      "avatarColor": "#7950f2",
+      "medicalHistory": "Total knee replacement — right knee",
+      "diagnosis": "Post TKR rehabilitation",
+      "treatmentPlan": "Range of motion and strength training — 15 sessions",
+      "sessionCount": 15,
+      "completedSessions": 3,
+      "startDate": "2026-05-20",
+      "endDate": "2026-09-01",
+      "status": "active",
+      "painLevel": 6,
+      "doctorId": "doc-1",
+      "notes": "Early post-op phase. Focus on extension and flexion.",
+      "createdAt": "2026-07-19T16:37:07.603Z"
+    },
+    "pat-5": {
+      "id": "pat-5",
+      "username": "alex.kumar",
+      "password_hash": "$2a$10$/JnmCmGkSuw0tIO60yTseOpITrzoGG.868fVeCFRM0DkU/guX0Wvu",
+      "plainPassword": "password",
+      "name": "Alex Kumar",
+      "age": 22,
+      "gender": "Male",
+      "phone": "+1 (555) 111-0005",
+      "email": "alex.kumar@email.com",
+      "photo": "",
+      "avatar": "AK",
+      "avatarColor": "#0ca678",
+      "medicalHistory": "Shoulder dislocation — sports injury",
+      "diagnosis": "Anterior shoulder instability",
+      "treatmentPlan": "Rotator cuff strengthening and proprioception — 10 sessions",
+      "sessionCount": 10,
+      "completedSessions": 7,
+      "startDate": "2026-04-10",
+      "endDate": "2026-07-10",
+      "status": "active",
+      "painLevel": 2,
+      "doctorId": "doc-1",
+      "notes": "Near completion. Excellent compliance.",
+      "createdAt": "2026-07-19T16:37:07.603Z"
+    },
+    "pat-6": {
+      "id": "pat-6",
+      "username": "lisa.park",
+      "password_hash": "$2a$10$/JnmCmGkSuw0tIO60yTseOpITrzoGG.868fVeCFRM0DkU/guX0Wvu",
+      "plainPassword": "password",
+      "name": "Lisa Park",
+      "age": 38,
+      "gender": "Female",
+      "phone": "+1 (555) 111-0006",
+      "email": "lisa.park@email.com",
+      "photo": "",
+      "avatar": "LP",
+      "avatarColor": "#fa5252",
+      "medicalHistory": "Plantar fasciitis — bilateral",
+      "diagnosis": "Chronic plantar fasciitis",
+      "treatmentPlan": "Stretching, orthotics, and shockwave therapy — 6 sessions",
+      "sessionCount": 6,
+      "completedSessions": 6,
+      "startDate": "2026-03-01",
+      "endDate": "2026-05-01",
+      "status": "completed",
+      "painLevel": 1,
+      "doctorId": "doc-1",
+      "notes": "Discharged. Symptom-free.",
+      "createdAt": "2026-07-19T16:37:07.603Z"
+    },
+    "pat-7": {
+      "id": "pat-7",
+      "username": "tom.martin",
+      "password_hash": "$2a$10$/JnmCmGkSuw0tIO60yTseOpITrzoGG.868fVeCFRM0DkU/guX0Wvu",
+      "plainPassword": "password",
+      "name": "Thomas Martin",
+      "age": 55,
+      "gender": "Male",
+      "phone": "+1 (555) 111-0007",
+      "email": "tom.martin@email.com",
+      "photo": "",
+      "avatar": "TM",
+      "avatarColor": "#e8590c",
+      "medicalHistory": "Cervical spondylosis",
+      "diagnosis": "Degenerative disc disease C5-C6",
+      "treatmentPlan": "Neck strengthening and postural education — 10 sessions",
+      "sessionCount": 10,
+      "completedSessions": 2,
+      "startDate": "2026-06-01",
+      "endDate": "2026-08-30",
+      "status": "active",
+      "painLevel": 7,
+      "doctorId": "doc-1",
+      "notes": "High pain levels. Gentle approach required.",
+      "createdAt": "2026-07-19T16:37:07.603Z"
+    },
+    "pat-8": {
+      "id": "pat-8",
+      "username": "sophia.lee",
+      "password_hash": "$2a$10$/JnmCmGkSuw0tIO60yTseOpITrzoGG.868fVeCFRM0DkU/guX0Wvu",
+      "plainPassword": "password",
+      "name": "Sophia Lee",
+      "age": 30,
+      "gender": "Female",
+      "phone": "+1 (555) 111-0008",
+      "email": "sophia.lee@email.com",
+      "photo": "",
+      "avatar": "SL",
+      "avatarColor": "#5c7cfa",
+      "medicalHistory": "Runner's knee",
+      "diagnosis": "Patellofemoral pain syndrome",
+      "treatmentPlan": "VMO strengthening and biomechanical assessment — 8 sessions",
+      "sessionCount": 8,
+      "completedSessions": 0,
+      "startDate": "2026-06-15",
+      "endDate": "2026-08-15",
+      "status": "pending",
+      "painLevel": 4,
+      "doctorId": "doc-1",
+      "notes": "Initial assessment scheduled.",
+      "createdAt": "2026-07-19T16:37:07.603Z"
+    },
+    "pat-9": {
+      "id": "pat-9",
+      "username": "david.jones",
+      "password_hash": "$2a$10$/JnmCmGkSuw0tIO60yTseOpITrzoGG.868fVeCFRM0DkU/guX0Wvu",
+      "plainPassword": "password",
+      "name": "David Jones",
+      "age": 48,
+      "gender": "Male",
+      "phone": "+1 (555) 111-0009",
+      "email": "david.jones@email.com",
+      "photo": "",
+      "avatar": "DJ",
+      "avatarColor": "#20c997",
+      "medicalHistory": "Frozen shoulder — left",
+      "diagnosis": "Adhesive capsulitis",
+      "treatmentPlan": "Joint mobilization and stretching — 12 sessions",
+      "sessionCount": 12,
+      "completedSessions": 9,
+      "startDate": "2026-03-15",
+      "endDate": "2026-07-15",
+      "status": "active",
+      "painLevel": 4,
+      "doctorId": "doc-1",
+      "notes": "Significant ROM improvement noted.",
+      "createdAt": "2026-07-19T16:37:07.603Z"
+    },
+    "pat-10": {
+      "id": "pat-10",
+      "username": "amy.taylor",
+      "password_hash": "$2a$10$/JnmCmGkSuw0tIO60yTseOpITrzoGG.868fVeCFRM0DkU/guX0Wvu",
+      "plainPassword": "password",
+      "name": "Amy Taylor",
+      "age": 26,
+      "gender": "Female",
+      "phone": "+1 (555) 111-0010",
+      "email": "amy.taylor@email.com",
+      "photo": "",
+      "avatar": "AT",
+      "avatarColor": "#ff922b",
+      "medicalHistory": "Ankle sprain — grade II",
+      "diagnosis": "Lateral ankle ligament injury",
+      "treatmentPlan": "RICE protocol then progressive strengthening — 6 sessions",
+      "sessionCount": 6,
+      "completedSessions": 4,
+      "startDate": "2026-05-10",
+      "endDate": "2026-07-01",
+      "status": "active",
+      "painLevel": 3,
+      "doctorId": "doc-1",
+      "notes": "Weight-bearing now tolerated. Good progress.",
+      "createdAt": "2026-07-19T16:37:07.603Z"
+    }
+  },
+  "exercises": {
+    "ex-1": {
+      "id": "ex-1",
+      "title": "Neck Flexion Stretch",
+      "category": "Neck",
+      "description": "Gently tilt head forward bringing chin to chest. Hold 15–30 seconds.",
+      "difficulty": "Easy",
+      "duration": "5 min",
+      "thumbnail": "🧘",
+      "video": "",
+      "pdf": "",
+      "createdBy": "doc-1",
+      "createdAt": "2026-07-19T16:37:07.594Z"
+    },
+    "ex-2": {
+      "id": "ex-2",
+      "title": "Cervical Rotation",
+      "category": "Neck",
+      "description": "Slowly rotate head side to side, maintaining chin level. Repeat 10 times each direction.",
+      "difficulty": "Easy",
+      "duration": "5 min",
+      "thumbnail": "🔄",
+      "video": "",
+      "pdf": "",
+      "createdBy": "doc-1",
+      "createdAt": "2026-07-19T16:37:07.595Z"
+    },
+    "ex-3": {
+      "id": "ex-3",
+      "title": "Shoulder Pendulum Swing",
+      "category": "Shoulder",
+      "description": "Lean forward and let the arm swing in small circles. Gradually increase circle size.",
+      "difficulty": "Easy",
+      "duration": "5 min",
+      "thumbnail": "🔘",
+      "video": "",
+      "pdf": "",
+      "createdBy": "doc-1",
+      "createdAt": "2026-07-19T16:37:07.595Z"
+    },
+    "ex-4": {
+      "id": "ex-4",
+      "title": "External Rotation with Band",
+      "category": "Shoulder",
+      "description": "Secure resistance band at elbow height. Rotate forearm outward keeping elbow at side.",
+      "difficulty": "Medium",
+      "duration": "10 min",
+      "thumbnail": "💪",
+      "video": "",
+      "pdf": "",
+      "createdBy": "doc-1",
+      "createdAt": "2026-07-19T16:37:07.595Z"
+    },
+    "ex-5": {
+      "id": "ex-5",
+      "title": "Cat-Cow Stretch",
+      "category": "Back",
+      "description": "On hands and knees, alternate between arching and rounding the spine. 10 repetitions.",
+      "difficulty": "Easy",
+      "duration": "5 min",
+      "thumbnail": "🐱",
+      "video": "",
+      "pdf": "",
+      "createdBy": "doc-1",
+      "createdAt": "2026-07-19T16:37:07.595Z"
+    },
+    "ex-6": {
+      "id": "ex-6",
+      "title": "Bird Dog Exercise",
+      "category": "Back",
+      "description": "From hands and knees, extend opposite arm and leg. Hold 5 seconds. 10 reps each side.",
+      "difficulty": "Medium",
+      "duration": "10 min",
+      "thumbnail": "🐕",
+      "video": "",
+      "pdf": "",
+      "createdBy": "doc-1",
+      "createdAt": "2026-07-19T16:37:07.595Z"
+    },
+    "ex-7": {
+      "id": "ex-7",
+      "title": "Dead Bug",
+      "category": "Back",
+      "description": "Lying on back with arms extended, slowly lower opposite arm and leg. Core engaged throughout.",
+      "difficulty": "Medium",
+      "duration": "8 min",
+      "thumbnail": "🪲",
+      "video": "",
+      "pdf": "",
+      "createdBy": "doc-1",
+      "createdAt": "2026-07-19T16:37:07.595Z"
+    },
+    "ex-8": {
+      "id": "ex-8",
+      "title": "Straight Leg Raise",
+      "category": "Knee",
+      "description": "Lying down, tighten thigh muscles and lift leg 6 inches. Hold 5 seconds. 3 sets of 10.",
+      "difficulty": "Easy",
+      "duration": "8 min",
+      "thumbnail": "🦵",
+      "video": "",
+      "pdf": "",
+      "createdBy": "doc-1",
+      "createdAt": "2026-07-19T16:37:07.595Z"
+    },
+    "ex-9": {
+      "id": "ex-9",
+      "title": "Wall Sit",
+      "category": "Knee",
+      "description": "Slide back down wall until knees at 90°. Hold 20–60 seconds. Repeat 5 times.",
+      "difficulty": "Medium",
+      "duration": "10 min",
+      "thumbnail": "🧱",
+      "video": "",
+      "pdf": "",
+      "createdBy": "doc-1",
+      "createdAt": "2026-07-19T16:37:07.595Z"
+    },
+    "ex-10": {
+      "id": "ex-10",
+      "title": "Terminal Knee Extension",
+      "category": "Knee",
+      "description": "With band behind knee, push knee straight against resistance. 3 sets of 12.",
+      "difficulty": "Medium",
+      "duration": "10 min",
+      "thumbnail": "🔗",
+      "video": "",
+      "pdf": "",
+      "createdBy": "doc-1",
+      "createdAt": "2026-07-19T16:37:07.595Z"
+    },
+    "ex-11": {
+      "id": "ex-11",
+      "title": "Hip Bridge",
+      "category": "Hip",
+      "description": "Lying on back with knees bent, lift hips to create straight line from shoulders to knees.",
+      "difficulty": "Easy",
+      "duration": "8 min",
+      "thumbnail": "🌉",
+      "video": "",
+      "pdf": "",
+      "createdBy": "doc-1",
+      "createdAt": "2026-07-19T16:37:07.595Z"
+    },
+    "ex-12": {
+      "id": "ex-12",
+      "title": "Clamshell Exercise",
+      "category": "Hip",
+      "description": "Lying on side with knees bent, open top knee while keeping feet together. 3 sets of 15.",
+      "difficulty": "Easy",
+      "duration": "8 min",
+      "thumbnail": "🐚",
+      "video": "",
+      "pdf": "",
+      "createdBy": "doc-1",
+      "createdAt": "2026-07-19T16:37:07.595Z"
+    },
+    "ex-13": {
+      "id": "ex-13",
+      "title": "Ankle Alphabet",
+      "category": "Ankle",
+      "description": "Trace the alphabet in the air with your foot. Repeat 3 times with each foot.",
+      "difficulty": "Easy",
+      "duration": "5 min",
+      "thumbnail": "🔤",
+      "video": "",
+      "pdf": "",
+      "createdBy": "doc-1",
+      "createdAt": "2026-07-19T16:37:07.595Z"
+    },
+    "ex-14": {
+      "id": "ex-14",
+      "title": "Calf Raise",
+      "category": "Ankle",
+      "description": "Stand on edge of step, rise up on toes then lower heels below step level. 3 sets of 15.",
+      "difficulty": "Medium",
+      "duration": "8 min",
+      "thumbnail": "⬆️",
+      "video": "",
+      "pdf": "",
+      "createdBy": "doc-1",
+      "createdAt": "2026-07-19T16:37:07.595Z"
+    },
+    "ex-15": {
+      "id": "ex-15",
+      "title": "Single-Leg Balance",
+      "category": "Ankle",
+      "description": "Stand on one leg for 30 seconds. Progress to eyes closed. 5 reps each leg.",
+      "difficulty": "Easy",
+      "duration": "5 min",
+      "thumbnail": "⚖️",
+      "video": "",
+      "pdf": "",
+      "createdBy": "doc-1",
+      "createdAt": "2026-07-19T16:37:07.595Z"
+    },
+    "ex-16": {
+      "id": "ex-16",
+      "title": "Plank Hold",
+      "category": "Sports Rehab",
+      "description": "Maintain push-up position with forearms on ground. Hold 30–60 seconds. 3 sets.",
+      "difficulty": "Medium",
+      "duration": "8 min",
+      "thumbnail": "🏋️",
+      "video": "",
+      "pdf": "",
+      "createdBy": "doc-1",
+      "createdAt": "2026-07-19T16:37:07.595Z"
+    },
+    "ex-17": {
+      "id": "ex-17",
+      "title": "Lateral Band Walk",
+      "category": "Sports Rehab",
+      "description": "Place band around ankles and walk sideways maintaining tension. 3 sets of 20 steps.",
+      "difficulty": "Medium",
+      "duration": "10 min",
+      "thumbnail": "🏃",
+      "video": "",
+      "pdf": "",
+      "createdBy": "doc-1",
+      "createdAt": "2026-07-19T16:37:07.595Z"
+    },
+    "ex-18": {
+      "id": "ex-18",
+      "title": "Box Jump",
+      "category": "Sports Rehab",
+      "description": "Jump onto a stable box/platform. Step down. Progress height gradually. 3 sets of 8.",
+      "difficulty": "Hard",
+      "duration": "12 min",
+      "thumbnail": "📦",
+      "video": "",
+      "pdf": "",
+      "createdBy": "doc-1",
+      "createdAt": "2026-07-19T16:37:07.595Z"
+    },
+    "ex-19": {
+      "id": "ex-19",
+      "title": "Resistance Band Row",
+      "category": "Back",
+      "description": "Secure band in front of you. Pull elbows back squeezing shoulder blades. 3 sets of 12.",
+      "difficulty": "Medium",
+      "duration": "10 min",
+      "thumbnail": "🚣",
+      "video": "",
+      "pdf": "",
+      "createdBy": "doc-1",
+      "createdAt": "2026-07-19T16:37:07.595Z"
+    },
+    "ex-20": {
+      "id": "ex-20",
+      "title": "Agility Ladder Drill",
+      "category": "Sports Rehab",
+      "description": "Perform quick feet drills through agility ladder. Various patterns. 5 min continuous.",
+      "difficulty": "Hard",
+      "duration": "10 min",
+      "thumbnail": "⚡",
+      "video": "",
+      "pdf": "",
+      "createdBy": "doc-1",
+      "createdAt": "2026-07-19T16:37:07.595Z"
+    }
+  },
+  "sessions": {
+    "sess-pat-1-1": {
+      "id": "sess-pat-1-1",
+      "patientId": "pat-1",
+      "sessionNumber": 1,
+      "date": "2026-04-01",
+      "status": "completed",
+      "exercises": [
+        {
+          "exerciseId": "ex-13",
+          "title": "Ankle Alphabet",
+          "sets": 2,
+          "reps": 10,
+          "restTime": 30,
+          "duration": "5 min",
+          "completed": true,
+          "instructions": "Trace the alphabet in the air with your foot. Repeat 3 times with each foot."
+        },
+        {
+          "exerciseId": "ex-5",
+          "title": "Cat-Cow Stretch",
+          "sets": 4,
+          "reps": 20,
+          "restTime": 60,
+          "duration": "5 min",
+          "completed": true,
+          "instructions": "On hands and knees, alternate between arching and rounding the spine. 10 repetitions."
+        },
+        {
+          "exerciseId": "ex-3",
+          "title": "Shoulder Pendulum Swing",
+          "sets": 4,
+          "reps": 20,
+          "restTime": 45,
+          "duration": "5 min",
+          "completed": true,
+          "instructions": "Lean forward and let the arm swing in small circles. Gradually increase circle size."
+        }
+      ],
+      "doctorRemarks": "Good progress. Continue as planned.",
+      "patientFeedback": "Feeling better after this session.",
+      "notes": "Session 1 completed successfully.",
+      "duration": "32 min"
+    },
+    "sess-pat-1-2": {
+      "id": "sess-pat-1-2",
+      "patientId": "pat-1",
+      "sessionNumber": 2,
+      "date": "2026-04-05",
+      "status": "completed",
+      "exercises": [
+        {
+          "exerciseId": "ex-12",
+          "title": "Clamshell Exercise",
+          "sets": 3,
+          "reps": 25,
+          "restTime": 30,
+          "duration": "8 min",
+          "completed": true,
+          "instructions": "Lying on side with knees bent, open top knee while keeping feet together. 3 sets of 15."
+        },
+        {
+          "exerciseId": "ex-1",
+          "title": "Neck Flexion Stretch",
+          "sets": 3,
+          "reps": 20,
+          "restTime": 45,
+          "duration": "5 min",
+          "completed": true,
+          "instructions": "Gently tilt head forward bringing chin to chest. Hold 15–30 seconds."
+        },
+        {
+          "exerciseId": "ex-16",
+          "title": "Plank Hold",
+          "sets": 2,
+          "reps": 25,
+          "restTime": 90,
+          "duration": "8 min",
+          "completed": true,
+          "instructions": "Maintain push-up position with forearms on ground. Hold 30–60 seconds. 3 sets."
+        },
+        {
+          "exerciseId": "ex-8",
+          "title": "Straight Leg Raise",
+          "sets": 2,
+          "reps": 25,
+          "restTime": 60,
+          "duration": "8 min",
+          "completed": true,
+          "instructions": "Lying down, tighten thigh muscles and lift leg 6 inches. Hold 5 seconds. 3 sets of 10."
+        }
+      ],
+      "doctorRemarks": "Good progress. Continue as planned.",
+      "patientFeedback": "Feeling better after this session.",
+      "notes": "Session 2 completed successfully.",
+      "duration": "48 min"
+    },
+    "sess-pat-1-3": {
+      "id": "sess-pat-1-3",
+      "patientId": "pat-1",
+      "sessionNumber": 3,
+      "date": "2026-04-09",
+      "status": "completed",
+      "exercises": [
+        {
+          "exerciseId": "ex-12",
+          "title": "Clamshell Exercise",
+          "sets": 4,
+          "reps": 15,
+          "restTime": 60,
+          "duration": "8 min",
+          "completed": true,
+          "instructions": "Lying on side with knees bent, open top knee while keeping feet together. 3 sets of 15."
+        },
+        {
+          "exerciseId": "ex-7",
+          "title": "Dead Bug",
+          "sets": 3,
+          "reps": 10,
+          "restTime": 90,
+          "duration": "8 min",
+          "completed": true,
+          "instructions": "Lying on back with arms extended, slowly lower opposite arm and leg. Core engaged throughout."
+        },
+        {
+          "exerciseId": "ex-19",
+          "title": "Resistance Band Row",
+          "sets": 3,
+          "reps": 25,
+          "restTime": 60,
+          "duration": "10 min",
+          "completed": true,
+          "instructions": "Secure band in front of you. Pull elbows back squeezing shoulder blades. 3 sets of 12."
+        },
+        {
+          "exerciseId": "ex-6",
+          "title": "Bird Dog Exercise",
+          "sets": 3,
+          "reps": 10,
+          "restTime": 30,
+          "duration": "10 min",
+          "completed": true,
+          "instructions": "From hands and knees, extend opposite arm and leg. Hold 5 seconds. 10 reps each side."
+        }
+      ],
+      "doctorRemarks": "Good progress. Continue as planned.",
+      "patientFeedback": "Feeling better after this session.",
+      "notes": "Session 3 completed successfully.",
+      "duration": "35 min"
+    },
+    "sess-pat-1-4": {
+      "id": "sess-pat-1-4",
+      "patientId": "pat-1",
+      "sessionNumber": 4,
+      "date": "2026-04-13",
+      "status": "completed",
+      "exercises": [
+        {
+          "exerciseId": "ex-8",
+          "title": "Straight Leg Raise",
+          "sets": 3,
+          "reps": 20,
+          "restTime": 30,
+          "duration": "8 min",
+          "completed": true,
+          "instructions": "Lying down, tighten thigh muscles and lift leg 6 inches. Hold 5 seconds. 3 sets of 10."
+        },
+        {
+          "exerciseId": "ex-2",
+          "title": "Cervical Rotation",
+          "sets": 4,
+          "reps": 15,
+          "restTime": 30,
+          "duration": "5 min",
+          "completed": true,
+          "instructions": "Slowly rotate head side to side, maintaining chin level. Repeat 10 times each direction."
+        },
+        {
+          "exerciseId": "ex-9",
+          "title": "Wall Sit",
+          "sets": 2,
+          "reps": 15,
+          "restTime": 30,
+          "duration": "10 min",
+          "completed": true,
+          "instructions": "Slide back down wall until knees at 90°. Hold 20–60 seconds. Repeat 5 times."
+        },
+        {
+          "exerciseId": "ex-7",
+          "title": "Dead Bug",
+          "sets": 4,
+          "reps": 20,
+          "restTime": 90,
+          "duration": "8 min",
+          "completed": true,
+          "instructions": "Lying on back with arms extended, slowly lower opposite arm and leg. Core engaged throughout."
+        }
+      ],
+      "doctorRemarks": "Good progress. Continue as planned.",
+      "patientFeedback": "Feeling better after this session.",
+      "notes": "Session 4 completed successfully.",
+      "duration": "32 min"
+    },
+    "sess-pat-1-5": {
+      "id": "sess-pat-1-5",
+      "patientId": "pat-1",
+      "sessionNumber": 5,
+      "date": "2026-04-17",
+      "status": "completed",
+      "exercises": [
+        {
+          "exerciseId": "ex-16",
+          "title": "Plank Hold",
+          "sets": 4,
+          "reps": 15,
+          "restTime": 60,
+          "duration": "8 min",
+          "completed": true,
+          "instructions": "Maintain push-up position with forearms on ground. Hold 30–60 seconds. 3 sets."
+        },
+        {
+          "exerciseId": "ex-7",
+          "title": "Dead Bug",
+          "sets": 3,
+          "reps": 15,
+          "restTime": 90,
+          "duration": "8 min",
+          "completed": true,
+          "instructions": "Lying on back with arms extended, slowly lower opposite arm and leg. Core engaged throughout."
+        },
+        {
+          "exerciseId": "ex-13",
+          "title": "Ankle Alphabet",
+          "sets": 2,
+          "reps": 25,
+          "restTime": 90,
+          "duration": "5 min",
+          "completed": true,
+          "instructions": "Trace the alphabet in the air with your foot. Repeat 3 times with each foot."
+        },
+        {
+          "exerciseId": "ex-4",
+          "title": "External Rotation with Band",
+          "sets": 2,
+          "reps": 10,
+          "restTime": 60,
+          "duration": "10 min",
+          "completed": true,
+          "instructions": "Secure resistance band at elbow height. Rotate forearm outward keeping elbow at side."
+        }
+      ],
+      "doctorRemarks": "Good progress. Continue as planned.",
+      "patientFeedback": "Feeling better after this session.",
+      "notes": "Session 5 completed successfully.",
+      "duration": "48 min"
+    },
+    "sess-pat-1-6": {
+      "id": "sess-pat-1-6",
+      "patientId": "pat-1",
+      "sessionNumber": 6,
+      "date": "2026-04-21",
+      "status": "completed",
+      "exercises": [
+        {
+          "exerciseId": "ex-15",
+          "title": "Single-Leg Balance",
+          "sets": 3,
+          "reps": 20,
+          "restTime": 45,
+          "duration": "5 min",
+          "completed": true,
+          "instructions": "Stand on one leg for 30 seconds. Progress to eyes closed. 5 reps each leg."
+        },
+        {
+          "exerciseId": "ex-1",
+          "title": "Neck Flexion Stretch",
+          "sets": 3,
+          "reps": 25,
+          "restTime": 30,
+          "duration": "5 min",
+          "completed": true,
+          "instructions": "Gently tilt head forward bringing chin to chest. Hold 15–30 seconds."
+        },
+        {
+          "exerciseId": "ex-16",
+          "title": "Plank Hold",
+          "sets": 2,
+          "reps": 20,
+          "restTime": 90,
+          "duration": "8 min",
+          "completed": true,
+          "instructions": "Maintain push-up position with forearms on ground. Hold 30–60 seconds. 3 sets."
+        },
+        {
+          "exerciseId": "ex-6",
+          "title": "Bird Dog Exercise",
+          "sets": 4,
+          "reps": 15,
+          "restTime": 45,
+          "duration": "10 min",
+          "completed": true,
+          "instructions": "From hands and knees, extend opposite arm and leg. Hold 5 seconds. 10 reps each side."
+        }
+      ],
+      "doctorRemarks": "Good progress. Continue as planned.",
+      "patientFeedback": "Feeling better after this session.",
+      "notes": "Session 6 completed successfully.",
+      "duration": "54 min"
+    },
+    "sess-pat-1-7": {
+      "id": "sess-pat-1-7",
+      "patientId": "pat-1",
+      "sessionNumber": 7,
+      "date": "2026-04-25",
+      "status": "completed",
+      "exercises": [
+        {
+          "exerciseId": "ex-2",
+          "title": "Cervical Rotation",
+          "sets": 4,
+          "reps": 10,
+          "restTime": 90,
+          "duration": "5 min",
+          "completed": true,
+          "instructions": "Slowly rotate head side to side, maintaining chin level. Repeat 10 times each direction."
+        },
+        {
+          "exerciseId": "ex-7",
+          "title": "Dead Bug",
+          "sets": 4,
+          "reps": 15,
+          "restTime": 60,
+          "duration": "8 min",
+          "completed": true,
+          "instructions": "Lying on back with arms extended, slowly lower opposite arm and leg. Core engaged throughout."
+        },
+        {
+          "exerciseId": "ex-10",
+          "title": "Terminal Knee Extension",
+          "sets": 2,
+          "reps": 15,
+          "restTime": 45,
+          "duration": "10 min",
+          "completed": true,
+          "instructions": "With band behind knee, push knee straight against resistance. 3 sets of 12."
+        },
+        {
+          "exerciseId": "ex-11",
+          "title": "Hip Bridge",
+          "sets": 3,
+          "reps": 20,
+          "restTime": 45,
+          "duration": "8 min",
+          "completed": true,
+          "instructions": "Lying on back with knees bent, lift hips to create straight line from shoulders to knees."
+        }
+      ],
+      "doctorRemarks": "Good progress. Continue as planned.",
+      "patientFeedback": "Feeling better after this session.",
+      "notes": "Session 7 completed successfully.",
+      "duration": "41 min"
+    },
+    "sess-pat-1-8": {
+      "id": "sess-pat-1-8",
+      "patientId": "pat-1",
+      "sessionNumber": 8,
+      "date": "2026-04-29",
+      "status": "completed",
+      "exercises": [
+        {
+          "exerciseId": "ex-3",
+          "title": "Shoulder Pendulum Swing",
+          "sets": 4,
+          "reps": 25,
+          "restTime": 60,
+          "duration": "5 min",
+          "completed": true,
+          "instructions": "Lean forward and let the arm swing in small circles. Gradually increase circle size."
+        },
+        {
+          "exerciseId": "ex-6",
+          "title": "Bird Dog Exercise",
+          "sets": 3,
+          "reps": 10,
+          "restTime": 90,
+          "duration": "10 min",
+          "completed": true,
+          "instructions": "From hands and knees, extend opposite arm and leg. Hold 5 seconds. 10 reps each side."
+        },
+        {
+          "exerciseId": "ex-8",
+          "title": "Straight Leg Raise",
+          "sets": 2,
+          "reps": 20,
+          "restTime": 60,
+          "duration": "8 min",
+          "completed": true,
+          "instructions": "Lying down, tighten thigh muscles and lift leg 6 inches. Hold 5 seconds. 3 sets of 10."
+        },
+        {
+          "exerciseId": "ex-9",
+          "title": "Wall Sit",
+          "sets": 4,
+          "reps": 25,
+          "restTime": 60,
+          "duration": "10 min",
+          "completed": true,
+          "instructions": "Slide back down wall until knees at 90°. Hold 20–60 seconds. Repeat 5 times."
+        }
+      ],
+      "doctorRemarks": "Good progress. Continue as planned.",
+      "patientFeedback": "Feeling better after this session.",
+      "notes": "Session 8 completed successfully.",
+      "duration": "39 min"
+    },
+    "sess-pat-1-9": {
+      "id": "sess-pat-1-9",
+      "patientId": "pat-1",
+      "sessionNumber": 9,
+      "date": "2026-05-03",
+      "status": "current",
+      "exercises": [
+        {
+          "exerciseId": "ex-15",
+          "title": "Single-Leg Balance",
+          "sets": 2,
+          "reps": 20,
+          "restTime": 45,
+          "duration": "5 min",
+          "completed": false,
+          "instructions": "Stand on one leg for 30 seconds. Progress to eyes closed. 5 reps each leg."
+        },
+        {
+          "exerciseId": "ex-14",
+          "title": "Calf Raise",
+          "sets": 3,
+          "reps": 25,
+          "restTime": 60,
+          "duration": "8 min",
+          "completed": false,
+          "instructions": "Stand on edge of step, rise up on toes then lower heels below step level. 3 sets of 15."
+        },
+        {
+          "exerciseId": "ex-20",
+          "title": "Agility Ladder Drill",
+          "sets": 4,
+          "reps": 10,
+          "restTime": 90,
+          "duration": "10 min",
+          "completed": false,
+          "instructions": "Perform quick feet drills through agility ladder. Various patterns. 5 min continuous."
+        }
+      ],
+      "doctorRemarks": "",
+      "patientFeedback": "",
+      "notes": "Session 9 scheduled.",
+      "duration": "35 min"
+    },
+    "sess-pat-1-10": {
+      "id": "sess-pat-1-10",
+      "patientId": "pat-1",
+      "sessionNumber": 10,
+      "date": "2026-05-07",
+      "status": "locked",
+      "exercises": [
+        {
+          "exerciseId": "ex-9",
+          "title": "Wall Sit",
+          "sets": 2,
+          "reps": 15,
+          "restTime": 30,
+          "duration": "10 min",
+          "completed": false,
+          "instructions": "Slide back down wall until knees at 90°. Hold 20–60 seconds. Repeat 5 times."
+        },
+        {
+          "exerciseId": "ex-3",
+          "title": "Shoulder Pendulum Swing",
+          "sets": 2,
+          "reps": 10,
+          "restTime": 45,
+          "duration": "5 min",
+          "completed": false,
+          "instructions": "Lean forward and let the arm swing in small circles. Gradually increase circle size."
+        },
+        {
+          "exerciseId": "ex-10",
+          "title": "Terminal Knee Extension",
+          "sets": 4,
+          "reps": 15,
+          "restTime": 60,
+          "duration": "10 min",
+          "completed": false,
+          "instructions": "With band behind knee, push knee straight against resistance. 3 sets of 12."
+        }
+      ],
+      "doctorRemarks": "",
+      "patientFeedback": "",
+      "notes": "Session 10 scheduled.",
+      "duration": "33 min"
+    },
+    "sess-pat-1-11": {
+      "id": "sess-pat-1-11",
+      "patientId": "pat-1",
+      "sessionNumber": 11,
+      "date": "2026-05-11",
+      "status": "locked",
+      "exercises": [
+        {
+          "exerciseId": "ex-10",
+          "title": "Terminal Knee Extension",
+          "sets": 2,
+          "reps": 25,
+          "restTime": 60,
+          "duration": "10 min",
+          "completed": false,
+          "instructions": "With band behind knee, push knee straight against resistance. 3 sets of 12."
+        },
+        {
+          "exerciseId": "ex-12",
+          "title": "Clamshell Exercise",
+          "sets": 2,
+          "reps": 20,
+          "restTime": 90,
+          "duration": "8 min",
+          "completed": false,
+          "instructions": "Lying on side with knees bent, open top knee while keeping feet together. 3 sets of 15."
+        },
+        {
+          "exerciseId": "ex-19",
+          "title": "Resistance Band Row",
+          "sets": 4,
+          "reps": 15,
+          "restTime": 45,
+          "duration": "10 min",
+          "completed": false,
+          "instructions": "Secure band in front of you. Pull elbows back squeezing shoulder blades. 3 sets of 12."
+        },
+        {
+          "exerciseId": "ex-11",
+          "title": "Hip Bridge",
+          "sets": 4,
+          "reps": 25,
+          "restTime": 90,
+          "duration": "8 min",
+          "completed": false,
+          "instructions": "Lying on back with knees bent, lift hips to create straight line from shoulders to knees."
+        }
+      ],
+      "doctorRemarks": "",
+      "patientFeedback": "",
+      "notes": "Session 11 scheduled.",
+      "duration": "55 min"
+    },
+    "sess-pat-1-12": {
+      "id": "sess-pat-1-12",
+      "patientId": "pat-1",
+      "sessionNumber": 12,
+      "date": "2026-05-15",
+      "status": "locked",
+      "exercises": [
+        {
+          "exerciseId": "ex-6",
+          "title": "Bird Dog Exercise",
+          "sets": 4,
+          "reps": 20,
+          "restTime": 90,
+          "duration": "10 min",
+          "completed": false,
+          "instructions": "From hands and knees, extend opposite arm and leg. Hold 5 seconds. 10 reps each side."
+        },
+        {
+          "exerciseId": "ex-7",
+          "title": "Dead Bug",
+          "sets": 3,
+          "reps": 20,
+          "restTime": 45,
+          "duration": "8 min",
+          "completed": false,
+          "instructions": "Lying on back with arms extended, slowly lower opposite arm and leg. Core engaged throughout."
+        },
+        {
+          "exerciseId": "ex-15",
+          "title": "Single-Leg Balance",
+          "sets": 2,
+          "reps": 25,
+          "restTime": 60,
+          "duration": "5 min",
+          "completed": false,
+          "instructions": "Stand on one leg for 30 seconds. Progress to eyes closed. 5 reps each leg."
+        },
+        {
+          "exerciseId": "ex-19",
+          "title": "Resistance Band Row",
+          "sets": 3,
+          "reps": 20,
+          "restTime": 90,
+          "duration": "10 min",
+          "completed": false,
+          "instructions": "Secure band in front of you. Pull elbows back squeezing shoulder blades. 3 sets of 12."
+        }
+      ],
+      "doctorRemarks": "",
+      "patientFeedback": "",
+      "notes": "Session 12 scheduled.",
+      "duration": "42 min"
+    },
+    "sess-pat-2-1": {
+      "id": "sess-pat-2-1",
+      "patientId": "pat-2",
+      "sessionNumber": 1,
+      "date": "2026-02-15",
+      "status": "completed",
+      "exercises": [
+        {
+          "exerciseId": "ex-7",
+          "title": "Dead Bug",
+          "sets": 3,
+          "reps": 15,
+          "restTime": 60,
+          "duration": "8 min",
+          "completed": true,
+          "instructions": "Lying on back with arms extended, slowly lower opposite arm and leg. Core engaged throughout."
+        },
+        {
+          "exerciseId": "ex-1",
+          "title": "Neck Flexion Stretch",
+          "sets": 4,
+          "reps": 25,
+          "restTime": 90,
+          "duration": "5 min",
+          "completed": true,
+          "instructions": "Gently tilt head forward bringing chin to chest. Hold 15–30 seconds."
+        },
+        {
+          "exerciseId": "ex-11",
+          "title": "Hip Bridge",
+          "sets": 2,
+          "reps": 15,
+          "restTime": 45,
+          "duration": "8 min",
+          "completed": true,
+          "instructions": "Lying on back with knees bent, lift hips to create straight line from shoulders to knees."
+        }
+      ],
+      "doctorRemarks": "Good progress. Continue as planned.",
+      "patientFeedback": "Feeling better after this session.",
+      "notes": "Session 1 completed successfully.",
+      "duration": "38 min"
+    },
+    "sess-pat-2-2": {
+      "id": "sess-pat-2-2",
+      "patientId": "pat-2",
+      "sessionNumber": 2,
+      "date": "2026-02-19",
+      "status": "completed",
+      "exercises": [
+        {
+          "exerciseId": "ex-1",
+          "title": "Neck Flexion Stretch",
+          "sets": 2,
+          "reps": 10,
+          "restTime": 45,
+          "duration": "5 min",
+          "completed": true,
+          "instructions": "Gently tilt head forward bringing chin to chest. Hold 15–30 seconds."
+        },
+        {
+          "exerciseId": "ex-20",
+          "title": "Agility Ladder Drill",
+          "sets": 4,
+          "reps": 10,
+          "restTime": 60,
+          "duration": "10 min",
+          "completed": true,
+          "instructions": "Perform quick feet drills through agility ladder. Various patterns. 5 min continuous."
+        },
+        {
+          "exerciseId": "ex-2",
+          "title": "Cervical Rotation",
+          "sets": 2,
+          "reps": 20,
+          "restTime": 90,
+          "duration": "5 min",
+          "completed": true,
+          "instructions": "Slowly rotate head side to side, maintaining chin level. Repeat 10 times each direction."
+        },
+        {
+          "exerciseId": "ex-19",
+          "title": "Resistance Band Row",
+          "sets": 2,
+          "reps": 15,
+          "restTime": 60,
+          "duration": "10 min",
+          "completed": true,
+          "instructions": "Secure band in front of you. Pull elbows back squeezing shoulder blades. 3 sets of 12."
+        }
+      ],
+      "doctorRemarks": "Good progress. Continue as planned.",
+      "patientFeedback": "Feeling better after this session.",
+      "notes": "Session 2 completed successfully.",
+      "duration": "52 min"
+    },
+    "sess-pat-2-3": {
+      "id": "sess-pat-2-3",
+      "patientId": "pat-2",
+      "sessionNumber": 3,
+      "date": "2026-02-23",
+      "status": "completed",
+      "exercises": [
+        {
+          "exerciseId": "ex-8",
+          "title": "Straight Leg Raise",
+          "sets": 3,
+          "reps": 20,
+          "restTime": 30,
+          "duration": "8 min",
+          "completed": true,
+          "instructions": "Lying down, tighten thigh muscles and lift leg 6 inches. Hold 5 seconds. 3 sets of 10."
+        },
+        {
+          "exerciseId": "ex-18",
+          "title": "Box Jump",
+          "sets": 4,
+          "reps": 20,
+          "restTime": 60,
+          "duration": "12 min",
+          "completed": true,
+          "instructions": "Jump onto a stable box/platform. Step down. Progress height gradually. 3 sets of 8."
+        },
+        {
+          "exerciseId": "ex-13",
+          "title": "Ankle Alphabet",
+          "sets": 4,
+          "reps": 15,
+          "restTime": 30,
+          "duration": "5 min",
+          "completed": true,
+          "instructions": "Trace the alphabet in the air with your foot. Repeat 3 times with each foot."
+        },
+        {
+          "exerciseId": "ex-16",
+          "title": "Plank Hold",
+          "sets": 3,
+          "reps": 20,
+          "restTime": 45,
+          "duration": "8 min",
+          "completed": true,
+          "instructions": "Maintain push-up position with forearms on ground. Hold 30–60 seconds. 3 sets."
+        }
+      ],
+      "doctorRemarks": "Good progress. Continue as planned.",
+      "patientFeedback": "Feeling better after this session.",
+      "notes": "Session 3 completed successfully.",
+      "duration": "55 min"
+    },
+    "sess-pat-2-4": {
+      "id": "sess-pat-2-4",
+      "patientId": "pat-2",
+      "sessionNumber": 4,
+      "date": "2026-02-27",
+      "status": "completed",
+      "exercises": [
+        {
+          "exerciseId": "ex-4",
+          "title": "External Rotation with Band",
+          "sets": 2,
+          "reps": 25,
+          "restTime": 60,
+          "duration": "10 min",
+          "completed": true,
+          "instructions": "Secure resistance band at elbow height. Rotate forearm outward keeping elbow at side."
+        },
+        {
+          "exerciseId": "ex-3",
+          "title": "Shoulder Pendulum Swing",
+          "sets": 4,
+          "reps": 20,
+          "restTime": 60,
+          "duration": "5 min",
+          "completed": true,
+          "instructions": "Lean forward and let the arm swing in small circles. Gradually increase circle size."
+        },
+        {
+          "exerciseId": "ex-20",
+          "title": "Agility Ladder Drill",
+          "sets": 2,
+          "reps": 25,
+          "restTime": 30,
+          "duration": "10 min",
+          "completed": true,
+          "instructions": "Perform quick feet drills through agility ladder. Various patterns. 5 min continuous."
+        }
+      ],
+      "doctorRemarks": "Good progress. Continue as planned.",
+      "patientFeedback": "Feeling better after this session.",
+      "notes": "Session 4 completed successfully.",
+      "duration": "34 min"
+    },
+    "sess-pat-2-5": {
+      "id": "sess-pat-2-5",
+      "patientId": "pat-2",
+      "sessionNumber": 5,
+      "date": "2026-03-03",
+      "status": "completed",
+      "exercises": [
+        {
+          "exerciseId": "ex-1",
+          "title": "Neck Flexion Stretch",
+          "sets": 2,
+          "reps": 20,
+          "restTime": 45,
+          "duration": "5 min",
+          "completed": true,
+          "instructions": "Gently tilt head forward bringing chin to chest. Hold 15–30 seconds."
+        },
+        {
+          "exerciseId": "ex-12",
+          "title": "Clamshell Exercise",
+          "sets": 2,
+          "reps": 20,
+          "restTime": 45,
+          "duration": "8 min",
+          "completed": true,
+          "instructions": "Lying on side with knees bent, open top knee while keeping feet together. 3 sets of 15."
+        },
+        {
+          "exerciseId": "ex-2",
+          "title": "Cervical Rotation",
+          "sets": 2,
+          "reps": 15,
+          "restTime": 60,
+          "duration": "5 min",
+          "completed": true,
+          "instructions": "Slowly rotate head side to side, maintaining chin level. Repeat 10 times each direction."
+        },
+        {
+          "exerciseId": "ex-3",
+          "title": "Shoulder Pendulum Swing",
+          "sets": 4,
+          "reps": 25,
+          "restTime": 30,
+          "duration": "5 min",
+          "completed": true,
+          "instructions": "Lean forward and let the arm swing in small circles. Gradually increase circle size."
+        }
+      ],
+      "doctorRemarks": "Good progress. Continue as planned.",
+      "patientFeedback": "Feeling better after this session.",
+      "notes": "Session 5 completed successfully.",
+      "duration": "34 min"
+    },
+    "sess-pat-2-6": {
+      "id": "sess-pat-2-6",
+      "patientId": "pat-2",
+      "sessionNumber": 6,
+      "date": "2026-03-07",
+      "status": "completed",
+      "exercises": [
+        {
+          "exerciseId": "ex-18",
+          "title": "Box Jump",
+          "sets": 3,
+          "reps": 20,
+          "restTime": 60,
+          "duration": "12 min",
+          "completed": true,
+          "instructions": "Jump onto a stable box/platform. Step down. Progress height gradually. 3 sets of 8."
+        },
+        {
+          "exerciseId": "ex-12",
+          "title": "Clamshell Exercise",
+          "sets": 2,
+          "reps": 10,
+          "restTime": 30,
+          "duration": "8 min",
+          "completed": true,
+          "instructions": "Lying on side with knees bent, open top knee while keeping feet together. 3 sets of 15."
+        },
+        {
+          "exerciseId": "ex-2",
+          "title": "Cervical Rotation",
+          "sets": 3,
+          "reps": 10,
+          "restTime": 90,
+          "duration": "5 min",
+          "completed": true,
+          "instructions": "Slowly rotate head side to side, maintaining chin level. Repeat 10 times each direction."
+        }
+      ],
+      "doctorRemarks": "Good progress. Continue as planned.",
+      "patientFeedback": "Feeling better after this session.",
+      "notes": "Session 6 completed successfully.",
+      "duration": "56 min"
+    },
+    "sess-pat-2-7": {
+      "id": "sess-pat-2-7",
+      "patientId": "pat-2",
+      "sessionNumber": 7,
+      "date": "2026-03-11",
+      "status": "completed",
+      "exercises": [
+        {
+          "exerciseId": "ex-1",
+          "title": "Neck Flexion Stretch",
+          "sets": 4,
+          "reps": 10,
+          "restTime": 60,
+          "duration": "5 min",
+          "completed": true,
+          "instructions": "Gently tilt head forward bringing chin to chest. Hold 15–30 seconds."
+        },
+        {
+          "exerciseId": "ex-2",
+          "title": "Cervical Rotation",
+          "sets": 3,
+          "reps": 20,
+          "restTime": 30,
+          "duration": "5 min",
+          "completed": true,
+          "instructions": "Slowly rotate head side to side, maintaining chin level. Repeat 10 times each direction."
+        },
+        {
+          "exerciseId": "ex-16",
+          "title": "Plank Hold",
+          "sets": 2,
+          "reps": 25,
+          "restTime": 45,
+          "duration": "8 min",
+          "completed": true,
+          "instructions": "Maintain push-up position with forearms on ground. Hold 30–60 seconds. 3 sets."
+        },
+        {
+          "exerciseId": "ex-11",
+          "title": "Hip Bridge",
+          "sets": 2,
+          "reps": 20,
+          "restTime": 90,
+          "duration": "8 min",
+          "completed": true,
+          "instructions": "Lying on back with knees bent, lift hips to create straight line from shoulders to knees."
+        }
+      ],
+      "doctorRemarks": "Good progress. Continue as planned.",
+      "patientFeedback": "Feeling better after this session.",
+      "notes": "Session 7 completed successfully.",
+      "duration": "41 min"
+    },
+    "sess-pat-2-8": {
+      "id": "sess-pat-2-8",
+      "patientId": "pat-2",
+      "sessionNumber": 8,
+      "date": "2026-03-15",
+      "status": "completed",
+      "exercises": [
+        {
+          "exerciseId": "ex-14",
+          "title": "Calf Raise",
+          "sets": 2,
+          "reps": 10,
+          "restTime": 60,
+          "duration": "8 min",
+          "completed": true,
+          "instructions": "Stand on edge of step, rise up on toes then lower heels below step level. 3 sets of 15."
+        },
+        {
+          "exerciseId": "ex-2",
+          "title": "Cervical Rotation",
+          "sets": 2,
+          "reps": 25,
+          "restTime": 90,
+          "duration": "5 min",
+          "completed": true,
+          "instructions": "Slowly rotate head side to side, maintaining chin level. Repeat 10 times each direction."
+        },
+        {
+          "exerciseId": "ex-6",
+          "title": "Bird Dog Exercise",
+          "sets": 2,
+          "reps": 10,
+          "restTime": 45,
+          "duration": "10 min",
+          "completed": true,
+          "instructions": "From hands and knees, extend opposite arm and leg. Hold 5 seconds. 10 reps each side."
+        },
+        {
+          "exerciseId": "ex-11",
+          "title": "Hip Bridge",
+          "sets": 3,
+          "reps": 20,
+          "restTime": 60,
+          "duration": "8 min",
+          "completed": true,
+          "instructions": "Lying on back with knees bent, lift hips to create straight line from shoulders to knees."
+        }
+      ],
+      "doctorRemarks": "Good progress. Continue as planned.",
+      "patientFeedback": "Feeling better after this session.",
+      "notes": "Session 8 completed successfully.",
+      "duration": "32 min"
+    },
+    "sess-pat-2-9": {
+      "id": "sess-pat-2-9",
+      "patientId": "pat-2",
+      "sessionNumber": 9,
+      "date": "2026-03-19",
+      "status": "completed",
+      "exercises": [
+        {
+          "exerciseId": "ex-16",
+          "title": "Plank Hold",
+          "sets": 3,
+          "reps": 25,
+          "restTime": 60,
+          "duration": "8 min",
+          "completed": true,
+          "instructions": "Maintain push-up position with forearms on ground. Hold 30–60 seconds. 3 sets."
+        },
+        {
+          "exerciseId": "ex-9",
+          "title": "Wall Sit",
+          "sets": 2,
+          "reps": 10,
+          "restTime": 45,
+          "duration": "10 min",
+          "completed": true,
+          "instructions": "Slide back down wall until knees at 90°. Hold 20–60 seconds. Repeat 5 times."
+        },
+        {
+          "exerciseId": "ex-8",
+          "title": "Straight Leg Raise",
+          "sets": 3,
+          "reps": 10,
+          "restTime": 90,
+          "duration": "8 min",
+          "completed": true,
+          "instructions": "Lying down, tighten thigh muscles and lift leg 6 inches. Hold 5 seconds. 3 sets of 10."
+        }
+      ],
+      "doctorRemarks": "Good progress. Continue as planned.",
+      "patientFeedback": "Feeling better after this session.",
+      "notes": "Session 9 completed successfully.",
+      "duration": "33 min"
+    },
+    "sess-pat-2-10": {
+      "id": "sess-pat-2-10",
+      "patientId": "pat-2",
+      "sessionNumber": 10,
+      "date": "2026-03-23",
+      "status": "completed",
+      "exercises": [
+        {
+          "exerciseId": "ex-16",
+          "title": "Plank Hold",
+          "sets": 4,
+          "reps": 20,
+          "restTime": 45,
+          "duration": "8 min",
+          "completed": true,
+          "instructions": "Maintain push-up position with forearms on ground. Hold 30–60 seconds. 3 sets."
+        },
+        {
+          "exerciseId": "ex-7",
+          "title": "Dead Bug",
+          "sets": 4,
+          "reps": 15,
+          "restTime": 90,
+          "duration": "8 min",
+          "completed": true,
+          "instructions": "Lying on back with arms extended, slowly lower opposite arm and leg. Core engaged throughout."
+        },
+        {
+          "exerciseId": "ex-6",
+          "title": "Bird Dog Exercise",
+          "sets": 4,
+          "reps": 15,
+          "restTime": 90,
+          "duration": "10 min",
+          "completed": true,
+          "instructions": "From hands and knees, extend opposite arm and leg. Hold 5 seconds. 10 reps each side."
+        },
+        {
+          "exerciseId": "ex-17",
+          "title": "Lateral Band Walk",
+          "sets": 2,
+          "reps": 25,
+          "restTime": 45,
+          "duration": "10 min",
+          "completed": true,
+          "instructions": "Place band around ankles and walk sideways maintaining tension. 3 sets of 20 steps."
+        }
+      ],
+      "doctorRemarks": "Good progress. Continue as planned.",
+      "patientFeedback": "Feeling better after this session.",
+      "notes": "Session 10 completed successfully.",
+      "duration": "40 min"
+    },
+    "sess-pat-3-1": {
+      "id": "sess-pat-3-1",
+      "patientId": "pat-3",
+      "sessionNumber": 1,
+      "date": "2026-05-01",
+      "status": "completed",
+      "exercises": [
+        {
+          "exerciseId": "ex-9",
+          "title": "Wall Sit",
+          "sets": 4,
+          "reps": 10,
+          "restTime": 90,
+          "duration": "10 min",
+          "completed": true,
+          "instructions": "Slide back down wall until knees at 90°. Hold 20–60 seconds. Repeat 5 times."
+        },
+        {
+          "exerciseId": "ex-7",
+          "title": "Dead Bug",
+          "sets": 4,
+          "reps": 20,
+          "restTime": 45,
+          "duration": "8 min",
+          "completed": true,
+          "instructions": "Lying on back with arms extended, slowly lower opposite arm and leg. Core engaged throughout."
+        },
+        {
+          "exerciseId": "ex-14",
+          "title": "Calf Raise",
+          "sets": 4,
+          "reps": 10,
+          "restTime": 30,
+          "duration": "8 min",
+          "completed": true,
+          "instructions": "Stand on edge of step, rise up on toes then lower heels below step level. 3 sets of 15."
+        }
+      ],
+      "doctorRemarks": "Good progress. Continue as planned.",
+      "patientFeedback": "Feeling better after this session.",
+      "notes": "Session 1 completed successfully.",
+      "duration": "55 min"
+    },
+    "sess-pat-3-2": {
+      "id": "sess-pat-3-2",
+      "patientId": "pat-3",
+      "sessionNumber": 2,
+      "date": "2026-05-05",
+      "status": "completed",
+      "exercises": [
+        {
+          "exerciseId": "ex-15",
+          "title": "Single-Leg Balance",
+          "sets": 2,
+          "reps": 10,
+          "restTime": 90,
+          "duration": "5 min",
+          "completed": true,
+          "instructions": "Stand on one leg for 30 seconds. Progress to eyes closed. 5 reps each leg."
+        },
+        {
+          "exerciseId": "ex-18",
+          "title": "Box Jump",
+          "sets": 3,
+          "reps": 20,
+          "restTime": 45,
+          "duration": "12 min",
+          "completed": true,
+          "instructions": "Jump onto a stable box/platform. Step down. Progress height gradually. 3 sets of 8."
+        },
+        {
+          "exerciseId": "ex-5",
+          "title": "Cat-Cow Stretch",
+          "sets": 2,
+          "reps": 15,
+          "restTime": 45,
+          "duration": "5 min",
+          "completed": true,
+          "instructions": "On hands and knees, alternate between arching and rounding the spine. 10 repetitions."
+        },
+        {
+          "exerciseId": "ex-8",
+          "title": "Straight Leg Raise",
+          "sets": 3,
+          "reps": 10,
+          "restTime": 45,
+          "duration": "8 min",
+          "completed": true,
+          "instructions": "Lying down, tighten thigh muscles and lift leg 6 inches. Hold 5 seconds. 3 sets of 10."
+        }
+      ],
+      "doctorRemarks": "Good progress. Continue as planned.",
+      "patientFeedback": "Feeling better after this session.",
+      "notes": "Session 2 completed successfully.",
+      "duration": "42 min"
+    },
+    "sess-pat-3-3": {
+      "id": "sess-pat-3-3",
+      "patientId": "pat-3",
+      "sessionNumber": 3,
+      "date": "2026-05-09",
+      "status": "completed",
+      "exercises": [
+        {
+          "exerciseId": "ex-4",
+          "title": "External Rotation with Band",
+          "sets": 2,
+          "reps": 10,
+          "restTime": 30,
+          "duration": "10 min",
+          "completed": true,
+          "instructions": "Secure resistance band at elbow height. Rotate forearm outward keeping elbow at side."
+        },
+        {
+          "exerciseId": "ex-3",
+          "title": "Shoulder Pendulum Swing",
+          "sets": 2,
+          "reps": 20,
+          "restTime": 45,
+          "duration": "5 min",
+          "completed": true,
+          "instructions": "Lean forward and let the arm swing in small circles. Gradually increase circle size."
+        },
+        {
+          "exerciseId": "ex-10",
+          "title": "Terminal Knee Extension",
+          "sets": 2,
+          "reps": 15,
+          "restTime": 60,
+          "duration": "10 min",
+          "completed": true,
+          "instructions": "With band behind knee, push knee straight against resistance. 3 sets of 12."
+        }
+      ],
+      "doctorRemarks": "Good progress. Continue as planned.",
+      "patientFeedback": "Feeling better after this session.",
+      "notes": "Session 3 completed successfully.",
+      "duration": "49 min"
+    },
+    "sess-pat-3-4": {
+      "id": "sess-pat-3-4",
+      "patientId": "pat-3",
+      "sessionNumber": 4,
+      "date": "2026-05-13",
+      "status": "completed",
+      "exercises": [
+        {
+          "exerciseId": "ex-15",
+          "title": "Single-Leg Balance",
+          "sets": 4,
+          "reps": 10,
+          "restTime": 60,
+          "duration": "5 min",
+          "completed": true,
+          "instructions": "Stand on one leg for 30 seconds. Progress to eyes closed. 5 reps each leg."
+        },
+        {
+          "exerciseId": "ex-19",
+          "title": "Resistance Band Row",
+          "sets": 4,
+          "reps": 25,
+          "restTime": 30,
+          "duration": "10 min",
+          "completed": true,
+          "instructions": "Secure band in front of you. Pull elbows back squeezing shoulder blades. 3 sets of 12."
+        },
+        {
+          "exerciseId": "ex-17",
+          "title": "Lateral Band Walk",
+          "sets": 2,
+          "reps": 10,
+          "restTime": 30,
+          "duration": "10 min",
+          "completed": true,
+          "instructions": "Place band around ankles and walk sideways maintaining tension. 3 sets of 20 steps."
+        },
+        {
+          "exerciseId": "ex-7",
+          "title": "Dead Bug",
+          "sets": 4,
+          "reps": 10,
+          "restTime": 45,
+          "duration": "8 min",
+          "completed": true,
+          "instructions": "Lying on back with arms extended, slowly lower opposite arm and leg. Core engaged throughout."
+        }
+      ],
+      "doctorRemarks": "Good progress. Continue as planned.",
+      "patientFeedback": "Feeling better after this session.",
+      "notes": "Session 4 completed successfully.",
+      "duration": "45 min"
+    },
+    "sess-pat-3-5": {
+      "id": "sess-pat-3-5",
+      "patientId": "pat-3",
+      "sessionNumber": 5,
+      "date": "2026-05-17",
+      "status": "completed",
+      "exercises": [
+        {
+          "exerciseId": "ex-9",
+          "title": "Wall Sit",
+          "sets": 2,
+          "reps": 20,
+          "restTime": 90,
+          "duration": "10 min",
+          "completed": true,
+          "instructions": "Slide back down wall until knees at 90°. Hold 20–60 seconds. Repeat 5 times."
+        },
+        {
+          "exerciseId": "ex-4",
+          "title": "External Rotation with Band",
+          "sets": 2,
+          "reps": 25,
+          "restTime": 90,
+          "duration": "10 min",
+          "completed": true,
+          "instructions": "Secure resistance band at elbow height. Rotate forearm outward keeping elbow at side."
+        },
+        {
+          "exerciseId": "ex-8",
+          "title": "Straight Leg Raise",
+          "sets": 3,
+          "reps": 25,
+          "restTime": 30,
+          "duration": "8 min",
+          "completed": true,
+          "instructions": "Lying down, tighten thigh muscles and lift leg 6 inches. Hold 5 seconds. 3 sets of 10."
+        }
+      ],
+      "doctorRemarks": "Good progress. Continue as planned.",
+      "patientFeedback": "Feeling better after this session.",
+      "notes": "Session 5 completed successfully.",
+      "duration": "34 min"
+    },
+    "sess-pat-3-6": {
+      "id": "sess-pat-3-6",
+      "patientId": "pat-3",
+      "sessionNumber": 6,
+      "date": "2026-05-21",
+      "status": "current",
+      "exercises": [
+        {
+          "exerciseId": "ex-9",
+          "title": "Wall Sit",
+          "sets": 3,
+          "reps": 15,
+          "restTime": 30,
+          "duration": "10 min",
+          "completed": false,
+          "instructions": "Slide back down wall until knees at 90°. Hold 20–60 seconds. Repeat 5 times."
+        },
+        {
+          "exerciseId": "ex-20",
+          "title": "Agility Ladder Drill",
+          "sets": 3,
+          "reps": 20,
+          "restTime": 60,
+          "duration": "10 min",
+          "completed": false,
+          "instructions": "Perform quick feet drills through agility ladder. Various patterns. 5 min continuous."
+        },
+        {
+          "exerciseId": "ex-8",
+          "title": "Straight Leg Raise",
+          "sets": 3,
+          "reps": 10,
+          "restTime": 90,
+          "duration": "8 min",
+          "completed": false,
+          "instructions": "Lying down, tighten thigh muscles and lift leg 6 inches. Hold 5 seconds. 3 sets of 10."
+        },
+        {
+          "exerciseId": "ex-11",
+          "title": "Hip Bridge",
+          "sets": 3,
+          "reps": 20,
+          "restTime": 60,
+          "duration": "8 min",
+          "completed": false,
+          "instructions": "Lying on back with knees bent, lift hips to create straight line from shoulders to knees."
+        }
+      ],
+      "doctorRemarks": "",
+      "patientFeedback": "",
+      "notes": "Session 6 scheduled.",
+      "duration": "33 min"
+    },
+    "sess-pat-3-7": {
+      "id": "sess-pat-3-7",
+      "patientId": "pat-3",
+      "sessionNumber": 7,
+      "date": "2026-05-25",
+      "status": "locked",
+      "exercises": [
+        {
+          "exerciseId": "ex-8",
+          "title": "Straight Leg Raise",
+          "sets": 3,
+          "reps": 15,
+          "restTime": 30,
+          "duration": "8 min",
+          "completed": false,
+          "instructions": "Lying down, tighten thigh muscles and lift leg 6 inches. Hold 5 seconds. 3 sets of 10."
+        },
+        {
+          "exerciseId": "ex-7",
+          "title": "Dead Bug",
+          "sets": 4,
+          "reps": 20,
+          "restTime": 60,
+          "duration": "8 min",
+          "completed": false,
+          "instructions": "Lying on back with arms extended, slowly lower opposite arm and leg. Core engaged throughout."
+        },
+        {
+          "exerciseId": "ex-1",
+          "title": "Neck Flexion Stretch",
+          "sets": 2,
+          "reps": 10,
+          "restTime": 45,
+          "duration": "5 min",
+          "completed": false,
+          "instructions": "Gently tilt head forward bringing chin to chest. Hold 15–30 seconds."
+        }
+      ],
+      "doctorRemarks": "",
+      "patientFeedback": "",
+      "notes": "Session 7 scheduled.",
+      "duration": "46 min"
+    },
+    "sess-pat-3-8": {
+      "id": "sess-pat-3-8",
+      "patientId": "pat-3",
+      "sessionNumber": 8,
+      "date": "2026-05-29",
+      "status": "locked",
+      "exercises": [
+        {
+          "exerciseId": "ex-1",
+          "title": "Neck Flexion Stretch",
+          "sets": 4,
+          "reps": 10,
+          "restTime": 45,
+          "duration": "5 min",
+          "completed": false,
+          "instructions": "Gently tilt head forward bringing chin to chest. Hold 15–30 seconds."
+        },
+        {
+          "exerciseId": "ex-15",
+          "title": "Single-Leg Balance",
+          "sets": 2,
+          "reps": 20,
+          "restTime": 90,
+          "duration": "5 min",
+          "completed": false,
+          "instructions": "Stand on one leg for 30 seconds. Progress to eyes closed. 5 reps each leg."
+        },
+        {
+          "exerciseId": "ex-5",
+          "title": "Cat-Cow Stretch",
+          "sets": 3,
+          "reps": 10,
+          "restTime": 60,
+          "duration": "5 min",
+          "completed": false,
+          "instructions": "On hands and knees, alternate between arching and rounding the spine. 10 repetitions."
+        }
+      ],
+      "doctorRemarks": "",
+      "patientFeedback": "",
+      "notes": "Session 8 scheduled.",
+      "duration": "32 min"
+    },
+    "sess-pat-4-1": {
+      "id": "sess-pat-4-1",
+      "patientId": "pat-4",
+      "sessionNumber": 1,
+      "date": "2026-05-20",
+      "status": "completed",
+      "exercises": [
+        {
+          "exerciseId": "ex-6",
+          "title": "Bird Dog Exercise",
+          "sets": 3,
+          "reps": 15,
+          "restTime": 60,
+          "duration": "10 min",
+          "completed": true,
+          "instructions": "From hands and knees, extend opposite arm and leg. Hold 5 seconds. 10 reps each side."
+        },
+        {
+          "exerciseId": "ex-1",
+          "title": "Neck Flexion Stretch",
+          "sets": 2,
+          "reps": 15,
+          "restTime": 60,
+          "duration": "5 min",
+          "completed": true,
+          "instructions": "Gently tilt head forward bringing chin to chest. Hold 15–30 seconds."
+        },
+        {
+          "exerciseId": "ex-7",
+          "title": "Dead Bug",
+          "sets": 3,
+          "reps": 10,
+          "restTime": 30,
+          "duration": "8 min",
+          "completed": true,
+          "instructions": "Lying on back with arms extended, slowly lower opposite arm and leg. Core engaged throughout."
+        },
+        {
+          "exerciseId": "ex-9",
+          "title": "Wall Sit",
+          "sets": 2,
+          "reps": 20,
+          "restTime": 60,
+          "duration": "10 min",
+          "completed": true,
+          "instructions": "Slide back down wall until knees at 90°. Hold 20–60 seconds. Repeat 5 times."
+        }
+      ],
+      "doctorRemarks": "Good progress. Continue as planned.",
+      "patientFeedback": "Feeling better after this session.",
+      "notes": "Session 1 completed successfully.",
+      "duration": "31 min"
+    },
+    "sess-pat-4-2": {
+      "id": "sess-pat-4-2",
+      "patientId": "pat-4",
+      "sessionNumber": 2,
+      "date": "2026-05-24",
+      "status": "completed",
+      "exercises": [
+        {
+          "exerciseId": "ex-6",
+          "title": "Bird Dog Exercise",
+          "sets": 2,
+          "reps": 20,
+          "restTime": 90,
+          "duration": "10 min",
+          "completed": true,
+          "instructions": "From hands and knees, extend opposite arm and leg. Hold 5 seconds. 10 reps each side."
+        },
+        {
+          "exerciseId": "ex-1",
+          "title": "Neck Flexion Stretch",
+          "sets": 3,
+          "reps": 20,
+          "restTime": 60,
+          "duration": "5 min",
+          "completed": true,
+          "instructions": "Gently tilt head forward bringing chin to chest. Hold 15–30 seconds."
+        },
+        {
+          "exerciseId": "ex-12",
+          "title": "Clamshell Exercise",
+          "sets": 2,
+          "reps": 15,
+          "restTime": 30,
+          "duration": "8 min",
+          "completed": true,
+          "instructions": "Lying on side with knees bent, open top knee while keeping feet together. 3 sets of 15."
+        }
+      ],
+      "doctorRemarks": "Good progress. Continue as planned.",
+      "patientFeedback": "Feeling better after this session.",
+      "notes": "Session 2 completed successfully.",
+      "duration": "55 min"
+    },
+    "sess-pat-4-3": {
+      "id": "sess-pat-4-3",
+      "patientId": "pat-4",
+      "sessionNumber": 3,
+      "date": "2026-05-28",
+      "status": "completed",
+      "exercises": [
+        {
+          "exerciseId": "ex-3",
+          "title": "Shoulder Pendulum Swing",
+          "sets": 4,
+          "reps": 20,
+          "restTime": 45,
+          "duration": "5 min",
+          "completed": true,
+          "instructions": "Lean forward and let the arm swing in small circles. Gradually increase circle size."
+        },
+        {
+          "exerciseId": "ex-14",
+          "title": "Calf Raise",
+          "sets": 4,
+          "reps": 20,
+          "restTime": 45,
+          "duration": "8 min",
+          "completed": true,
+          "instructions": "Stand on edge of step, rise up on toes then lower heels below step level. 3 sets of 15."
+        },
+        {
+          "exerciseId": "ex-2",
+          "title": "Cervical Rotation",
+          "sets": 4,
+          "reps": 10,
+          "restTime": 90,
+          "duration": "5 min",
+          "completed": true,
+          "instructions": "Slowly rotate head side to side, maintaining chin level. Repeat 10 times each direction."
+        },
+        {
+          "exerciseId": "ex-20",
+          "title": "Agility Ladder Drill",
+          "sets": 2,
+          "reps": 15,
+          "restTime": 90,
+          "duration": "10 min",
+          "completed": true,
+          "instructions": "Perform quick feet drills through agility ladder. Various patterns. 5 min continuous."
+        }
+      ],
+      "doctorRemarks": "Good progress. Continue as planned.",
+      "patientFeedback": "Feeling better after this session.",
+      "notes": "Session 3 completed successfully.",
+      "duration": "49 min"
+    },
+    "sess-pat-4-4": {
+      "id": "sess-pat-4-4",
+      "patientId": "pat-4",
+      "sessionNumber": 4,
+      "date": "2026-06-01",
+      "status": "current",
+      "exercises": [
+        {
+          "exerciseId": "ex-15",
+          "title": "Single-Leg Balance",
+          "sets": 4,
+          "reps": 15,
+          "restTime": 60,
+          "duration": "5 min",
+          "completed": false,
+          "instructions": "Stand on one leg for 30 seconds. Progress to eyes closed. 5 reps each leg."
+        },
+        {
+          "exerciseId": "ex-10",
+          "title": "Terminal Knee Extension",
+          "sets": 3,
+          "reps": 15,
+          "restTime": 45,
+          "duration": "10 min",
+          "completed": false,
+          "instructions": "With band behind knee, push knee straight against resistance. 3 sets of 12."
+        },
+        {
+          "exerciseId": "ex-17",
+          "title": "Lateral Band Walk",
+          "sets": 4,
+          "reps": 20,
+          "restTime": 90,
+          "duration": "10 min",
+          "completed": false,
+          "instructions": "Place band around ankles and walk sideways maintaining tension. 3 sets of 20 steps."
+        }
+      ],
+      "doctorRemarks": "",
+      "patientFeedback": "",
+      "notes": "Session 4 scheduled.",
+      "duration": "44 min"
+    },
+    "sess-pat-4-5": {
+      "id": "sess-pat-4-5",
+      "patientId": "pat-4",
+      "sessionNumber": 5,
+      "date": "2026-06-05",
+      "status": "locked",
+      "exercises": [
+        {
+          "exerciseId": "ex-15",
+          "title": "Single-Leg Balance",
+          "sets": 4,
+          "reps": 20,
+          "restTime": 90,
+          "duration": "5 min",
+          "completed": false,
+          "instructions": "Stand on one leg for 30 seconds. Progress to eyes closed. 5 reps each leg."
+        },
+        {
+          "exerciseId": "ex-6",
+          "title": "Bird Dog Exercise",
+          "sets": 2,
+          "reps": 15,
+          "restTime": 30,
+          "duration": "10 min",
+          "completed": false,
+          "instructions": "From hands and knees, extend opposite arm and leg. Hold 5 seconds. 10 reps each side."
+        },
+        {
+          "exerciseId": "ex-2",
+          "title": "Cervical Rotation",
+          "sets": 2,
+          "reps": 15,
+          "restTime": 60,
+          "duration": "5 min",
+          "completed": false,
+          "instructions": "Slowly rotate head side to side, maintaining chin level. Repeat 10 times each direction."
+        },
+        {
+          "exerciseId": "ex-13",
+          "title": "Ankle Alphabet",
+          "sets": 3,
+          "reps": 20,
+          "restTime": 90,
+          "duration": "5 min",
+          "completed": false,
+          "instructions": "Trace the alphabet in the air with your foot. Repeat 3 times with each foot."
+        }
+      ],
+      "doctorRemarks": "",
+      "patientFeedback": "",
+      "notes": "Session 5 scheduled.",
+      "duration": "36 min"
+    },
+    "sess-pat-4-6": {
+      "id": "sess-pat-4-6",
+      "patientId": "pat-4",
+      "sessionNumber": 6,
+      "date": "2026-06-09",
+      "status": "locked",
+      "exercises": [
+        {
+          "exerciseId": "ex-5",
+          "title": "Cat-Cow Stretch",
+          "sets": 3,
+          "reps": 10,
+          "restTime": 45,
+          "duration": "5 min",
+          "completed": false,
+          "instructions": "On hands and knees, alternate between arching and rounding the spine. 10 repetitions."
+        },
+        {
+          "exerciseId": "ex-17",
+          "title": "Lateral Band Walk",
+          "sets": 2,
+          "reps": 20,
+          "restTime": 45,
+          "duration": "10 min",
+          "completed": false,
+          "instructions": "Place band around ankles and walk sideways maintaining tension. 3 sets of 20 steps."
+        },
+        {
+          "exerciseId": "ex-4",
+          "title": "External Rotation with Band",
+          "sets": 3,
+          "reps": 15,
+          "restTime": 90,
+          "duration": "10 min",
+          "completed": false,
+          "instructions": "Secure resistance band at elbow height. Rotate forearm outward keeping elbow at side."
+        },
+        {
+          "exerciseId": "ex-6",
+          "title": "Bird Dog Exercise",
+          "sets": 4,
+          "reps": 20,
+          "restTime": 60,
+          "duration": "10 min",
+          "completed": false,
+          "instructions": "From hands and knees, extend opposite arm and leg. Hold 5 seconds. 10 reps each side."
+        }
+      ],
+      "doctorRemarks": "",
+      "patientFeedback": "",
+      "notes": "Session 6 scheduled.",
+      "duration": "31 min"
+    },
+    "sess-pat-4-7": {
+      "id": "sess-pat-4-7",
+      "patientId": "pat-4",
+      "sessionNumber": 7,
+      "date": "2026-06-13",
+      "status": "locked",
+      "exercises": [
+        {
+          "exerciseId": "ex-1",
+          "title": "Neck Flexion Stretch",
+          "sets": 3,
+          "reps": 10,
+          "restTime": 45,
+          "duration": "5 min",
+          "completed": false,
+          "instructions": "Gently tilt head forward bringing chin to chest. Hold 15–30 seconds."
+        },
+        {
+          "exerciseId": "ex-19",
+          "title": "Resistance Band Row",
+          "sets": 4,
+          "reps": 20,
+          "restTime": 60,
+          "duration": "10 min",
+          "completed": false,
+          "instructions": "Secure band in front of you. Pull elbows back squeezing shoulder blades. 3 sets of 12."
+        },
+        {
+          "exerciseId": "ex-2",
+          "title": "Cervical Rotation",
+          "sets": 4,
+          "reps": 20,
+          "restTime": 60,
+          "duration": "5 min",
+          "completed": false,
+          "instructions": "Slowly rotate head side to side, maintaining chin level. Repeat 10 times each direction."
+        },
+        {
+          "exerciseId": "ex-16",
+          "title": "Plank Hold",
+          "sets": 3,
+          "reps": 25,
+          "restTime": 45,
+          "duration": "8 min",
+          "completed": false,
+          "instructions": "Maintain push-up position with forearms on ground. Hold 30–60 seconds. 3 sets."
+        }
+      ],
+      "doctorRemarks": "",
+      "patientFeedback": "",
+      "notes": "Session 7 scheduled.",
+      "duration": "49 min"
+    },
+    "sess-pat-4-8": {
+      "id": "sess-pat-4-8",
+      "patientId": "pat-4",
+      "sessionNumber": 8,
+      "date": "2026-06-17",
+      "status": "locked",
+      "exercises": [
+        {
+          "exerciseId": "ex-8",
+          "title": "Straight Leg Raise",
+          "sets": 2,
+          "reps": 20,
+          "restTime": 60,
+          "duration": "8 min",
+          "completed": false,
+          "instructions": "Lying down, tighten thigh muscles and lift leg 6 inches. Hold 5 seconds. 3 sets of 10."
+        },
+        {
+          "exerciseId": "ex-13",
+          "title": "Ankle Alphabet",
+          "sets": 4,
+          "reps": 20,
+          "restTime": 60,
+          "duration": "5 min",
+          "completed": false,
+          "instructions": "Trace the alphabet in the air with your foot. Repeat 3 times with each foot."
+        },
+        {
+          "exerciseId": "ex-16",
+          "title": "Plank Hold",
+          "sets": 3,
+          "reps": 15,
+          "restTime": 30,
+          "duration": "8 min",
+          "completed": false,
+          "instructions": "Maintain push-up position with forearms on ground. Hold 30–60 seconds. 3 sets."
+        }
+      ],
+      "doctorRemarks": "",
+      "patientFeedback": "",
+      "notes": "Session 8 scheduled.",
+      "duration": "49 min"
+    },
+    "sess-pat-4-9": {
+      "id": "sess-pat-4-9",
+      "patientId": "pat-4",
+      "sessionNumber": 9,
+      "date": "2026-06-21",
+      "status": "locked",
+      "exercises": [
+        {
+          "exerciseId": "ex-11",
+          "title": "Hip Bridge",
+          "sets": 2,
+          "reps": 10,
+          "restTime": 30,
+          "duration": "8 min",
+          "completed": false,
+          "instructions": "Lying on back with knees bent, lift hips to create straight line from shoulders to knees."
+        },
+        {
+          "exerciseId": "ex-6",
+          "title": "Bird Dog Exercise",
+          "sets": 2,
+          "reps": 15,
+          "restTime": 45,
+          "duration": "10 min",
+          "completed": false,
+          "instructions": "From hands and knees, extend opposite arm and leg. Hold 5 seconds. 10 reps each side."
+        },
+        {
+          "exerciseId": "ex-19",
+          "title": "Resistance Band Row",
+          "sets": 3,
+          "reps": 10,
+          "restTime": 90,
+          "duration": "10 min",
+          "completed": false,
+          "instructions": "Secure band in front of you. Pull elbows back squeezing shoulder blades. 3 sets of 12."
+        },
+        {
+          "exerciseId": "ex-12",
+          "title": "Clamshell Exercise",
+          "sets": 3,
+          "reps": 25,
+          "restTime": 60,
+          "duration": "8 min",
+          "completed": false,
+          "instructions": "Lying on side with knees bent, open top knee while keeping feet together. 3 sets of 15."
+        }
+      ],
+      "doctorRemarks": "",
+      "patientFeedback": "",
+      "notes": "Session 9 scheduled.",
+      "duration": "58 min"
+    },
+    "sess-pat-4-10": {
+      "id": "sess-pat-4-10",
+      "patientId": "pat-4",
+      "sessionNumber": 10,
+      "date": "2026-06-25",
+      "status": "locked",
+      "exercises": [
+        {
+          "exerciseId": "ex-1",
+          "title": "Neck Flexion Stretch",
+          "sets": 3,
+          "reps": 20,
+          "restTime": 60,
+          "duration": "5 min",
+          "completed": false,
+          "instructions": "Gently tilt head forward bringing chin to chest. Hold 15–30 seconds."
+        },
+        {
+          "exerciseId": "ex-18",
+          "title": "Box Jump",
+          "sets": 2,
+          "reps": 15,
+          "restTime": 60,
+          "duration": "12 min",
+          "completed": false,
+          "instructions": "Jump onto a stable box/platform. Step down. Progress height gradually. 3 sets of 8."
+        },
+        {
+          "exerciseId": "ex-2",
+          "title": "Cervical Rotation",
+          "sets": 2,
+          "reps": 10,
+          "restTime": 45,
+          "duration": "5 min",
+          "completed": false,
+          "instructions": "Slowly rotate head side to side, maintaining chin level. Repeat 10 times each direction."
+        },
+        {
+          "exerciseId": "ex-7",
+          "title": "Dead Bug",
+          "sets": 2,
+          "reps": 25,
+          "restTime": 90,
+          "duration": "8 min",
+          "completed": false,
+          "instructions": "Lying on back with arms extended, slowly lower opposite arm and leg. Core engaged throughout."
+        }
+      ],
+      "doctorRemarks": "",
+      "patientFeedback": "",
+      "notes": "Session 10 scheduled.",
+      "duration": "58 min"
+    },
+    "sess-pat-4-11": {
+      "id": "sess-pat-4-11",
+      "patientId": "pat-4",
+      "sessionNumber": 11,
+      "date": "2026-06-29",
+      "status": "locked",
+      "exercises": [
+        {
+          "exerciseId": "ex-19",
+          "title": "Resistance Band Row",
+          "sets": 2,
+          "reps": 10,
+          "restTime": 60,
+          "duration": "10 min",
+          "completed": false,
+          "instructions": "Secure band in front of you. Pull elbows back squeezing shoulder blades. 3 sets of 12."
+        },
+        {
+          "exerciseId": "ex-20",
+          "title": "Agility Ladder Drill",
+          "sets": 3,
+          "reps": 20,
+          "restTime": 30,
+          "duration": "10 min",
+          "completed": false,
+          "instructions": "Perform quick feet drills through agility ladder. Various patterns. 5 min continuous."
+        },
+        {
+          "exerciseId": "ex-11",
+          "title": "Hip Bridge",
+          "sets": 2,
+          "reps": 10,
+          "restTime": 60,
+          "duration": "8 min",
+          "completed": false,
+          "instructions": "Lying on back with knees bent, lift hips to create straight line from shoulders to knees."
+        }
+      ],
+      "doctorRemarks": "",
+      "patientFeedback": "",
+      "notes": "Session 11 scheduled.",
+      "duration": "35 min"
+    },
+    "sess-pat-4-12": {
+      "id": "sess-pat-4-12",
+      "patientId": "pat-4",
+      "sessionNumber": 12,
+      "date": "2026-07-03",
+      "status": "locked",
+      "exercises": [
+        {
+          "exerciseId": "ex-4",
+          "title": "External Rotation with Band",
+          "sets": 3,
+          "reps": 25,
+          "restTime": 45,
+          "duration": "10 min",
+          "completed": false,
+          "instructions": "Secure resistance band at elbow height. Rotate forearm outward keeping elbow at side."
+        },
+        {
+          "exerciseId": "ex-19",
+          "title": "Resistance Band Row",
+          "sets": 3,
+          "reps": 15,
+          "restTime": 30,
+          "duration": "10 min",
+          "completed": false,
+          "instructions": "Secure band in front of you. Pull elbows back squeezing shoulder blades. 3 sets of 12."
+        },
+        {
+          "exerciseId": "ex-20",
+          "title": "Agility Ladder Drill",
+          "sets": 4,
+          "reps": 10,
+          "restTime": 45,
+          "duration": "10 min",
+          "completed": false,
+          "instructions": "Perform quick feet drills through agility ladder. Various patterns. 5 min continuous."
+        },
+        {
+          "exerciseId": "ex-9",
+          "title": "Wall Sit",
+          "sets": 3,
+          "reps": 20,
+          "restTime": 30,
+          "duration": "10 min",
+          "completed": false,
+          "instructions": "Slide back down wall until knees at 90°. Hold 20–60 seconds. Repeat 5 times."
+        }
+      ],
+      "doctorRemarks": "",
+      "patientFeedback": "",
+      "notes": "Session 12 scheduled.",
+      "duration": "47 min"
+    },
+    "sess-pat-4-13": {
+      "id": "sess-pat-4-13",
+      "patientId": "pat-4",
+      "sessionNumber": 13,
+      "date": "2026-07-07",
+      "status": "locked",
+      "exercises": [
+        {
+          "exerciseId": "ex-14",
+          "title": "Calf Raise",
+          "sets": 2,
+          "reps": 25,
+          "restTime": 30,
+          "duration": "8 min",
+          "completed": false,
+          "instructions": "Stand on edge of step, rise up on toes then lower heels below step level. 3 sets of 15."
+        },
+        {
+          "exerciseId": "ex-7",
+          "title": "Dead Bug",
+          "sets": 4,
+          "reps": 25,
+          "restTime": 45,
+          "duration": "8 min",
+          "completed": false,
+          "instructions": "Lying on back with arms extended, slowly lower opposite arm and leg. Core engaged throughout."
+        },
+        {
+          "exerciseId": "ex-10",
+          "title": "Terminal Knee Extension",
+          "sets": 2,
+          "reps": 10,
+          "restTime": 45,
+          "duration": "10 min",
+          "completed": false,
+          "instructions": "With band behind knee, push knee straight against resistance. 3 sets of 12."
+        }
+      ],
+      "doctorRemarks": "",
+      "patientFeedback": "",
+      "notes": "Session 13 scheduled.",
+      "duration": "57 min"
+    },
+    "sess-pat-4-14": {
+      "id": "sess-pat-4-14",
+      "patientId": "pat-4",
+      "sessionNumber": 14,
+      "date": "2026-07-11",
+      "status": "locked",
+      "exercises": [
+        {
+          "exerciseId": "ex-18",
+          "title": "Box Jump",
+          "sets": 2,
+          "reps": 15,
+          "restTime": 45,
+          "duration": "12 min",
+          "completed": false,
+          "instructions": "Jump onto a stable box/platform. Step down. Progress height gradually. 3 sets of 8."
+        },
+        {
+          "exerciseId": "ex-5",
+          "title": "Cat-Cow Stretch",
+          "sets": 4,
+          "reps": 15,
+          "restTime": 90,
+          "duration": "5 min",
+          "completed": false,
+          "instructions": "On hands and knees, alternate between arching and rounding the spine. 10 repetitions."
+        },
+        {
+          "exerciseId": "ex-19",
+          "title": "Resistance Band Row",
+          "sets": 4,
+          "reps": 10,
+          "restTime": 30,
+          "duration": "10 min",
+          "completed": false,
+          "instructions": "Secure band in front of you. Pull elbows back squeezing shoulder blades. 3 sets of 12."
+        }
+      ],
+      "doctorRemarks": "",
+      "patientFeedback": "",
+      "notes": "Session 14 scheduled.",
+      "duration": "38 min"
+    },
+    "sess-pat-4-15": {
+      "id": "sess-pat-4-15",
+      "patientId": "pat-4",
+      "sessionNumber": 15,
+      "date": "2026-07-15",
+      "status": "locked",
+      "exercises": [
+        {
+          "exerciseId": "ex-14",
+          "title": "Calf Raise",
+          "sets": 3,
+          "reps": 10,
+          "restTime": 30,
+          "duration": "8 min",
+          "completed": false,
+          "instructions": "Stand on edge of step, rise up on toes then lower heels below step level. 3 sets of 15."
+        },
+        {
+          "exerciseId": "ex-7",
+          "title": "Dead Bug",
+          "sets": 4,
+          "reps": 25,
+          "restTime": 45,
+          "duration": "8 min",
+          "completed": false,
+          "instructions": "Lying on back with arms extended, slowly lower opposite arm and leg. Core engaged throughout."
+        },
+        {
+          "exerciseId": "ex-20",
+          "title": "Agility Ladder Drill",
+          "sets": 2,
+          "reps": 10,
+          "restTime": 30,
+          "duration": "10 min",
+          "completed": false,
+          "instructions": "Perform quick feet drills through agility ladder. Various patterns. 5 min continuous."
+        }
+      ],
+      "doctorRemarks": "",
+      "patientFeedback": "",
+      "notes": "Session 15 scheduled.",
+      "duration": "46 min"
+    },
+    "sess-pat-5-1": {
+      "id": "sess-pat-5-1",
+      "patientId": "pat-5",
+      "sessionNumber": 1,
+      "date": "2026-04-10",
+      "status": "completed",
+      "exercises": [
+        {
+          "exerciseId": "ex-17",
+          "title": "Lateral Band Walk",
+          "sets": 4,
+          "reps": 15,
+          "restTime": 30,
+          "duration": "10 min",
+          "completed": true,
+          "instructions": "Place band around ankles and walk sideways maintaining tension. 3 sets of 20 steps."
+        },
+        {
+          "exerciseId": "ex-18",
+          "title": "Box Jump",
+          "sets": 2,
+          "reps": 25,
+          "restTime": 30,
+          "duration": "12 min",
+          "completed": true,
+          "instructions": "Jump onto a stable box/platform. Step down. Progress height gradually. 3 sets of 8."
+        },
+        {
+          "exerciseId": "ex-1",
+          "title": "Neck Flexion Stretch",
+          "sets": 2,
+          "reps": 15,
+          "restTime": 60,
+          "duration": "5 min",
+          "completed": true,
+          "instructions": "Gently tilt head forward bringing chin to chest. Hold 15–30 seconds."
+        }
+      ],
+      "doctorRemarks": "Good progress. Continue as planned.",
+      "patientFeedback": "Feeling better after this session.",
+      "notes": "Session 1 completed successfully.",
+      "duration": "44 min"
+    },
+    "sess-pat-5-2": {
+      "id": "sess-pat-5-2",
+      "patientId": "pat-5",
+      "sessionNumber": 2,
+      "date": "2026-04-14",
+      "status": "completed",
+      "exercises": [
+        {
+          "exerciseId": "ex-3",
+          "title": "Shoulder Pendulum Swing",
+          "sets": 3,
+          "reps": 10,
+          "restTime": 30,
+          "duration": "5 min",
+          "completed": true,
+          "instructions": "Lean forward and let the arm swing in small circles. Gradually increase circle size."
+        },
+        {
+          "exerciseId": "ex-6",
+          "title": "Bird Dog Exercise",
+          "sets": 2,
+          "reps": 20,
+          "restTime": 30,
+          "duration": "10 min",
+          "completed": true,
+          "instructions": "From hands and knees, extend opposite arm and leg. Hold 5 seconds. 10 reps each side."
+        },
+        {
+          "exerciseId": "ex-10",
+          "title": "Terminal Knee Extension",
+          "sets": 2,
+          "reps": 20,
+          "restTime": 30,
+          "duration": "10 min",
+          "completed": true,
+          "instructions": "With band behind knee, push knee straight against resistance. 3 sets of 12."
+        }
+      ],
+      "doctorRemarks": "Good progress. Continue as planned.",
+      "patientFeedback": "Feeling better after this session.",
+      "notes": "Session 2 completed successfully.",
+      "duration": "59 min"
+    },
+    "sess-pat-5-3": {
+      "id": "sess-pat-5-3",
+      "patientId": "pat-5",
+      "sessionNumber": 3,
+      "date": "2026-04-18",
+      "status": "completed",
+      "exercises": [
+        {
+          "exerciseId": "ex-1",
+          "title": "Neck Flexion Stretch",
+          "sets": 2,
+          "reps": 20,
+          "restTime": 45,
+          "duration": "5 min",
+          "completed": true,
+          "instructions": "Gently tilt head forward bringing chin to chest. Hold 15–30 seconds."
+        },
+        {
+          "exerciseId": "ex-16",
+          "title": "Plank Hold",
+          "sets": 2,
+          "reps": 25,
+          "restTime": 60,
+          "duration": "8 min",
+          "completed": true,
+          "instructions": "Maintain push-up position with forearms on ground. Hold 30–60 seconds. 3 sets."
+        },
+        {
+          "exerciseId": "ex-3",
+          "title": "Shoulder Pendulum Swing",
+          "sets": 4,
+          "reps": 20,
+          "restTime": 45,
+          "duration": "5 min",
+          "completed": true,
+          "instructions": "Lean forward and let the arm swing in small circles. Gradually increase circle size."
+        }
+      ],
+      "doctorRemarks": "Good progress. Continue as planned.",
+      "patientFeedback": "Feeling better after this session.",
+      "notes": "Session 3 completed successfully.",
+      "duration": "46 min"
+    },
+    "sess-pat-5-4": {
+      "id": "sess-pat-5-4",
+      "patientId": "pat-5",
+      "sessionNumber": 4,
+      "date": "2026-04-22",
+      "status": "completed",
+      "exercises": [
+        {
+          "exerciseId": "ex-1",
+          "title": "Neck Flexion Stretch",
+          "sets": 2,
+          "reps": 10,
+          "restTime": 90,
+          "duration": "5 min",
+          "completed": true,
+          "instructions": "Gently tilt head forward bringing chin to chest. Hold 15–30 seconds."
+        },
+        {
+          "exerciseId": "ex-19",
+          "title": "Resistance Band Row",
+          "sets": 2,
+          "reps": 15,
+          "restTime": 45,
+          "duration": "10 min",
+          "completed": true,
+          "instructions": "Secure band in front of you. Pull elbows back squeezing shoulder blades. 3 sets of 12."
+        },
+        {
+          "exerciseId": "ex-2",
+          "title": "Cervical Rotation",
+          "sets": 3,
+          "reps": 20,
+          "restTime": 90,
+          "duration": "5 min",
+          "completed": true,
+          "instructions": "Slowly rotate head side to side, maintaining chin level. Repeat 10 times each direction."
+        },
+        {
+          "exerciseId": "ex-3",
+          "title": "Shoulder Pendulum Swing",
+          "sets": 4,
+          "reps": 20,
+          "restTime": 60,
+          "duration": "5 min",
+          "completed": true,
+          "instructions": "Lean forward and let the arm swing in small circles. Gradually increase circle size."
+        }
+      ],
+      "doctorRemarks": "Good progress. Continue as planned.",
+      "patientFeedback": "Feeling better after this session.",
+      "notes": "Session 4 completed successfully.",
+      "duration": "48 min"
+    },
+    "sess-pat-5-5": {
+      "id": "sess-pat-5-5",
+      "patientId": "pat-5",
+      "sessionNumber": 5,
+      "date": "2026-04-26",
+      "status": "completed",
+      "exercises": [
+        {
+          "exerciseId": "ex-19",
+          "title": "Resistance Band Row",
+          "sets": 2,
+          "reps": 25,
+          "restTime": 30,
+          "duration": "10 min",
+          "completed": true,
+          "instructions": "Secure band in front of you. Pull elbows back squeezing shoulder blades. 3 sets of 12."
+        },
+        {
+          "exerciseId": "ex-20",
+          "title": "Agility Ladder Drill",
+          "sets": 3,
+          "reps": 25,
+          "restTime": 45,
+          "duration": "10 min",
+          "completed": true,
+          "instructions": "Perform quick feet drills through agility ladder. Various patterns. 5 min continuous."
+        },
+        {
+          "exerciseId": "ex-18",
+          "title": "Box Jump",
+          "sets": 2,
+          "reps": 15,
+          "restTime": 45,
+          "duration": "12 min",
+          "completed": true,
+          "instructions": "Jump onto a stable box/platform. Step down. Progress height gradually. 3 sets of 8."
+        }
+      ],
+      "doctorRemarks": "Good progress. Continue as planned.",
+      "patientFeedback": "Feeling better after this session.",
+      "notes": "Session 5 completed successfully.",
+      "duration": "51 min"
+    },
+    "sess-pat-5-6": {
+      "id": "sess-pat-5-6",
+      "patientId": "pat-5",
+      "sessionNumber": 6,
+      "date": "2026-04-30",
+      "status": "completed",
+      "exercises": [
+        {
+          "exerciseId": "ex-10",
+          "title": "Terminal Knee Extension",
+          "sets": 3,
+          "reps": 15,
+          "restTime": 45,
+          "duration": "10 min",
+          "completed": true,
+          "instructions": "With band behind knee, push knee straight against resistance. 3 sets of 12."
+        },
+        {
+          "exerciseId": "ex-1",
+          "title": "Neck Flexion Stretch",
+          "sets": 2,
+          "reps": 10,
+          "restTime": 45,
+          "duration": "5 min",
+          "completed": true,
+          "instructions": "Gently tilt head forward bringing chin to chest. Hold 15–30 seconds."
+        },
+        {
+          "exerciseId": "ex-11",
+          "title": "Hip Bridge",
+          "sets": 2,
+          "reps": 20,
+          "restTime": 45,
+          "duration": "8 min",
+          "completed": true,
+          "instructions": "Lying on back with knees bent, lift hips to create straight line from shoulders to knees."
+        },
+        {
+          "exerciseId": "ex-6",
+          "title": "Bird Dog Exercise",
+          "sets": 3,
+          "reps": 20,
+          "restTime": 30,
+          "duration": "10 min",
+          "completed": true,
+          "instructions": "From hands and knees, extend opposite arm and leg. Hold 5 seconds. 10 reps each side."
+        }
+      ],
+      "doctorRemarks": "Good progress. Continue as planned.",
+      "patientFeedback": "Feeling better after this session.",
+      "notes": "Session 6 completed successfully.",
+      "duration": "59 min"
+    },
+    "sess-pat-5-7": {
+      "id": "sess-pat-5-7",
+      "patientId": "pat-5",
+      "sessionNumber": 7,
+      "date": "2026-05-04",
+      "status": "completed",
+      "exercises": [
+        {
+          "exerciseId": "ex-16",
+          "title": "Plank Hold",
+          "sets": 4,
+          "reps": 15,
+          "restTime": 45,
+          "duration": "8 min",
+          "completed": true,
+          "instructions": "Maintain push-up position with forearms on ground. Hold 30–60 seconds. 3 sets."
+        },
+        {
+          "exerciseId": "ex-7",
+          "title": "Dead Bug",
+          "sets": 3,
+          "reps": 25,
+          "restTime": 90,
+          "duration": "8 min",
+          "completed": true,
+          "instructions": "Lying on back with arms extended, slowly lower opposite arm and leg. Core engaged throughout."
+        },
+        {
+          "exerciseId": "ex-19",
+          "title": "Resistance Band Row",
+          "sets": 3,
+          "reps": 20,
+          "restTime": 45,
+          "duration": "10 min",
+          "completed": true,
+          "instructions": "Secure band in front of you. Pull elbows back squeezing shoulder blades. 3 sets of 12."
+        }
+      ],
+      "doctorRemarks": "Good progress. Continue as planned.",
+      "patientFeedback": "Feeling better after this session.",
+      "notes": "Session 7 completed successfully.",
+      "duration": "41 min"
+    },
+    "sess-pat-5-8": {
+      "id": "sess-pat-5-8",
+      "patientId": "pat-5",
+      "sessionNumber": 8,
+      "date": "2026-05-08",
+      "status": "current",
+      "exercises": [
+        {
+          "exerciseId": "ex-2",
+          "title": "Cervical Rotation",
+          "sets": 3,
+          "reps": 15,
+          "restTime": 60,
+          "duration": "5 min",
+          "completed": false,
+          "instructions": "Slowly rotate head side to side, maintaining chin level. Repeat 10 times each direction."
+        },
+        {
+          "exerciseId": "ex-7",
+          "title": "Dead Bug",
+          "sets": 4,
+          "reps": 15,
+          "restTime": 60,
+          "duration": "8 min",
+          "completed": false,
+          "instructions": "Lying on back with arms extended, slowly lower opposite arm and leg. Core engaged throughout."
+        },
+        {
+          "exerciseId": "ex-9",
+          "title": "Wall Sit",
+          "sets": 2,
+          "reps": 20,
+          "restTime": 30,
+          "duration": "10 min",
+          "completed": false,
+          "instructions": "Slide back down wall until knees at 90°. Hold 20–60 seconds. Repeat 5 times."
+        },
+        {
+          "exerciseId": "ex-19",
+          "title": "Resistance Band Row",
+          "sets": 2,
+          "reps": 20,
+          "restTime": 45,
+          "duration": "10 min",
+          "completed": false,
+          "instructions": "Secure band in front of you. Pull elbows back squeezing shoulder blades. 3 sets of 12."
+        }
+      ],
+      "doctorRemarks": "",
+      "patientFeedback": "",
+      "notes": "Session 8 scheduled.",
+      "duration": "36 min"
+    },
+    "sess-pat-5-9": {
+      "id": "sess-pat-5-9",
+      "patientId": "pat-5",
+      "sessionNumber": 9,
+      "date": "2026-05-12",
+      "status": "locked",
+      "exercises": [
+        {
+          "exerciseId": "ex-14",
+          "title": "Calf Raise",
+          "sets": 2,
+          "reps": 15,
+          "restTime": 30,
+          "duration": "8 min",
+          "completed": false,
+          "instructions": "Stand on edge of step, rise up on toes then lower heels below step level. 3 sets of 15."
+        },
+        {
+          "exerciseId": "ex-4",
+          "title": "External Rotation with Band",
+          "sets": 2,
+          "reps": 10,
+          "restTime": 60,
+          "duration": "10 min",
+          "completed": false,
+          "instructions": "Secure resistance band at elbow height. Rotate forearm outward keeping elbow at side."
+        },
+        {
+          "exerciseId": "ex-11",
+          "title": "Hip Bridge",
+          "sets": 3,
+          "reps": 15,
+          "restTime": 45,
+          "duration": "8 min",
+          "completed": false,
+          "instructions": "Lying on back with knees bent, lift hips to create straight line from shoulders to knees."
+        }
+      ],
+      "doctorRemarks": "",
+      "patientFeedback": "",
+      "notes": "Session 9 scheduled.",
+      "duration": "37 min"
+    },
+    "sess-pat-5-10": {
+      "id": "sess-pat-5-10",
+      "patientId": "pat-5",
+      "sessionNumber": 10,
+      "date": "2026-05-16",
+      "status": "locked",
+      "exercises": [
+        {
+          "exerciseId": "ex-16",
+          "title": "Plank Hold",
+          "sets": 2,
+          "reps": 10,
+          "restTime": 60,
+          "duration": "8 min",
+          "completed": false,
+          "instructions": "Maintain push-up position with forearms on ground. Hold 30–60 seconds. 3 sets."
+        },
+        {
+          "exerciseId": "ex-1",
+          "title": "Neck Flexion Stretch",
+          "sets": 2,
+          "reps": 25,
+          "restTime": 90,
+          "duration": "5 min",
+          "completed": false,
+          "instructions": "Gently tilt head forward bringing chin to chest. Hold 15–30 seconds."
+        },
+        {
+          "exerciseId": "ex-2",
+          "title": "Cervical Rotation",
+          "sets": 2,
+          "reps": 20,
+          "restTime": 90,
+          "duration": "5 min",
+          "completed": false,
+          "instructions": "Slowly rotate head side to side, maintaining chin level. Repeat 10 times each direction."
+        }
+      ],
+      "doctorRemarks": "",
+      "patientFeedback": "",
+      "notes": "Session 10 scheduled.",
+      "duration": "39 min"
+    },
+    "sess-pat-6-1": {
+      "id": "sess-pat-6-1",
+      "patientId": "pat-6",
+      "sessionNumber": 1,
+      "date": "2026-03-01",
+      "status": "completed",
+      "exercises": [
+        {
+          "exerciseId": "ex-6",
+          "title": "Bird Dog Exercise",
+          "sets": 3,
+          "reps": 20,
+          "restTime": 45,
+          "duration": "10 min",
+          "completed": true,
+          "instructions": "From hands and knees, extend opposite arm and leg. Hold 5 seconds. 10 reps each side."
+        },
+        {
+          "exerciseId": "ex-14",
+          "title": "Calf Raise",
+          "sets": 3,
+          "reps": 15,
+          "restTime": 30,
+          "duration": "8 min",
+          "completed": true,
+          "instructions": "Stand on edge of step, rise up on toes then lower heels below step level. 3 sets of 15."
+        },
+        {
+          "exerciseId": "ex-3",
+          "title": "Shoulder Pendulum Swing",
+          "sets": 3,
+          "reps": 10,
+          "restTime": 60,
+          "duration": "5 min",
+          "completed": true,
+          "instructions": "Lean forward and let the arm swing in small circles. Gradually increase circle size."
+        },
+        {
+          "exerciseId": "ex-20",
+          "title": "Agility Ladder Drill",
+          "sets": 4,
+          "reps": 25,
+          "restTime": 45,
+          "duration": "10 min",
+          "completed": true,
+          "instructions": "Perform quick feet drills through agility ladder. Various patterns. 5 min continuous."
+        }
+      ],
+      "doctorRemarks": "Good progress. Continue as planned.",
+      "patientFeedback": "Feeling better after this session.",
+      "notes": "Session 1 completed successfully.",
+      "duration": "35 min"
+    },
+    "sess-pat-6-2": {
+      "id": "sess-pat-6-2",
+      "patientId": "pat-6",
+      "sessionNumber": 2,
+      "date": "2026-03-05",
+      "status": "completed",
+      "exercises": [
+        {
+          "exerciseId": "ex-8",
+          "title": "Straight Leg Raise",
+          "sets": 2,
+          "reps": 15,
+          "restTime": 60,
+          "duration": "8 min",
+          "completed": true,
+          "instructions": "Lying down, tighten thigh muscles and lift leg 6 inches. Hold 5 seconds. 3 sets of 10."
+        },
+        {
+          "exerciseId": "ex-5",
+          "title": "Cat-Cow Stretch",
+          "sets": 2,
+          "reps": 10,
+          "restTime": 45,
+          "duration": "5 min",
+          "completed": true,
+          "instructions": "On hands and knees, alternate between arching and rounding the spine. 10 repetitions."
+        },
+        {
+          "exerciseId": "ex-13",
+          "title": "Ankle Alphabet",
+          "sets": 4,
+          "reps": 10,
+          "restTime": 60,
+          "duration": "5 min",
+          "completed": true,
+          "instructions": "Trace the alphabet in the air with your foot. Repeat 3 times with each foot."
+        }
+      ],
+      "doctorRemarks": "Good progress. Continue as planned.",
+      "patientFeedback": "Feeling better after this session.",
+      "notes": "Session 2 completed successfully.",
+      "duration": "33 min"
+    },
+    "sess-pat-6-3": {
+      "id": "sess-pat-6-3",
+      "patientId": "pat-6",
+      "sessionNumber": 3,
+      "date": "2026-03-09",
+      "status": "completed",
+      "exercises": [
+        {
+          "exerciseId": "ex-11",
+          "title": "Hip Bridge",
+          "sets": 3,
+          "reps": 15,
+          "restTime": 60,
+          "duration": "8 min",
+          "completed": true,
+          "instructions": "Lying on back with knees bent, lift hips to create straight line from shoulders to knees."
+        },
+        {
+          "exerciseId": "ex-3",
+          "title": "Shoulder Pendulum Swing",
+          "sets": 2,
+          "reps": 25,
+          "restTime": 90,
+          "duration": "5 min",
+          "completed": true,
+          "instructions": "Lean forward and let the arm swing in small circles. Gradually increase circle size."
+        },
+        {
+          "exerciseId": "ex-4",
+          "title": "External Rotation with Band",
+          "sets": 2,
+          "reps": 25,
+          "restTime": 60,
+          "duration": "10 min",
+          "completed": true,
+          "instructions": "Secure resistance band at elbow height. Rotate forearm outward keeping elbow at side."
+        }
+      ],
+      "doctorRemarks": "Good progress. Continue as planned.",
+      "patientFeedback": "Feeling better after this session.",
+      "notes": "Session 3 completed successfully.",
+      "duration": "41 min"
+    },
+    "sess-pat-6-4": {
+      "id": "sess-pat-6-4",
+      "patientId": "pat-6",
+      "sessionNumber": 4,
+      "date": "2026-03-13",
+      "status": "completed",
+      "exercises": [
+        {
+          "exerciseId": "ex-6",
+          "title": "Bird Dog Exercise",
+          "sets": 3,
+          "reps": 15,
+          "restTime": 45,
+          "duration": "10 min",
+          "completed": true,
+          "instructions": "From hands and knees, extend opposite arm and leg. Hold 5 seconds. 10 reps each side."
+        },
+        {
+          "exerciseId": "ex-16",
+          "title": "Plank Hold",
+          "sets": 2,
+          "reps": 10,
+          "restTime": 60,
+          "duration": "8 min",
+          "completed": true,
+          "instructions": "Maintain push-up position with forearms on ground. Hold 30–60 seconds. 3 sets."
+        },
+        {
+          "exerciseId": "ex-20",
+          "title": "Agility Ladder Drill",
+          "sets": 4,
+          "reps": 20,
+          "restTime": 60,
+          "duration": "10 min",
+          "completed": true,
+          "instructions": "Perform quick feet drills through agility ladder. Various patterns. 5 min continuous."
+        },
+        {
+          "exerciseId": "ex-2",
+          "title": "Cervical Rotation",
+          "sets": 2,
+          "reps": 25,
+          "restTime": 90,
+          "duration": "5 min",
+          "completed": true,
+          "instructions": "Slowly rotate head side to side, maintaining chin level. Repeat 10 times each direction."
+        }
+      ],
+      "doctorRemarks": "Good progress. Continue as planned.",
+      "patientFeedback": "Feeling better after this session.",
+      "notes": "Session 4 completed successfully.",
+      "duration": "49 min"
+    },
+    "sess-pat-6-5": {
+      "id": "sess-pat-6-5",
+      "patientId": "pat-6",
+      "sessionNumber": 5,
+      "date": "2026-03-17",
+      "status": "completed",
+      "exercises": [
+        {
+          "exerciseId": "ex-16",
+          "title": "Plank Hold",
+          "sets": 4,
+          "reps": 20,
+          "restTime": 45,
+          "duration": "8 min",
+          "completed": true,
+          "instructions": "Maintain push-up position with forearms on ground. Hold 30–60 seconds. 3 sets."
+        },
+        {
+          "exerciseId": "ex-5",
+          "title": "Cat-Cow Stretch",
+          "sets": 3,
+          "reps": 10,
+          "restTime": 30,
+          "duration": "5 min",
+          "completed": true,
+          "instructions": "On hands and knees, alternate between arching and rounding the spine. 10 repetitions."
+        },
+        {
+          "exerciseId": "ex-11",
+          "title": "Hip Bridge",
+          "sets": 2,
+          "reps": 25,
+          "restTime": 60,
+          "duration": "8 min",
+          "completed": true,
+          "instructions": "Lying on back with knees bent, lift hips to create straight line from shoulders to knees."
+        },
+        {
+          "exerciseId": "ex-4",
+          "title": "External Rotation with Band",
+          "sets": 4,
+          "reps": 20,
+          "restTime": 60,
+          "duration": "10 min",
+          "completed": true,
+          "instructions": "Secure resistance band at elbow height. Rotate forearm outward keeping elbow at side."
+        }
+      ],
+      "doctorRemarks": "Good progress. Continue as planned.",
+      "patientFeedback": "Feeling better after this session.",
+      "notes": "Session 5 completed successfully.",
+      "duration": "43 min"
+    },
+    "sess-pat-6-6": {
+      "id": "sess-pat-6-6",
+      "patientId": "pat-6",
+      "sessionNumber": 6,
+      "date": "2026-03-21",
+      "status": "completed",
+      "exercises": [
+        {
+          "exerciseId": "ex-3",
+          "title": "Shoulder Pendulum Swing",
+          "sets": 4,
+          "reps": 10,
+          "restTime": 45,
+          "duration": "5 min",
+          "completed": true,
+          "instructions": "Lean forward and let the arm swing in small circles. Gradually increase circle size."
+        },
+        {
+          "exerciseId": "ex-11",
+          "title": "Hip Bridge",
+          "sets": 3,
+          "reps": 20,
+          "restTime": 60,
+          "duration": "8 min",
+          "completed": true,
+          "instructions": "Lying on back with knees bent, lift hips to create straight line from shoulders to knees."
+        },
+        {
+          "exerciseId": "ex-15",
+          "title": "Single-Leg Balance",
+          "sets": 4,
+          "reps": 20,
+          "restTime": 60,
+          "duration": "5 min",
+          "completed": true,
+          "instructions": "Stand on one leg for 30 seconds. Progress to eyes closed. 5 reps each leg."
+        },
+        {
+          "exerciseId": "ex-20",
+          "title": "Agility Ladder Drill",
+          "sets": 3,
+          "reps": 15,
+          "restTime": 45,
+          "duration": "10 min",
+          "completed": true,
+          "instructions": "Perform quick feet drills through agility ladder. Various patterns. 5 min continuous."
+        }
+      ],
+      "doctorRemarks": "Good progress. Continue as planned.",
+      "patientFeedback": "Feeling better after this session.",
+      "notes": "Session 6 completed successfully.",
+      "duration": "58 min"
+    },
+    "sess-pat-7-1": {
+      "id": "sess-pat-7-1",
+      "patientId": "pat-7",
+      "sessionNumber": 1,
+      "date": "2026-06-01",
+      "status": "completed",
+      "exercises": [
+        {
+          "exerciseId": "ex-11",
+          "title": "Hip Bridge",
+          "sets": 3,
+          "reps": 15,
+          "restTime": 30,
+          "duration": "8 min",
+          "completed": true,
+          "instructions": "Lying on back with knees bent, lift hips to create straight line from shoulders to knees."
+        },
+        {
+          "exerciseId": "ex-5",
+          "title": "Cat-Cow Stretch",
+          "sets": 4,
+          "reps": 20,
+          "restTime": 45,
+          "duration": "5 min",
+          "completed": true,
+          "instructions": "On hands and knees, alternate between arching and rounding the spine. 10 repetitions."
+        },
+        {
+          "exerciseId": "ex-13",
+          "title": "Ankle Alphabet",
+          "sets": 3,
+          "reps": 20,
+          "restTime": 45,
+          "duration": "5 min",
+          "completed": true,
+          "instructions": "Trace the alphabet in the air with your foot. Repeat 3 times with each foot."
+        },
+        {
+          "exerciseId": "ex-18",
+          "title": "Box Jump",
+          "sets": 4,
+          "reps": 15,
+          "restTime": 45,
+          "duration": "12 min",
+          "completed": true,
+          "instructions": "Jump onto a stable box/platform. Step down. Progress height gradually. 3 sets of 8."
+        }
+      ],
+      "doctorRemarks": "Good progress. Continue as planned.",
+      "patientFeedback": "Feeling better after this session.",
+      "notes": "Session 1 completed successfully.",
+      "duration": "31 min"
+    },
+    "sess-pat-7-2": {
+      "id": "sess-pat-7-2",
+      "patientId": "pat-7",
+      "sessionNumber": 2,
+      "date": "2026-06-05",
+      "status": "completed",
+      "exercises": [
+        {
+          "exerciseId": "ex-13",
+          "title": "Ankle Alphabet",
+          "sets": 2,
+          "reps": 20,
+          "restTime": 60,
+          "duration": "5 min",
+          "completed": true,
+          "instructions": "Trace the alphabet in the air with your foot. Repeat 3 times with each foot."
+        },
+        {
+          "exerciseId": "ex-14",
+          "title": "Calf Raise",
+          "sets": 2,
+          "reps": 15,
+          "restTime": 30,
+          "duration": "8 min",
+          "completed": true,
+          "instructions": "Stand on edge of step, rise up on toes then lower heels below step level. 3 sets of 15."
+        },
+        {
+          "exerciseId": "ex-6",
+          "title": "Bird Dog Exercise",
+          "sets": 3,
+          "reps": 15,
+          "restTime": 45,
+          "duration": "10 min",
+          "completed": true,
+          "instructions": "From hands and knees, extend opposite arm and leg. Hold 5 seconds. 10 reps each side."
+        }
+      ],
+      "doctorRemarks": "Good progress. Continue as planned.",
+      "patientFeedback": "Feeling better after this session.",
+      "notes": "Session 2 completed successfully.",
+      "duration": "55 min"
+    },
+    "sess-pat-7-3": {
+      "id": "sess-pat-7-3",
+      "patientId": "pat-7",
+      "sessionNumber": 3,
+      "date": "2026-06-09",
+      "status": "current",
+      "exercises": [
+        {
+          "exerciseId": "ex-13",
+          "title": "Ankle Alphabet",
+          "sets": 2,
+          "reps": 20,
+          "restTime": 90,
+          "duration": "5 min",
+          "completed": false,
+          "instructions": "Trace the alphabet in the air with your foot. Repeat 3 times with each foot."
+        },
+        {
+          "exerciseId": "ex-1",
+          "title": "Neck Flexion Stretch",
+          "sets": 4,
+          "reps": 10,
+          "restTime": 60,
+          "duration": "5 min",
+          "completed": false,
+          "instructions": "Gently tilt head forward bringing chin to chest. Hold 15–30 seconds."
+        },
+        {
+          "exerciseId": "ex-2",
+          "title": "Cervical Rotation",
+          "sets": 2,
+          "reps": 20,
+          "restTime": 60,
+          "duration": "5 min",
+          "completed": false,
+          "instructions": "Slowly rotate head side to side, maintaining chin level. Repeat 10 times each direction."
+        }
+      ],
+      "doctorRemarks": "",
+      "patientFeedback": "",
+      "notes": "Session 3 scheduled.",
+      "duration": "34 min"
+    },
+    "sess-pat-7-4": {
+      "id": "sess-pat-7-4",
+      "patientId": "pat-7",
+      "sessionNumber": 4,
+      "date": "2026-06-13",
+      "status": "locked",
+      "exercises": [
+        {
+          "exerciseId": "ex-14",
+          "title": "Calf Raise",
+          "sets": 2,
+          "reps": 10,
+          "restTime": 45,
+          "duration": "8 min",
+          "completed": false,
+          "instructions": "Stand on edge of step, rise up on toes then lower heels below step level. 3 sets of 15."
+        },
+        {
+          "exerciseId": "ex-18",
+          "title": "Box Jump",
+          "sets": 3,
+          "reps": 25,
+          "restTime": 60,
+          "duration": "12 min",
+          "completed": false,
+          "instructions": "Jump onto a stable box/platform. Step down. Progress height gradually. 3 sets of 8."
+        },
+        {
+          "exerciseId": "ex-16",
+          "title": "Plank Hold",
+          "sets": 3,
+          "reps": 20,
+          "restTime": 30,
+          "duration": "8 min",
+          "completed": false,
+          "instructions": "Maintain push-up position with forearms on ground. Hold 30–60 seconds. 3 sets."
+        },
+        {
+          "exerciseId": "ex-19",
+          "title": "Resistance Band Row",
+          "sets": 2,
+          "reps": 15,
+          "restTime": 60,
+          "duration": "10 min",
+          "completed": false,
+          "instructions": "Secure band in front of you. Pull elbows back squeezing shoulder blades. 3 sets of 12."
+        }
+      ],
+      "doctorRemarks": "",
+      "patientFeedback": "",
+      "notes": "Session 4 scheduled.",
+      "duration": "52 min"
+    },
+    "sess-pat-7-5": {
+      "id": "sess-pat-7-5",
+      "patientId": "pat-7",
+      "sessionNumber": 5,
+      "date": "2026-06-17",
+      "status": "locked",
+      "exercises": [
+        {
+          "exerciseId": "ex-18",
+          "title": "Box Jump",
+          "sets": 3,
+          "reps": 20,
+          "restTime": 45,
+          "duration": "12 min",
+          "completed": false,
+          "instructions": "Jump onto a stable box/platform. Step down. Progress height gradually. 3 sets of 8."
+        },
+        {
+          "exerciseId": "ex-10",
+          "title": "Terminal Knee Extension",
+          "sets": 2,
+          "reps": 20,
+          "restTime": 30,
+          "duration": "10 min",
+          "completed": false,
+          "instructions": "With band behind knee, push knee straight against resistance. 3 sets of 12."
+        },
+        {
+          "exerciseId": "ex-1",
+          "title": "Neck Flexion Stretch",
+          "sets": 3,
+          "reps": 15,
+          "restTime": 30,
+          "duration": "5 min",
+          "completed": false,
+          "instructions": "Gently tilt head forward bringing chin to chest. Hold 15–30 seconds."
+        },
+        {
+          "exerciseId": "ex-7",
+          "title": "Dead Bug",
+          "sets": 2,
+          "reps": 20,
+          "restTime": 90,
+          "duration": "8 min",
+          "completed": false,
+          "instructions": "Lying on back with arms extended, slowly lower opposite arm and leg. Core engaged throughout."
+        }
+      ],
+      "doctorRemarks": "",
+      "patientFeedback": "",
+      "notes": "Session 5 scheduled.",
+      "duration": "30 min"
+    },
+    "sess-pat-7-6": {
+      "id": "sess-pat-7-6",
+      "patientId": "pat-7",
+      "sessionNumber": 6,
+      "date": "2026-06-21",
+      "status": "locked",
+      "exercises": [
+        {
+          "exerciseId": "ex-6",
+          "title": "Bird Dog Exercise",
+          "sets": 2,
+          "reps": 15,
+          "restTime": 60,
+          "duration": "10 min",
+          "completed": false,
+          "instructions": "From hands and knees, extend opposite arm and leg. Hold 5 seconds. 10 reps each side."
+        },
+        {
+          "exerciseId": "ex-14",
+          "title": "Calf Raise",
+          "sets": 4,
+          "reps": 10,
+          "restTime": 60,
+          "duration": "8 min",
+          "completed": false,
+          "instructions": "Stand on edge of step, rise up on toes then lower heels below step level. 3 sets of 15."
+        },
+        {
+          "exerciseId": "ex-5",
+          "title": "Cat-Cow Stretch",
+          "sets": 4,
+          "reps": 25,
+          "restTime": 30,
+          "duration": "5 min",
+          "completed": false,
+          "instructions": "On hands and knees, alternate between arching and rounding the spine. 10 repetitions."
+        },
+        {
+          "exerciseId": "ex-18",
+          "title": "Box Jump",
+          "sets": 3,
+          "reps": 10,
+          "restTime": 60,
+          "duration": "12 min",
+          "completed": false,
+          "instructions": "Jump onto a stable box/platform. Step down. Progress height gradually. 3 sets of 8."
+        }
+      ],
+      "doctorRemarks": "",
+      "patientFeedback": "",
+      "notes": "Session 6 scheduled.",
+      "duration": "48 min"
+    },
+    "sess-pat-7-7": {
+      "id": "sess-pat-7-7",
+      "patientId": "pat-7",
+      "sessionNumber": 7,
+      "date": "2026-06-25",
+      "status": "locked",
+      "exercises": [
+        {
+          "exerciseId": "ex-1",
+          "title": "Neck Flexion Stretch",
+          "sets": 4,
+          "reps": 25,
+          "restTime": 45,
+          "duration": "5 min",
+          "completed": false,
+          "instructions": "Gently tilt head forward bringing chin to chest. Hold 15–30 seconds."
+        },
+        {
+          "exerciseId": "ex-15",
+          "title": "Single-Leg Balance",
+          "sets": 4,
+          "reps": 15,
+          "restTime": 60,
+          "duration": "5 min",
+          "completed": false,
+          "instructions": "Stand on one leg for 30 seconds. Progress to eyes closed. 5 reps each leg."
+        },
+        {
+          "exerciseId": "ex-18",
+          "title": "Box Jump",
+          "sets": 4,
+          "reps": 20,
+          "restTime": 30,
+          "duration": "12 min",
+          "completed": false,
+          "instructions": "Jump onto a stable box/platform. Step down. Progress height gradually. 3 sets of 8."
+        },
+        {
+          "exerciseId": "ex-19",
+          "title": "Resistance Band Row",
+          "sets": 3,
+          "reps": 10,
+          "restTime": 60,
+          "duration": "10 min",
+          "completed": false,
+          "instructions": "Secure band in front of you. Pull elbows back squeezing shoulder blades. 3 sets of 12."
+        }
+      ],
+      "doctorRemarks": "",
+      "patientFeedback": "",
+      "notes": "Session 7 scheduled.",
+      "duration": "44 min"
+    },
+    "sess-pat-7-8": {
+      "id": "sess-pat-7-8",
+      "patientId": "pat-7",
+      "sessionNumber": 8,
+      "date": "2026-06-29",
+      "status": "locked",
+      "exercises": [
+        {
+          "exerciseId": "ex-16",
+          "title": "Plank Hold",
+          "sets": 2,
+          "reps": 10,
+          "restTime": 30,
+          "duration": "8 min",
+          "completed": false,
+          "instructions": "Maintain push-up position with forearms on ground. Hold 30–60 seconds. 3 sets."
+        },
+        {
+          "exerciseId": "ex-1",
+          "title": "Neck Flexion Stretch",
+          "sets": 3,
+          "reps": 10,
+          "restTime": 90,
+          "duration": "5 min",
+          "completed": false,
+          "instructions": "Gently tilt head forward bringing chin to chest. Hold 15–30 seconds."
+        },
+        {
+          "exerciseId": "ex-19",
+          "title": "Resistance Band Row",
+          "sets": 3,
+          "reps": 10,
+          "restTime": 60,
+          "duration": "10 min",
+          "completed": false,
+          "instructions": "Secure band in front of you. Pull elbows back squeezing shoulder blades. 3 sets of 12."
+        },
+        {
+          "exerciseId": "ex-14",
+          "title": "Calf Raise",
+          "sets": 4,
+          "reps": 15,
+          "restTime": 60,
+          "duration": "8 min",
+          "completed": false,
+          "instructions": "Stand on edge of step, rise up on toes then lower heels below step level. 3 sets of 15."
+        }
+      ],
+      "doctorRemarks": "",
+      "patientFeedback": "",
+      "notes": "Session 8 scheduled.",
+      "duration": "48 min"
+    },
+    "sess-pat-7-9": {
+      "id": "sess-pat-7-9",
+      "patientId": "pat-7",
+      "sessionNumber": 9,
+      "date": "2026-07-03",
+      "status": "locked",
+      "exercises": [
+        {
+          "exerciseId": "ex-1",
+          "title": "Neck Flexion Stretch",
+          "sets": 4,
+          "reps": 15,
+          "restTime": 60,
+          "duration": "5 min",
+          "completed": false,
+          "instructions": "Gently tilt head forward bringing chin to chest. Hold 15–30 seconds."
+        },
+        {
+          "exerciseId": "ex-2",
+          "title": "Cervical Rotation",
+          "sets": 3,
+          "reps": 25,
+          "restTime": 30,
+          "duration": "5 min",
+          "completed": false,
+          "instructions": "Slowly rotate head side to side, maintaining chin level. Repeat 10 times each direction."
+        },
+        {
+          "exerciseId": "ex-3",
+          "title": "Shoulder Pendulum Swing",
+          "sets": 2,
+          "reps": 20,
+          "restTime": 90,
+          "duration": "5 min",
+          "completed": false,
+          "instructions": "Lean forward and let the arm swing in small circles. Gradually increase circle size."
+        },
+        {
+          "exerciseId": "ex-4",
+          "title": "External Rotation with Band",
+          "sets": 2,
+          "reps": 15,
+          "restTime": 45,
+          "duration": "10 min",
+          "completed": false,
+          "instructions": "Secure resistance band at elbow height. Rotate forearm outward keeping elbow at side."
+        }
+      ],
+      "doctorRemarks": "",
+      "patientFeedback": "",
+      "notes": "Session 9 scheduled.",
+      "duration": "57 min"
+    },
+    "sess-pat-7-10": {
+      "id": "sess-pat-7-10",
+      "patientId": "pat-7",
+      "sessionNumber": 10,
+      "date": "2026-07-07",
+      "status": "locked",
+      "exercises": [
+        {
+          "exerciseId": "ex-5",
+          "title": "Cat-Cow Stretch",
+          "sets": 2,
+          "reps": 15,
+          "restTime": 45,
+          "duration": "5 min",
+          "completed": false,
+          "instructions": "On hands and knees, alternate between arching and rounding the spine. 10 repetitions."
+        },
+        {
+          "exerciseId": "ex-1",
+          "title": "Neck Flexion Stretch",
+          "sets": 3,
+          "reps": 25,
+          "restTime": 45,
+          "duration": "5 min",
+          "completed": false,
+          "instructions": "Gently tilt head forward bringing chin to chest. Hold 15–30 seconds."
+        },
+        {
+          "exerciseId": "ex-16",
+          "title": "Plank Hold",
+          "sets": 2,
+          "reps": 20,
+          "restTime": 45,
+          "duration": "8 min",
+          "completed": false,
+          "instructions": "Maintain push-up position with forearms on ground. Hold 30–60 seconds. 3 sets."
+        },
+        {
+          "exerciseId": "ex-2",
+          "title": "Cervical Rotation",
+          "sets": 2,
+          "reps": 15,
+          "restTime": 60,
+          "duration": "5 min",
+          "completed": false,
+          "instructions": "Slowly rotate head side to side, maintaining chin level. Repeat 10 times each direction."
+        }
+      ],
+      "doctorRemarks": "",
+      "patientFeedback": "",
+      "notes": "Session 10 scheduled.",
+      "duration": "38 min"
+    },
+    "sess-pat-8-1": {
+      "id": "sess-pat-8-1",
+      "patientId": "pat-8",
+      "sessionNumber": 1,
+      "date": "2026-06-15",
+      "status": "current",
+      "exercises": [
+        {
+          "exerciseId": "ex-16",
+          "title": "Plank Hold",
+          "sets": 2,
+          "reps": 15,
+          "restTime": 60,
+          "duration": "8 min",
+          "completed": false,
+          "instructions": "Maintain push-up position with forearms on ground. Hold 30–60 seconds. 3 sets."
+        },
+        {
+          "exerciseId": "ex-7",
+          "title": "Dead Bug",
+          "sets": 4,
+          "reps": 25,
+          "restTime": 45,
+          "duration": "8 min",
+          "completed": false,
+          "instructions": "Lying on back with arms extended, slowly lower opposite arm and leg. Core engaged throughout."
+        },
+        {
+          "exerciseId": "ex-3",
+          "title": "Shoulder Pendulum Swing",
+          "sets": 4,
+          "reps": 10,
+          "restTime": 90,
+          "duration": "5 min",
+          "completed": false,
+          "instructions": "Lean forward and let the arm swing in small circles. Gradually increase circle size."
+        }
+      ],
+      "doctorRemarks": "",
+      "patientFeedback": "",
+      "notes": "Session 1 scheduled.",
+      "duration": "33 min"
+    },
+    "sess-pat-8-2": {
+      "id": "sess-pat-8-2",
+      "patientId": "pat-8",
+      "sessionNumber": 2,
+      "date": "2026-06-19",
+      "status": "locked",
+      "exercises": [
+        {
+          "exerciseId": "ex-10",
+          "title": "Terminal Knee Extension",
+          "sets": 3,
+          "reps": 10,
+          "restTime": 30,
+          "duration": "10 min",
+          "completed": false,
+          "instructions": "With band behind knee, push knee straight against resistance. 3 sets of 12."
+        },
+        {
+          "exerciseId": "ex-4",
+          "title": "External Rotation with Band",
+          "sets": 4,
+          "reps": 15,
+          "restTime": 90,
+          "duration": "10 min",
+          "completed": false,
+          "instructions": "Secure resistance band at elbow height. Rotate forearm outward keeping elbow at side."
+        },
+        {
+          "exerciseId": "ex-20",
+          "title": "Agility Ladder Drill",
+          "sets": 4,
+          "reps": 25,
+          "restTime": 45,
+          "duration": "10 min",
+          "completed": false,
+          "instructions": "Perform quick feet drills through agility ladder. Various patterns. 5 min continuous."
+        },
+        {
+          "exerciseId": "ex-2",
+          "title": "Cervical Rotation",
+          "sets": 2,
+          "reps": 15,
+          "restTime": 45,
+          "duration": "5 min",
+          "completed": false,
+          "instructions": "Slowly rotate head side to side, maintaining chin level. Repeat 10 times each direction."
+        }
+      ],
+      "doctorRemarks": "",
+      "patientFeedback": "",
+      "notes": "Session 2 scheduled.",
+      "duration": "31 min"
+    },
+    "sess-pat-8-3": {
+      "id": "sess-pat-8-3",
+      "patientId": "pat-8",
+      "sessionNumber": 3,
+      "date": "2026-06-23",
+      "status": "locked",
+      "exercises": [
+        {
+          "exerciseId": "ex-6",
+          "title": "Bird Dog Exercise",
+          "sets": 4,
+          "reps": 10,
+          "restTime": 90,
+          "duration": "10 min",
+          "completed": false,
+          "instructions": "From hands and knees, extend opposite arm and leg. Hold 5 seconds. 10 reps each side."
+        },
+        {
+          "exerciseId": "ex-4",
+          "title": "External Rotation with Band",
+          "sets": 2,
+          "reps": 10,
+          "restTime": 60,
+          "duration": "10 min",
+          "completed": false,
+          "instructions": "Secure resistance band at elbow height. Rotate forearm outward keeping elbow at side."
+        },
+        {
+          "exerciseId": "ex-9",
+          "title": "Wall Sit",
+          "sets": 3,
+          "reps": 15,
+          "restTime": 60,
+          "duration": "10 min",
+          "completed": false,
+          "instructions": "Slide back down wall until knees at 90°. Hold 20–60 seconds. Repeat 5 times."
+        }
+      ],
+      "doctorRemarks": "",
+      "patientFeedback": "",
+      "notes": "Session 3 scheduled.",
+      "duration": "52 min"
+    },
+    "sess-pat-8-4": {
+      "id": "sess-pat-8-4",
+      "patientId": "pat-8",
+      "sessionNumber": 4,
+      "date": "2026-06-27",
+      "status": "locked",
+      "exercises": [
+        {
+          "exerciseId": "ex-9",
+          "title": "Wall Sit",
+          "sets": 2,
+          "reps": 15,
+          "restTime": 90,
+          "duration": "10 min",
+          "completed": false,
+          "instructions": "Slide back down wall until knees at 90°. Hold 20–60 seconds. Repeat 5 times."
+        },
+        {
+          "exerciseId": "ex-1",
+          "title": "Neck Flexion Stretch",
+          "sets": 4,
+          "reps": 20,
+          "restTime": 90,
+          "duration": "5 min",
+          "completed": false,
+          "instructions": "Gently tilt head forward bringing chin to chest. Hold 15–30 seconds."
+        },
+        {
+          "exerciseId": "ex-12",
+          "title": "Clamshell Exercise",
+          "sets": 3,
+          "reps": 10,
+          "restTime": 60,
+          "duration": "8 min",
+          "completed": false,
+          "instructions": "Lying on side with knees bent, open top knee while keeping feet together. 3 sets of 15."
+        }
+      ],
+      "doctorRemarks": "",
+      "patientFeedback": "",
+      "notes": "Session 4 scheduled.",
+      "duration": "46 min"
+    },
+    "sess-pat-8-5": {
+      "id": "sess-pat-8-5",
+      "patientId": "pat-8",
+      "sessionNumber": 5,
+      "date": "2026-07-01",
+      "status": "locked",
+      "exercises": [
+        {
+          "exerciseId": "ex-14",
+          "title": "Calf Raise",
+          "sets": 4,
+          "reps": 20,
+          "restTime": 60,
+          "duration": "8 min",
+          "completed": false,
+          "instructions": "Stand on edge of step, rise up on toes then lower heels below step level. 3 sets of 15."
+        },
+        {
+          "exerciseId": "ex-4",
+          "title": "External Rotation with Band",
+          "sets": 4,
+          "reps": 10,
+          "restTime": 45,
+          "duration": "10 min",
+          "completed": false,
+          "instructions": "Secure resistance band at elbow height. Rotate forearm outward keeping elbow at side."
+        },
+        {
+          "exerciseId": "ex-11",
+          "title": "Hip Bridge",
+          "sets": 2,
+          "reps": 15,
+          "restTime": 60,
+          "duration": "8 min",
+          "completed": false,
+          "instructions": "Lying on back with knees bent, lift hips to create straight line from shoulders to knees."
+        },
+        {
+          "exerciseId": "ex-9",
+          "title": "Wall Sit",
+          "sets": 3,
+          "reps": 20,
+          "restTime": 60,
+          "duration": "10 min",
+          "completed": false,
+          "instructions": "Slide back down wall until knees at 90°. Hold 20–60 seconds. Repeat 5 times."
+        }
+      ],
+      "doctorRemarks": "",
+      "patientFeedback": "",
+      "notes": "Session 5 scheduled.",
+      "duration": "39 min"
+    },
+    "sess-pat-8-6": {
+      "id": "sess-pat-8-6",
+      "patientId": "pat-8",
+      "sessionNumber": 6,
+      "date": "2026-07-05",
+      "status": "locked",
+      "exercises": [
+        {
+          "exerciseId": "ex-15",
+          "title": "Single-Leg Balance",
+          "sets": 3,
+          "reps": 25,
+          "restTime": 60,
+          "duration": "5 min",
+          "completed": false,
+          "instructions": "Stand on one leg for 30 seconds. Progress to eyes closed. 5 reps each leg."
+        },
+        {
+          "exerciseId": "ex-7",
+          "title": "Dead Bug",
+          "sets": 4,
+          "reps": 10,
+          "restTime": 30,
+          "duration": "8 min",
+          "completed": false,
+          "instructions": "Lying on back with arms extended, slowly lower opposite arm and leg. Core engaged throughout."
+        },
+        {
+          "exerciseId": "ex-8",
+          "title": "Straight Leg Raise",
+          "sets": 3,
+          "reps": 20,
+          "restTime": 90,
+          "duration": "8 min",
+          "completed": false,
+          "instructions": "Lying down, tighten thigh muscles and lift leg 6 inches. Hold 5 seconds. 3 sets of 10."
+        },
+        {
+          "exerciseId": "ex-18",
+          "title": "Box Jump",
+          "sets": 4,
+          "reps": 10,
+          "restTime": 45,
+          "duration": "12 min",
+          "completed": false,
+          "instructions": "Jump onto a stable box/platform. Step down. Progress height gradually. 3 sets of 8."
+        }
+      ],
+      "doctorRemarks": "",
+      "patientFeedback": "",
+      "notes": "Session 6 scheduled.",
+      "duration": "30 min"
+    },
+    "sess-pat-8-7": {
+      "id": "sess-pat-8-7",
+      "patientId": "pat-8",
+      "sessionNumber": 7,
+      "date": "2026-07-09",
+      "status": "locked",
+      "exercises": [
+        {
+          "exerciseId": "ex-17",
+          "title": "Lateral Band Walk",
+          "sets": 4,
+          "reps": 15,
+          "restTime": 60,
+          "duration": "10 min",
+          "completed": false,
+          "instructions": "Place band around ankles and walk sideways maintaining tension. 3 sets of 20 steps."
+        },
+        {
+          "exerciseId": "ex-15",
+          "title": "Single-Leg Balance",
+          "sets": 3,
+          "reps": 10,
+          "restTime": 45,
+          "duration": "5 min",
+          "completed": false,
+          "instructions": "Stand on one leg for 30 seconds. Progress to eyes closed. 5 reps each leg."
+        },
+        {
+          "exerciseId": "ex-18",
+          "title": "Box Jump",
+          "sets": 4,
+          "reps": 25,
+          "restTime": 30,
+          "duration": "12 min",
+          "completed": false,
+          "instructions": "Jump onto a stable box/platform. Step down. Progress height gradually. 3 sets of 8."
+        },
+        {
+          "exerciseId": "ex-1",
+          "title": "Neck Flexion Stretch",
+          "sets": 3,
+          "reps": 10,
+          "restTime": 90,
+          "duration": "5 min",
+          "completed": false,
+          "instructions": "Gently tilt head forward bringing chin to chest. Hold 15–30 seconds."
+        }
+      ],
+      "doctorRemarks": "",
+      "patientFeedback": "",
+      "notes": "Session 7 scheduled.",
+      "duration": "42 min"
+    },
+    "sess-pat-8-8": {
+      "id": "sess-pat-8-8",
+      "patientId": "pat-8",
+      "sessionNumber": 8,
+      "date": "2026-07-13",
+      "status": "locked",
+      "exercises": [
+        {
+          "exerciseId": "ex-8",
+          "title": "Straight Leg Raise",
+          "sets": 3,
+          "reps": 25,
+          "restTime": 90,
+          "duration": "8 min",
+          "completed": false,
+          "instructions": "Lying down, tighten thigh muscles and lift leg 6 inches. Hold 5 seconds. 3 sets of 10."
+        },
+        {
+          "exerciseId": "ex-7",
+          "title": "Dead Bug",
+          "sets": 3,
+          "reps": 25,
+          "restTime": 30,
+          "duration": "8 min",
+          "completed": false,
+          "instructions": "Lying on back with arms extended, slowly lower opposite arm and leg. Core engaged throughout."
+        },
+        {
+          "exerciseId": "ex-4",
+          "title": "External Rotation with Band",
+          "sets": 3,
+          "reps": 25,
+          "restTime": 60,
+          "duration": "10 min",
+          "completed": false,
+          "instructions": "Secure resistance band at elbow height. Rotate forearm outward keeping elbow at side."
+        },
+        {
+          "exerciseId": "ex-1",
+          "title": "Neck Flexion Stretch",
+          "sets": 4,
+          "reps": 15,
+          "restTime": 45,
+          "duration": "5 min",
+          "completed": false,
+          "instructions": "Gently tilt head forward bringing chin to chest. Hold 15–30 seconds."
+        }
+      ],
+      "doctorRemarks": "",
+      "patientFeedback": "",
+      "notes": "Session 8 scheduled.",
+      "duration": "45 min"
+    },
+    "sess-pat-9-1": {
+      "id": "sess-pat-9-1",
+      "patientId": "pat-9",
+      "sessionNumber": 1,
+      "date": "2026-03-15",
+      "status": "completed",
+      "exercises": [
+        {
+          "exerciseId": "ex-1",
+          "title": "Neck Flexion Stretch",
+          "sets": 4,
+          "reps": 10,
+          "restTime": 90,
+          "duration": "5 min",
+          "completed": true,
+          "instructions": "Gently tilt head forward bringing chin to chest. Hold 15–30 seconds."
+        },
+        {
+          "exerciseId": "ex-11",
+          "title": "Hip Bridge",
+          "sets": 4,
+          "reps": 15,
+          "restTime": 60,
+          "duration": "8 min",
+          "completed": true,
+          "instructions": "Lying on back with knees bent, lift hips to create straight line from shoulders to knees."
+        },
+        {
+          "exerciseId": "ex-16",
+          "title": "Plank Hold",
+          "sets": 3,
+          "reps": 10,
+          "restTime": 90,
+          "duration": "8 min",
+          "completed": true,
+          "instructions": "Maintain push-up position with forearms on ground. Hold 30–60 seconds. 3 sets."
+        }
+      ],
+      "doctorRemarks": "Good progress. Continue as planned.",
+      "patientFeedback": "Feeling better after this session.",
+      "notes": "Session 1 completed successfully.",
+      "duration": "54 min"
+    },
+    "sess-pat-9-2": {
+      "id": "sess-pat-9-2",
+      "patientId": "pat-9",
+      "sessionNumber": 2,
+      "date": "2026-03-19",
+      "status": "completed",
+      "exercises": [
+        {
+          "exerciseId": "ex-1",
+          "title": "Neck Flexion Stretch",
+          "sets": 3,
+          "reps": 15,
+          "restTime": 30,
+          "duration": "5 min",
+          "completed": true,
+          "instructions": "Gently tilt head forward bringing chin to chest. Hold 15–30 seconds."
+        },
+        {
+          "exerciseId": "ex-20",
+          "title": "Agility Ladder Drill",
+          "sets": 3,
+          "reps": 20,
+          "restTime": 60,
+          "duration": "10 min",
+          "completed": true,
+          "instructions": "Perform quick feet drills through agility ladder. Various patterns. 5 min continuous."
+        },
+        {
+          "exerciseId": "ex-2",
+          "title": "Cervical Rotation",
+          "sets": 2,
+          "reps": 10,
+          "restTime": 30,
+          "duration": "5 min",
+          "completed": true,
+          "instructions": "Slowly rotate head side to side, maintaining chin level. Repeat 10 times each direction."
+        }
+      ],
+      "doctorRemarks": "Good progress. Continue as planned.",
+      "patientFeedback": "Feeling better after this session.",
+      "notes": "Session 2 completed successfully.",
+      "duration": "35 min"
+    },
+    "sess-pat-9-3": {
+      "id": "sess-pat-9-3",
+      "patientId": "pat-9",
+      "sessionNumber": 3,
+      "date": "2026-03-23",
+      "status": "completed",
+      "exercises": [
+        {
+          "exerciseId": "ex-17",
+          "title": "Lateral Band Walk",
+          "sets": 3,
+          "reps": 25,
+          "restTime": 30,
+          "duration": "10 min",
+          "completed": true,
+          "instructions": "Place band around ankles and walk sideways maintaining tension. 3 sets of 20 steps."
+        },
+        {
+          "exerciseId": "ex-8",
+          "title": "Straight Leg Raise",
+          "sets": 4,
+          "reps": 10,
+          "restTime": 90,
+          "duration": "8 min",
+          "completed": true,
+          "instructions": "Lying down, tighten thigh muscles and lift leg 6 inches. Hold 5 seconds. 3 sets of 10."
+        },
+        {
+          "exerciseId": "ex-18",
+          "title": "Box Jump",
+          "sets": 2,
+          "reps": 10,
+          "restTime": 45,
+          "duration": "12 min",
+          "completed": true,
+          "instructions": "Jump onto a stable box/platform. Step down. Progress height gradually. 3 sets of 8."
+        },
+        {
+          "exerciseId": "ex-6",
+          "title": "Bird Dog Exercise",
+          "sets": 3,
+          "reps": 25,
+          "restTime": 60,
+          "duration": "10 min",
+          "completed": true,
+          "instructions": "From hands and knees, extend opposite arm and leg. Hold 5 seconds. 10 reps each side."
+        }
+      ],
+      "doctorRemarks": "Good progress. Continue as planned.",
+      "patientFeedback": "Feeling better after this session.",
+      "notes": "Session 3 completed successfully.",
+      "duration": "55 min"
+    },
+    "sess-pat-9-4": {
+      "id": "sess-pat-9-4",
+      "patientId": "pat-9",
+      "sessionNumber": 4,
+      "date": "2026-03-27",
+      "status": "completed",
+      "exercises": [
+        {
+          "exerciseId": "ex-7",
+          "title": "Dead Bug",
+          "sets": 4,
+          "reps": 25,
+          "restTime": 60,
+          "duration": "8 min",
+          "completed": true,
+          "instructions": "Lying on back with arms extended, slowly lower opposite arm and leg. Core engaged throughout."
+        },
+        {
+          "exerciseId": "ex-3",
+          "title": "Shoulder Pendulum Swing",
+          "sets": 4,
+          "reps": 10,
+          "restTime": 30,
+          "duration": "5 min",
+          "completed": true,
+          "instructions": "Lean forward and let the arm swing in small circles. Gradually increase circle size."
+        },
+        {
+          "exerciseId": "ex-8",
+          "title": "Straight Leg Raise",
+          "sets": 3,
+          "reps": 15,
+          "restTime": 90,
+          "duration": "8 min",
+          "completed": true,
+          "instructions": "Lying down, tighten thigh muscles and lift leg 6 inches. Hold 5 seconds. 3 sets of 10."
+        }
+      ],
+      "doctorRemarks": "Good progress. Continue as planned.",
+      "patientFeedback": "Feeling better after this session.",
+      "notes": "Session 4 completed successfully.",
+      "duration": "40 min"
+    },
+    "sess-pat-9-5": {
+      "id": "sess-pat-9-5",
+      "patientId": "pat-9",
+      "sessionNumber": 5,
+      "date": "2026-03-31",
+      "status": "completed",
+      "exercises": [
+        {
+          "exerciseId": "ex-9",
+          "title": "Wall Sit",
+          "sets": 4,
+          "reps": 10,
+          "restTime": 90,
+          "duration": "10 min",
+          "completed": true,
+          "instructions": "Slide back down wall until knees at 90°. Hold 20–60 seconds. Repeat 5 times."
+        },
+        {
+          "exerciseId": "ex-4",
+          "title": "External Rotation with Band",
+          "sets": 4,
+          "reps": 20,
+          "restTime": 45,
+          "duration": "10 min",
+          "completed": true,
+          "instructions": "Secure resistance band at elbow height. Rotate forearm outward keeping elbow at side."
+        },
+        {
+          "exerciseId": "ex-14",
+          "title": "Calf Raise",
+          "sets": 4,
+          "reps": 10,
+          "restTime": 60,
+          "duration": "8 min",
+          "completed": true,
+          "instructions": "Stand on edge of step, rise up on toes then lower heels below step level. 3 sets of 15."
+        },
+        {
+          "exerciseId": "ex-19",
+          "title": "Resistance Band Row",
+          "sets": 2,
+          "reps": 20,
+          "restTime": 90,
+          "duration": "10 min",
+          "completed": true,
+          "instructions": "Secure band in front of you. Pull elbows back squeezing shoulder blades. 3 sets of 12."
+        }
+      ],
+      "doctorRemarks": "Good progress. Continue as planned.",
+      "patientFeedback": "Feeling better after this session.",
+      "notes": "Session 5 completed successfully.",
+      "duration": "33 min"
+    },
+    "sess-pat-9-6": {
+      "id": "sess-pat-9-6",
+      "patientId": "pat-9",
+      "sessionNumber": 6,
+      "date": "2026-04-04",
+      "status": "completed",
+      "exercises": [
+        {
+          "exerciseId": "ex-11",
+          "title": "Hip Bridge",
+          "sets": 4,
+          "reps": 25,
+          "restTime": 60,
+          "duration": "8 min",
+          "completed": true,
+          "instructions": "Lying on back with knees bent, lift hips to create straight line from shoulders to knees."
+        },
+        {
+          "exerciseId": "ex-8",
+          "title": "Straight Leg Raise",
+          "sets": 4,
+          "reps": 10,
+          "restTime": 30,
+          "duration": "8 min",
+          "completed": true,
+          "instructions": "Lying down, tighten thigh muscles and lift leg 6 inches. Hold 5 seconds. 3 sets of 10."
+        },
+        {
+          "exerciseId": "ex-13",
+          "title": "Ankle Alphabet",
+          "sets": 4,
+          "reps": 10,
+          "restTime": 90,
+          "duration": "5 min",
+          "completed": true,
+          "instructions": "Trace the alphabet in the air with your foot. Repeat 3 times with each foot."
+        }
+      ],
+      "doctorRemarks": "Good progress. Continue as planned.",
+      "patientFeedback": "Feeling better after this session.",
+      "notes": "Session 6 completed successfully.",
+      "duration": "55 min"
+    },
+    "sess-pat-9-7": {
+      "id": "sess-pat-9-7",
+      "patientId": "pat-9",
+      "sessionNumber": 7,
+      "date": "2026-04-08",
+      "status": "completed",
+      "exercises": [
+        {
+          "exerciseId": "ex-5",
+          "title": "Cat-Cow Stretch",
+          "sets": 2,
+          "reps": 20,
+          "restTime": 60,
+          "duration": "5 min",
+          "completed": true,
+          "instructions": "On hands and knees, alternate between arching and rounding the spine. 10 repetitions."
+        },
+        {
+          "exerciseId": "ex-3",
+          "title": "Shoulder Pendulum Swing",
+          "sets": 4,
+          "reps": 25,
+          "restTime": 30,
+          "duration": "5 min",
+          "completed": true,
+          "instructions": "Lean forward and let the arm swing in small circles. Gradually increase circle size."
+        },
+        {
+          "exerciseId": "ex-19",
+          "title": "Resistance Band Row",
+          "sets": 2,
+          "reps": 10,
+          "restTime": 45,
+          "duration": "10 min",
+          "completed": true,
+          "instructions": "Secure band in front of you. Pull elbows back squeezing shoulder blades. 3 sets of 12."
+        },
+        {
+          "exerciseId": "ex-6",
+          "title": "Bird Dog Exercise",
+          "sets": 4,
+          "reps": 25,
+          "restTime": 90,
+          "duration": "10 min",
+          "completed": true,
+          "instructions": "From hands and knees, extend opposite arm and leg. Hold 5 seconds. 10 reps each side."
+        }
+      ],
+      "doctorRemarks": "Good progress. Continue as planned.",
+      "patientFeedback": "Feeling better after this session.",
+      "notes": "Session 7 completed successfully.",
+      "duration": "55 min"
+    },
+    "sess-pat-9-8": {
+      "id": "sess-pat-9-8",
+      "patientId": "pat-9",
+      "sessionNumber": 8,
+      "date": "2026-04-12",
+      "status": "completed",
+      "exercises": [
+        {
+          "exerciseId": "ex-11",
+          "title": "Hip Bridge",
+          "sets": 4,
+          "reps": 15,
+          "restTime": 60,
+          "duration": "8 min",
+          "completed": true,
+          "instructions": "Lying on back with knees bent, lift hips to create straight line from shoulders to knees."
+        },
+        {
+          "exerciseId": "ex-9",
+          "title": "Wall Sit",
+          "sets": 2,
+          "reps": 15,
+          "restTime": 90,
+          "duration": "10 min",
+          "completed": true,
+          "instructions": "Slide back down wall until knees at 90°. Hold 20–60 seconds. Repeat 5 times."
+        },
+        {
+          "exerciseId": "ex-15",
+          "title": "Single-Leg Balance",
+          "sets": 2,
+          "reps": 15,
+          "restTime": 30,
+          "duration": "5 min",
+          "completed": true,
+          "instructions": "Stand on one leg for 30 seconds. Progress to eyes closed. 5 reps each leg."
+        },
+        {
+          "exerciseId": "ex-2",
+          "title": "Cervical Rotation",
+          "sets": 3,
+          "reps": 15,
+          "restTime": 60,
+          "duration": "5 min",
+          "completed": true,
+          "instructions": "Slowly rotate head side to side, maintaining chin level. Repeat 10 times each direction."
+        }
+      ],
+      "doctorRemarks": "Good progress. Continue as planned.",
+      "patientFeedback": "Feeling better after this session.",
+      "notes": "Session 8 completed successfully.",
+      "duration": "55 min"
+    },
+    "sess-pat-9-9": {
+      "id": "sess-pat-9-9",
+      "patientId": "pat-9",
+      "sessionNumber": 9,
+      "date": "2026-04-16",
+      "status": "completed",
+      "exercises": [
+        {
+          "exerciseId": "ex-15",
+          "title": "Single-Leg Balance",
+          "sets": 2,
+          "reps": 25,
+          "restTime": 45,
+          "duration": "5 min",
+          "completed": true,
+          "instructions": "Stand on one leg for 30 seconds. Progress to eyes closed. 5 reps each leg."
+        },
+        {
+          "exerciseId": "ex-8",
+          "title": "Straight Leg Raise",
+          "sets": 2,
+          "reps": 25,
+          "restTime": 60,
+          "duration": "8 min",
+          "completed": true,
+          "instructions": "Lying down, tighten thigh muscles and lift leg 6 inches. Hold 5 seconds. 3 sets of 10."
+        },
+        {
+          "exerciseId": "ex-4",
+          "title": "External Rotation with Band",
+          "sets": 2,
+          "reps": 10,
+          "restTime": 30,
+          "duration": "10 min",
+          "completed": true,
+          "instructions": "Secure resistance band at elbow height. Rotate forearm outward keeping elbow at side."
+        }
+      ],
+      "doctorRemarks": "Good progress. Continue as planned.",
+      "patientFeedback": "Feeling better after this session.",
+      "notes": "Session 9 completed successfully.",
+      "duration": "37 min"
+    },
+    "sess-pat-9-10": {
+      "id": "sess-pat-9-10",
+      "patientId": "pat-9",
+      "sessionNumber": 10,
+      "date": "2026-04-20",
+      "status": "current",
+      "exercises": [
+        {
+          "exerciseId": "ex-13",
+          "title": "Ankle Alphabet",
+          "sets": 2,
+          "reps": 25,
+          "restTime": 45,
+          "duration": "5 min",
+          "completed": false,
+          "instructions": "Trace the alphabet in the air with your foot. Repeat 3 times with each foot."
+        },
+        {
+          "exerciseId": "ex-7",
+          "title": "Dead Bug",
+          "sets": 2,
+          "reps": 15,
+          "restTime": 45,
+          "duration": "8 min",
+          "completed": false,
+          "instructions": "Lying on back with arms extended, slowly lower opposite arm and leg. Core engaged throughout."
+        },
+        {
+          "exerciseId": "ex-16",
+          "title": "Plank Hold",
+          "sets": 2,
+          "reps": 20,
+          "restTime": 90,
+          "duration": "8 min",
+          "completed": false,
+          "instructions": "Maintain push-up position with forearms on ground. Hold 30–60 seconds. 3 sets."
+        }
+      ],
+      "doctorRemarks": "",
+      "patientFeedback": "",
+      "notes": "Session 10 scheduled.",
+      "duration": "37 min"
+    },
+    "sess-pat-9-11": {
+      "id": "sess-pat-9-11",
+      "patientId": "pat-9",
+      "sessionNumber": 11,
+      "date": "2026-04-24",
+      "status": "locked",
+      "exercises": [
+        {
+          "exerciseId": "ex-7",
+          "title": "Dead Bug",
+          "sets": 2,
+          "reps": 25,
+          "restTime": 90,
+          "duration": "8 min",
+          "completed": false,
+          "instructions": "Lying on back with arms extended, slowly lower opposite arm and leg. Core engaged throughout."
+        },
+        {
+          "exerciseId": "ex-1",
+          "title": "Neck Flexion Stretch",
+          "sets": 3,
+          "reps": 15,
+          "restTime": 90,
+          "duration": "5 min",
+          "completed": false,
+          "instructions": "Gently tilt head forward bringing chin to chest. Hold 15–30 seconds."
+        },
+        {
+          "exerciseId": "ex-10",
+          "title": "Terminal Knee Extension",
+          "sets": 2,
+          "reps": 10,
+          "restTime": 90,
+          "duration": "10 min",
+          "completed": false,
+          "instructions": "With band behind knee, push knee straight against resistance. 3 sets of 12."
+        },
+        {
+          "exerciseId": "ex-6",
+          "title": "Bird Dog Exercise",
+          "sets": 3,
+          "reps": 15,
+          "restTime": 90,
+          "duration": "10 min",
+          "completed": false,
+          "instructions": "From hands and knees, extend opposite arm and leg. Hold 5 seconds. 10 reps each side."
+        }
+      ],
+      "doctorRemarks": "",
+      "patientFeedback": "",
+      "notes": "Session 11 scheduled.",
+      "duration": "56 min"
+    },
+    "sess-pat-9-12": {
+      "id": "sess-pat-9-12",
+      "patientId": "pat-9",
+      "sessionNumber": 12,
+      "date": "2026-04-28",
+      "status": "locked",
+      "exercises": [
+        {
+          "exerciseId": "ex-18",
+          "title": "Box Jump",
+          "sets": 2,
+          "reps": 20,
+          "restTime": 45,
+          "duration": "12 min",
+          "completed": false,
+          "instructions": "Jump onto a stable box/platform. Step down. Progress height gradually. 3 sets of 8."
+        },
+        {
+          "exerciseId": "ex-12",
+          "title": "Clamshell Exercise",
+          "sets": 4,
+          "reps": 10,
+          "restTime": 45,
+          "duration": "8 min",
+          "completed": false,
+          "instructions": "Lying on side with knees bent, open top knee while keeping feet together. 3 sets of 15."
+        },
+        {
+          "exerciseId": "ex-10",
+          "title": "Terminal Knee Extension",
+          "sets": 4,
+          "reps": 25,
+          "restTime": 90,
+          "duration": "10 min",
+          "completed": false,
+          "instructions": "With band behind knee, push knee straight against resistance. 3 sets of 12."
+        }
+      ],
+      "doctorRemarks": "",
+      "patientFeedback": "",
+      "notes": "Session 12 scheduled.",
+      "duration": "30 min"
+    },
+    "sess-pat-10-1": {
+      "id": "sess-pat-10-1",
+      "patientId": "pat-10",
+      "sessionNumber": 1,
+      "date": "2026-05-10",
+      "status": "completed",
+      "exercises": [
+        {
+          "exerciseId": "ex-12",
+          "title": "Clamshell Exercise",
+          "sets": 2,
+          "reps": 25,
+          "restTime": 30,
+          "duration": "8 min",
+          "completed": true,
+          "instructions": "Lying on side with knees bent, open top knee while keeping feet together. 3 sets of 15."
+        },
+        {
+          "exerciseId": "ex-3",
+          "title": "Shoulder Pendulum Swing",
+          "sets": 4,
+          "reps": 20,
+          "restTime": 30,
+          "duration": "5 min",
+          "completed": true,
+          "instructions": "Lean forward and let the arm swing in small circles. Gradually increase circle size."
+        },
+        {
+          "exerciseId": "ex-2",
+          "title": "Cervical Rotation",
+          "sets": 4,
+          "reps": 10,
+          "restTime": 45,
+          "duration": "5 min",
+          "completed": true,
+          "instructions": "Slowly rotate head side to side, maintaining chin level. Repeat 10 times each direction."
+        },
+        {
+          "exerciseId": "ex-6",
+          "title": "Bird Dog Exercise",
+          "sets": 3,
+          "reps": 15,
+          "restTime": 90,
+          "duration": "10 min",
+          "completed": true,
+          "instructions": "From hands and knees, extend opposite arm and leg. Hold 5 seconds. 10 reps each side."
+        }
+      ],
+      "doctorRemarks": "Good progress. Continue as planned.",
+      "patientFeedback": "Feeling better after this session.",
+      "notes": "Session 1 completed successfully.",
+      "duration": "54 min"
+    },
+    "sess-pat-10-2": {
+      "id": "sess-pat-10-2",
+      "patientId": "pat-10",
+      "sessionNumber": 2,
+      "date": "2026-05-14",
+      "status": "completed",
+      "exercises": [
+        {
+          "exerciseId": "ex-15",
+          "title": "Single-Leg Balance",
+          "sets": 3,
+          "reps": 10,
+          "restTime": 30,
+          "duration": "5 min",
+          "completed": true,
+          "instructions": "Stand on one leg for 30 seconds. Progress to eyes closed. 5 reps each leg."
+        },
+        {
+          "exerciseId": "ex-8",
+          "title": "Straight Leg Raise",
+          "sets": 3,
+          "reps": 10,
+          "restTime": 90,
+          "duration": "8 min",
+          "completed": true,
+          "instructions": "Lying down, tighten thigh muscles and lift leg 6 inches. Hold 5 seconds. 3 sets of 10."
+        },
+        {
+          "exerciseId": "ex-17",
+          "title": "Lateral Band Walk",
+          "sets": 4,
+          "reps": 10,
+          "restTime": 30,
+          "duration": "10 min",
+          "completed": true,
+          "instructions": "Place band around ankles and walk sideways maintaining tension. 3 sets of 20 steps."
+        }
+      ],
+      "doctorRemarks": "Good progress. Continue as planned.",
+      "patientFeedback": "Feeling better after this session.",
+      "notes": "Session 2 completed successfully.",
+      "duration": "59 min"
+    },
+    "sess-pat-10-3": {
+      "id": "sess-pat-10-3",
+      "patientId": "pat-10",
+      "sessionNumber": 3,
+      "date": "2026-05-18",
+      "status": "completed",
+      "exercises": [
+        {
+          "exerciseId": "ex-3",
+          "title": "Shoulder Pendulum Swing",
+          "sets": 2,
+          "reps": 15,
+          "restTime": 60,
+          "duration": "5 min",
+          "completed": true,
+          "instructions": "Lean forward and let the arm swing in small circles. Gradually increase circle size."
+        },
+        {
+          "exerciseId": "ex-16",
+          "title": "Plank Hold",
+          "sets": 2,
+          "reps": 20,
+          "restTime": 45,
+          "duration": "8 min",
+          "completed": true,
+          "instructions": "Maintain push-up position with forearms on ground. Hold 30–60 seconds. 3 sets."
+        },
+        {
+          "exerciseId": "ex-15",
+          "title": "Single-Leg Balance",
+          "sets": 2,
+          "reps": 20,
+          "restTime": 45,
+          "duration": "5 min",
+          "completed": true,
+          "instructions": "Stand on one leg for 30 seconds. Progress to eyes closed. 5 reps each leg."
+        }
+      ],
+      "doctorRemarks": "Good progress. Continue as planned.",
+      "patientFeedback": "Feeling better after this session.",
+      "notes": "Session 3 completed successfully.",
+      "duration": "37 min"
+    },
+    "sess-pat-10-4": {
+      "id": "sess-pat-10-4",
+      "patientId": "pat-10",
+      "sessionNumber": 4,
+      "date": "2026-05-22",
+      "status": "completed",
+      "exercises": [
+        {
+          "exerciseId": "ex-6",
+          "title": "Bird Dog Exercise",
+          "sets": 2,
+          "reps": 25,
+          "restTime": 90,
+          "duration": "10 min",
+          "completed": true,
+          "instructions": "From hands and knees, extend opposite arm and leg. Hold 5 seconds. 10 reps each side."
+        },
+        {
+          "exerciseId": "ex-15",
+          "title": "Single-Leg Balance",
+          "sets": 2,
+          "reps": 20,
+          "restTime": 30,
+          "duration": "5 min",
+          "completed": true,
+          "instructions": "Stand on one leg for 30 seconds. Progress to eyes closed. 5 reps each leg."
+        },
+        {
+          "exerciseId": "ex-5",
+          "title": "Cat-Cow Stretch",
+          "sets": 2,
+          "reps": 25,
+          "restTime": 30,
+          "duration": "5 min",
+          "completed": true,
+          "instructions": "On hands and knees, alternate between arching and rounding the spine. 10 repetitions."
+        }
+      ],
+      "doctorRemarks": "Good progress. Continue as planned.",
+      "patientFeedback": "Feeling better after this session.",
+      "notes": "Session 4 completed successfully.",
+      "duration": "35 min"
+    },
+    "sess-pat-10-5": {
+      "id": "sess-pat-10-5",
+      "patientId": "pat-10",
+      "sessionNumber": 5,
+      "date": "2026-05-26",
+      "status": "current",
+      "exercises": [
+        {
+          "exerciseId": "ex-4",
+          "title": "External Rotation with Band",
+          "sets": 2,
+          "reps": 10,
+          "restTime": 90,
+          "duration": "10 min",
+          "completed": false,
+          "instructions": "Secure resistance band at elbow height. Rotate forearm outward keeping elbow at side."
+        },
+        {
+          "exerciseId": "ex-10",
+          "title": "Terminal Knee Extension",
+          "sets": 3,
+          "reps": 20,
+          "restTime": 90,
+          "duration": "10 min",
+          "completed": false,
+          "instructions": "With band behind knee, push knee straight against resistance. 3 sets of 12."
+        },
+        {
+          "exerciseId": "ex-20",
+          "title": "Agility Ladder Drill",
+          "sets": 3,
+          "reps": 25,
+          "restTime": 60,
+          "duration": "10 min",
+          "completed": false,
+          "instructions": "Perform quick feet drills through agility ladder. Various patterns. 5 min continuous."
+        },
+        {
+          "exerciseId": "ex-18",
+          "title": "Box Jump",
+          "sets": 3,
+          "reps": 15,
+          "restTime": 45,
+          "duration": "12 min",
+          "completed": false,
+          "instructions": "Jump onto a stable box/platform. Step down. Progress height gradually. 3 sets of 8."
+        }
+      ],
+      "doctorRemarks": "",
+      "patientFeedback": "",
+      "notes": "Session 5 scheduled.",
+      "duration": "51 min"
+    },
+    "sess-pat-10-6": {
+      "id": "sess-pat-10-6",
+      "patientId": "pat-10",
+      "sessionNumber": 6,
+      "date": "2026-05-30",
+      "status": "locked",
+      "exercises": [
+        {
+          "exerciseId": "ex-6",
+          "title": "Bird Dog Exercise",
+          "sets": 2,
+          "reps": 15,
+          "restTime": 30,
+          "duration": "10 min",
+          "completed": false,
+          "instructions": "From hands and knees, extend opposite arm and leg. Hold 5 seconds. 10 reps each side."
+        },
+        {
+          "exerciseId": "ex-1",
+          "title": "Neck Flexion Stretch",
+          "sets": 3,
+          "reps": 15,
+          "restTime": 90,
+          "duration": "5 min",
+          "completed": false,
+          "instructions": "Gently tilt head forward bringing chin to chest. Hold 15–30 seconds."
+        },
+        {
+          "exerciseId": "ex-12",
+          "title": "Clamshell Exercise",
+          "sets": 2,
+          "reps": 15,
+          "restTime": 90,
+          "duration": "8 min",
+          "completed": false,
+          "instructions": "Lying on side with knees bent, open top knee while keeping feet together. 3 sets of 15."
+        }
+      ],
+      "doctorRemarks": "",
+      "patientFeedback": "",
+      "notes": "Session 6 scheduled.",
+      "duration": "36 min"
+    }
+  },
+  "feedback": {
+    "fb-pat-1-1": {
+      "id": "fb-pat-1-1",
+      "patientId": "pat-1",
+      "sessionId": "sess-pat-1-1",
+      "painLevel": 3,
+      "comments": "Exercise was manageable. Felt good afterward.",
+      "difficulty": "Moderate",
+      "confidence": 10,
+      "completed": true,
+      "doctorReply": "Great progress! Keep up the good work.",
+      "date": "2026-04-01"
+    },
+    "fb-pat-1-2": {
+      "id": "fb-pat-1-2",
+      "patientId": "pat-1",
+      "sessionId": "sess-pat-1-2",
+      "painLevel": 2,
+      "comments": "Exercise was manageable. Felt good afterward.",
+      "difficulty": "Easy",
+      "confidence": 7,
+      "completed": true,
+      "doctorReply": "",
+      "date": "2026-04-05"
+    },
+    "fb-pat-1-3": {
+      "id": "fb-pat-1-3",
+      "patientId": "pat-1",
+      "sessionId": "sess-pat-1-3",
+      "painLevel": 1,
+      "comments": "Exercise was manageable. Felt good afterward.",
+      "difficulty": "Moderate",
+      "confidence": 8,
+      "completed": true,
+      "doctorReply": "",
+      "date": "2026-04-09"
+    },
+    "fb-pat-2-1": {
+      "id": "fb-pat-2-1",
+      "patientId": "pat-2",
+      "sessionId": "sess-pat-2-1",
+      "painLevel": 2,
+      "comments": "Exercise was manageable. Felt good afterward.",
+      "difficulty": "Challenging",
+      "confidence": 8,
+      "completed": true,
+      "doctorReply": "Great progress! Keep up the good work.",
+      "date": "2026-02-15"
+    },
+    "fb-pat-2-2": {
+      "id": "fb-pat-2-2",
+      "patientId": "pat-2",
+      "sessionId": "sess-pat-2-2",
+      "painLevel": 1,
+      "comments": "Exercise was manageable. Felt good afterward.",
+      "difficulty": "Easy",
+      "confidence": 10,
+      "completed": true,
+      "doctorReply": "",
+      "date": "2026-02-19"
+    },
+    "fb-pat-2-3": {
+      "id": "fb-pat-2-3",
+      "patientId": "pat-2",
+      "sessionId": "sess-pat-2-3",
+      "painLevel": 1,
+      "comments": "Exercise was manageable. Felt good afterward.",
+      "difficulty": "Easy",
+      "confidence": 8,
+      "completed": true,
+      "doctorReply": "",
+      "date": "2026-02-23"
+    },
+    "fb-pat-3-1": {
+      "id": "fb-pat-3-1",
+      "patientId": "pat-3",
+      "sessionId": "sess-pat-3-1",
+      "painLevel": 5,
+      "comments": "Exercise was manageable. Felt good afterward.",
+      "difficulty": "Easy",
+      "confidence": 10,
+      "completed": true,
+      "doctorReply": "Great progress! Keep up the good work.",
+      "date": "2026-05-01"
+    },
+    "fb-pat-3-2": {
+      "id": "fb-pat-3-2",
+      "patientId": "pat-3",
+      "sessionId": "sess-pat-3-2",
+      "painLevel": 4,
+      "comments": "Exercise was manageable. Felt good afterward.",
+      "difficulty": "Challenging",
+      "confidence": 9,
+      "completed": true,
+      "doctorReply": "",
+      "date": "2026-05-05"
+    },
+    "fb-pat-3-3": {
+      "id": "fb-pat-3-3",
+      "patientId": "pat-3",
+      "sessionId": "sess-pat-3-3",
+      "painLevel": 3,
+      "comments": "Exercise was manageable. Felt good afterward.",
+      "difficulty": "Easy",
+      "confidence": 9,
+      "completed": true,
+      "doctorReply": "",
+      "date": "2026-05-09"
+    },
+    "fb-pat-4-1": {
+      "id": "fb-pat-4-1",
+      "patientId": "pat-4",
+      "sessionId": "sess-pat-4-1",
+      "painLevel": 6,
+      "comments": "Exercise was manageable. Felt good afterward.",
+      "difficulty": "Challenging",
+      "confidence": 10,
+      "completed": true,
+      "doctorReply": "Great progress! Keep up the good work.",
+      "date": "2026-05-20"
+    },
+    "fb-pat-4-2": {
+      "id": "fb-pat-4-2",
+      "patientId": "pat-4",
+      "sessionId": "sess-pat-4-2",
+      "painLevel": 5,
+      "comments": "Exercise was manageable. Felt good afterward.",
+      "difficulty": "Easy",
+      "confidence": 10,
+      "completed": true,
+      "doctorReply": "",
+      "date": "2026-05-24"
+    },
+    "fb-pat-4-3": {
+      "id": "fb-pat-4-3",
+      "patientId": "pat-4",
+      "sessionId": "sess-pat-4-3",
+      "painLevel": 4,
+      "comments": "Exercise was manageable. Felt good afterward.",
+      "difficulty": "Moderate",
+      "confidence": 9,
+      "completed": true,
+      "doctorReply": "",
+      "date": "2026-05-28"
+    },
+    "fb-pat-5-1": {
+      "id": "fb-pat-5-1",
+      "patientId": "pat-5",
+      "sessionId": "sess-pat-5-1",
+      "painLevel": 2,
+      "comments": "Exercise was manageable. Felt good afterward.",
+      "difficulty": "Challenging",
+      "confidence": 10,
+      "completed": true,
+      "doctorReply": "Great progress! Keep up the good work.",
+      "date": "2026-04-10"
+    },
+    "fb-pat-5-2": {
+      "id": "fb-pat-5-2",
+      "patientId": "pat-5",
+      "sessionId": "sess-pat-5-2",
+      "painLevel": 1,
+      "comments": "Exercise was manageable. Felt good afterward.",
+      "difficulty": "Challenging",
+      "confidence": 7,
+      "completed": true,
+      "doctorReply": "",
+      "date": "2026-04-14"
+    },
+    "fb-pat-5-3": {
+      "id": "fb-pat-5-3",
+      "patientId": "pat-5",
+      "sessionId": "sess-pat-5-3",
+      "painLevel": 1,
+      "comments": "Exercise was manageable. Felt good afterward.",
+      "difficulty": "Easy",
+      "confidence": 7,
+      "completed": true,
+      "doctorReply": "",
+      "date": "2026-04-18"
+    },
+    "fb-pat-6-1": {
+      "id": "fb-pat-6-1",
+      "patientId": "pat-6",
+      "sessionId": "sess-pat-6-1",
+      "painLevel": 1,
+      "comments": "Exercise was manageable. Felt good afterward.",
+      "difficulty": "Easy",
+      "confidence": 6,
+      "completed": true,
+      "doctorReply": "Great progress! Keep up the good work.",
+      "date": "2026-03-01"
+    },
+    "fb-pat-6-2": {
+      "id": "fb-pat-6-2",
+      "patientId": "pat-6",
+      "sessionId": "sess-pat-6-2",
+      "painLevel": 1,
+      "comments": "Exercise was manageable. Felt good afterward.",
+      "difficulty": "Moderate",
+      "confidence": 9,
+      "completed": true,
+      "doctorReply": "",
+      "date": "2026-03-05"
+    },
+    "fb-pat-6-3": {
+      "id": "fb-pat-6-3",
+      "patientId": "pat-6",
+      "sessionId": "sess-pat-6-3",
+      "painLevel": 1,
+      "comments": "Exercise was manageable. Felt good afterward.",
+      "difficulty": "Challenging",
+      "confidence": 6,
+      "completed": true,
+      "doctorReply": "",
+      "date": "2026-03-09"
+    },
+    "fb-pat-7-1": {
+      "id": "fb-pat-7-1",
+      "patientId": "pat-7",
+      "sessionId": "sess-pat-7-1",
+      "painLevel": 7,
+      "comments": "Exercise was manageable. Felt good afterward.",
+      "difficulty": "Moderate",
+      "confidence": 6,
+      "completed": true,
+      "doctorReply": "Great progress! Keep up the good work.",
+      "date": "2026-06-01"
+    },
+    "fb-pat-7-2": {
+      "id": "fb-pat-7-2",
+      "patientId": "pat-7",
+      "sessionId": "sess-pat-7-2",
+      "painLevel": 6,
+      "comments": "Exercise was manageable. Felt good afterward.",
+      "difficulty": "Challenging",
+      "confidence": 6,
+      "completed": true,
+      "doctorReply": "",
+      "date": "2026-06-05"
+    },
+    "fb-pat-9-1": {
+      "id": "fb-pat-9-1",
+      "patientId": "pat-9",
+      "sessionId": "sess-pat-9-1",
+      "painLevel": 4,
+      "comments": "Exercise was manageable. Felt good afterward.",
+      "difficulty": "Challenging",
+      "confidence": 9,
+      "completed": true,
+      "doctorReply": "Great progress! Keep up the good work.",
+      "date": "2026-03-15"
+    },
+    "fb-pat-9-2": {
+      "id": "fb-pat-9-2",
+      "patientId": "pat-9",
+      "sessionId": "sess-pat-9-2",
+      "painLevel": 3,
+      "comments": "Exercise was manageable. Felt good afterward.",
+      "difficulty": "Challenging",
+      "confidence": 9,
+      "completed": true,
+      "doctorReply": "",
+      "date": "2026-03-19"
+    },
+    "fb-pat-9-3": {
+      "id": "fb-pat-9-3",
+      "patientId": "pat-9",
+      "sessionId": "sess-pat-9-3",
+      "painLevel": 2,
+      "comments": "Exercise was manageable. Felt good afterward.",
+      "difficulty": "Challenging",
+      "confidence": 7,
+      "completed": true,
+      "doctorReply": "",
+      "date": "2026-03-23"
+    },
+    "fb-pat-10-1": {
+      "id": "fb-pat-10-1",
+      "patientId": "pat-10",
+      "sessionId": "sess-pat-10-1",
+      "painLevel": 3,
+      "comments": "Exercise was manageable. Felt good afterward.",
+      "difficulty": "Moderate",
+      "confidence": 8,
+      "completed": true,
+      "doctorReply": "Great progress! Keep up the good work.",
+      "date": "2026-05-10"
+    },
+    "fb-pat-10-2": {
+      "id": "fb-pat-10-2",
+      "patientId": "pat-10",
+      "sessionId": "sess-pat-10-2",
+      "painLevel": 2,
+      "comments": "Exercise was manageable. Felt good afterward.",
+      "difficulty": "Easy",
+      "confidence": 9,
+      "completed": true,
+      "doctorReply": "",
+      "date": "2026-05-14"
+    },
+    "fb-pat-10-3": {
+      "id": "fb-pat-10-3",
+      "patientId": "pat-10",
+      "sessionId": "sess-pat-10-3",
+      "painLevel": 1,
+      "comments": "Exercise was manageable. Felt good afterward.",
+      "difficulty": "Challenging",
+      "confidence": 10,
+      "completed": true,
+      "doctorReply": "",
+      "date": "2026-05-18"
+    }
+  },
+  "calendarEvents": {
+    "cal-3-0": {
+      "id": "cal-3-0",
+      "date": "2026-07-03",
+      "status": "completed",
+      "patientName": "Alex Kumar",
+      "time": "15:30"
+    },
+    "cal-5-1": {
+      "id": "cal-5-1",
+      "date": "2026-07-05",
+      "status": "cancelled",
+      "patientName": "Emma Brown",
+      "time": "13:30"
+    },
+    "cal-7-2": {
+      "id": "cal-7-2",
+      "date": "2026-07-07",
+      "status": "completed",
+      "patientName": "Amy Taylor",
+      "time": "14:30"
+    },
+    "cal-9-3": {
+      "id": "cal-9-3",
+      "date": "2026-07-09",
+      "status": "completed",
+      "patientName": "Lisa Park",
+      "time": "14:30"
+    },
+    "cal-15-4": {
+      "id": "cal-15-4",
+      "date": "2026-07-15",
+      "status": "cancelled",
+      "patientName": "Sophia Lee",
+      "time": "13:30"
+    },
+    "cal-17-5": {
+      "id": "cal-17-5",
+      "date": "2026-07-17",
+      "status": "completed",
+      "patientName": "David Jones",
+      "time": "13:30"
+    },
+    "cal-21-6": {
+      "id": "cal-21-6",
+      "date": "2026-07-21",
+      "status": "cancelled",
+      "patientName": "Michael Chen",
+      "time": "15:00"
+    },
+    "cal-today-1": {
+      "id": "cal-today-1",
+      "date": "2026-07-19",
+      "status": "upcoming",
+      "patientName": "John Doe",
+      "time": "10:00"
+    },
+    "cal-today-2": {
+      "id": "cal-today-2",
+      "date": "2026-07-19",
+      "status": "completed",
+      "patientName": "Michael Chen",
+      "time": "09:00"
+    },
+    "cal-today-3": {
+      "id": "cal-today-3",
+      "date": "2026-07-19",
+      "status": "upcoming",
+      "patientName": "Emma Brown",
+      "time": "14:00"
+    }
+  }
+}
